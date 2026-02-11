@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "@stytch/internal-tsconfigs/tsconfig.base.json",
+    "@stytch/internal-tsconfigs/tsconfig.web.json",
+    "@stytch/internal-tsconfigs/tsconfig.react.json",
+    "@stytch/internal-tsconfigs/tsconfig.vite-app.json"
+  ],
+  "include": ["src", "vite.config.js"],
+  "compilerOptions": { "allowJs": true, "skipLibCheck": true }
+}

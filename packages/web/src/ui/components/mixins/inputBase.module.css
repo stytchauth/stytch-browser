@@ -1,0 +1,19 @@
+/* Common styling for inputs and focus ring */
+
+.inputBase {
+  color: var(--st-foreground);
+  font-family: var(--st-font-family);
+  font-size: var(--st-text-sm);
+  line-height: var(--st-line-height-sm);
+  background-color: var(--st-background);
+  border: 1px solid var(--st-input);
+  border-radius: var(--st-input-radius);
+  box-shadow: var(--st-shadow-input);
+}
+
+:is(.focusRing, .inputBase):focus-visible,
+.forceFocusRing {
+  border-color: var(--st-ring);
+  box-shadow: var(--st-shadow-input), var(--st-focus-ring-shadow);
+  outline: 0;
+}

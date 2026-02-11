@@ -1,0 +1,118 @@
+/* Global reset */
+.root {
+  isolation: isolate;
+  font-family: var(--st-font-family);
+  color-scheme: var(--st-color-scheme);
+}
+
+/* :where() is used for its reduced specificity
+ * Otherwise these resets could override margin and padding on 1 class selectors */
+:where(.root),
+:where(.root) * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.root a {
+  text-decoration: none;
+}
+
+.root :is(span, strong, em, p, a) {
+  font-size: inherit;
+  font-variant: inherit;
+  line-height: inherit;
+}
+
+.root :is(span, strong, em, p) {
+  color: inherit;
+}
+
+.root :is(span, em, p) {
+  font-weight: inherit;
+}
+
+:where(.root) :is(b, strong) {
+  font-weight: var(--st-font-weight-bold);
+}
+
+:where(.root) :is(img, svg) {
+  display: block;
+}
+
+/* Some unused variables are commented out to reduce output size */
+
+.root {
+  /* Font weight */
+  /*--st-font-weight-light: 300;*/
+  --st-font-weight-normal: 400;
+  --st-font-weight-medium: 500;
+  --st-font-weight-semibold: 600;
+  --st-font-weight-bold: 700;
+
+  /* Border radius */
+  /*--st-rounded-none: 0;*/
+  /*--st-rounded-sm: calc(var(--st-rounded-base) / 0.5); !* 2px *!*/
+  --st-rounded-md: calc(var(--st-rounded-base) * 2); /* 8px */
+  /*--st-rounded-lg: calc(var(--st-rounded-base) * 3); !* 12px *!*/
+  /*--st-rounded-xl: calc(var(--st-rounded-base) * 4); !* 16px *!*/
+  --st-rounded-2xl: calc(var(--st-rounded-base) * 6); /* 24px */
+  /*--st-rounded-3xl: calc(var(--st-rounded-base) * 8); !* 32px *!*/
+  --st-rounded-full: calc(
+    var(--st-rounded-base) * 9999
+  ); /* It's still derived so rounded corners can be turned off completely */
+
+  /* Font size */
+  --st-text-xs: calc(var(--st-text-base) * 0.75); /* 12px */
+  --st-text-sm: calc(var(--st-text-base) * 0.875); /* 14px */
+  /*--st-text-lg: calc(var(--st-text-base) * 1.125); !* 18px *!*/
+  /*--st-text-xl: calc(var(--st-text-base) * 1.25); !* 20px *!*/
+  --st-text-2xl: calc(var(--st-text-base) * 1.5); /* 24px */
+  /*--st-text-3xl: calc(var(--st-text-base) * 1.875); !* 30px *!*/
+  /*--st-text-4xl: calc(var(--st-text-base) * 2.25); !* 36px *!*/
+
+  /* Line height (relative to size) */
+  --st-line-height-xs: calc(1 / 0.75);
+  --st-line-height-sm: calc(1.25 / 0.875);
+  --st-line-height-base: calc(1.5 / 1);
+  /*--st-line-height-lg: calc(1.75 / 1.125);*/
+  /*--st-line-height-xl: calc(1.75 / 1.25);*/
+  --st-line-height-2xl: calc(2 / 1.5);
+  /*--st-line-height-3xl: calc(2.25 / 1.875);*/
+  /*--st-line-height-4xl: calc(2.5 / 2.25);*/
+
+  /* Spacing */
+  --st-spacing-0_5: calc(var(--st-spacing) * 0.5);
+  --st-spacing-2: calc(var(--st-spacing) * 2); /* 8px */
+  --st-spacing-3: calc(var(--st-spacing) * 3); /* 12px */
+  --st-spacing-4: calc(var(--st-spacing) * 4); /* 16px */
+  --st-spacing-5: calc(var(--st-spacing) * 5); /* 20px */
+  --st-spacing-6: calc(var(--st-spacing) * 6); /* 24px */
+  --st-spacing-7: calc(var(--st-spacing) * 7); /* 28px */
+  --st-spacing-8: calc(var(--st-spacing) * 8); /* 32px */
+  --st-spacing-9: calc(var(--st-spacing) * 9); /* 36px */
+  --st-spacing-10: calc(var(--st-spacing) * 10); /* 40px */
+
+  /*
+   * color-mix variables:
+   * if the customer is targeting older browsers, they can set these using a preprocessor or JS polyfill
+   */
+  --st-tab-background: color-mix(in oklab, var(--st-accent) 80%, transparent);
+  --st-primary-button-hover: color-mix(in oklab, var(--st-primary) 90%, transparent);
+  --st-secondary-button-hover: color-mix(in oklab, var(--st-secondary) 80%, transparent);
+  --st-destructive-button-hover: color-mix(in oklab, var(--st-destructive) 80%, transparent);
+  --st-divider-color: color-mix(in oklab, var(--st-border) 50%, transparent);
+  --st-focus-ring-shadow: 0 0 0 3px color-mix(in oklab, var(--st-ring) 50%, transparent);
+
+  /* Derived overrides */
+  --st-shadow: 0 0;
+  --st-shadow-input: var(--st-shadow);
+  --st-shadow-button: var(--st-shadow);
+
+  --st-button-radius: var(--st-rounded-md);
+  --st-input-radius: var(--st-rounded-md);
+  --st-container-radius: var(--st-rounded-2xl);
+  --st-container-border: var(--st-border);
+
+  --st-header-font: var(--st-font-family);
+}

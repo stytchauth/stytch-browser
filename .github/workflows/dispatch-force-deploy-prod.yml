@@ -1,0 +1,20 @@
+name: Dispatch Force Deploy Prod
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: 'Sha to Deploy'
+        required: true
+jobs:
+  deploy-clientside-services-prod:
+    uses: ./.github/workflows/deploy-clientside-services.yml
+    with:
+      sha_to_deploy: ${{ github.event.inputs.sha }}
+      env: prod
+      s3_bucket: js-stytch-com
+      storyboard_s3_bucket: storybook-stytch-com
+    secrets:
+      honeycomb_api_key: ${{ secrets.HONEYCOMB_CI_API_KEY }}
+      cloudfront_distribution_id: ${{ secrets.PROD_CLOUDFRONT_DISTRIBUTION_ID }}
+      ci_aws_access_key_id: ${{ secrets.PROD_CDN_UPDATER_AWS_ACCESS_KEY_ID }}
+      ci_aws_secret_access_key: ${{ secrets.PROD_CDN_UPDATER_AWS_SECRET_ACCESS_KEY_ID }}

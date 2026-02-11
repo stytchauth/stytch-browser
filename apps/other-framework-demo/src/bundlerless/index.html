@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bundlerless demo</title>
+    <link href="../styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>Vanilla JS</h1>
+    <nav>
+      <a href="../index.html">Back</a>
+    </nav>
+
+    <stytch-ui id="app"></stytch-ui>
+    <script src="https://cdn.jsdelivr.net/npm/@stytch/vanilla-js@next/dist/iife/index.js"></script>
+    <script>
+      const { createStytchClient, StytchUI, Products } = stytch;
+
+      window.customElements.define('stytch-ui', StytchUI);
+
+      const client = createStytchClient('');
+      const config = {
+        products: [Products.oauth, Products.emailMagicLinks],
+        oauthOptions: {
+          providers: [
+            {
+              type: 'google',
+            },
+          ],
+          loginRedirectURL: `${window.location.origin}/?type=oauth`,
+          signupRedirectURL: `${window.location.origin}/?type=oauth`,
+        },
+        emailMagicLinksOptions: {
+          loginRedirectURL: `${window.location.origin}/?type=eml`,
+          signupRedirectURL: `${window.location.origin}/?type=eml`,
+        },
+      };
+
+      document.getElementById('app').render({ client, config });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "e2e-tests",
+  "scripts": {
+    "dev": "cypress open",
+    "start": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "15.9.0",
+    "cypress-mailosaur": "2.17.0",
+    "dotenv": "16.0.1",
+    "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "otpauth": "8.0.2"
+  }
+}

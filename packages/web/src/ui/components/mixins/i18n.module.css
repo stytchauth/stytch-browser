@@ -1,0 +1,5 @@
+/* Some visual elements like carets and arrows need to be flipped in RTL environments.
+ * Compose this class to add that behavior to a graphical element. */
+.rtlIcon:dir(rtl) {
+  scale: -1 1;
+}

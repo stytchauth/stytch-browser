@@ -1,0 +1,76 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "strings": {
+      "inputs": ["src/**/*.ts", "src/**/*.tsx"],
+      "outputs": ["messages/**"]
+    },
+    "build": {
+      "dependsOn": ["^build", "strings"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "build/**"],
+      "env": [
+        "ANALYZE",
+        "CI",
+        "LIVE_API_URL",
+        "NODE_ENV",
+        "REACT_APP_*",
+        "ROLLUP_WATCH",
+        "ROOT_STYTCH_URL",
+        "SAML_CONNECTION_ID",
+        "STYTCH_DFP_BACKEND_URL",
+        "STYTCH_LIVE_API_URL",
+        "STYTCH_OAUTH_URL",
+        "STYTCH_ORG_ID",
+        "STYTCH_PUBLIC_TOKEN",
+        "STYTCH_TEST_API_URL",
+        "STYTCH_WEBAUTHN_DOMAIN",
+        "TEST_API_URL"
+      ]
+    },
+    "clean": {},
+    "lint": {},
+    "test": {
+      "env": ["CI"]
+    },
+    "typecheck": {},
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "env": [
+        "ANALYZE",
+        "CI",
+        "DEV_REACT_B2C",
+        "LIVE_API_URL",
+        "NODE_ENV",
+        "REACT_APP_*",
+        "ROLLUP_WATCH",
+        "ROOT_STYTCH_URL",
+        "SAML_CONNECTION_ID",
+        "STYTCH_DFP_BACKEND_URL",
+        "STYTCH_LIVE_API_URL",
+        "STYTCH_OAUTH_URL",
+        "STYTCH_ORG_ID",
+        "STYTCH_PUBLIC_TOKEN",
+        "STYTCH_TEST_API_URL",
+        "STYTCH_WEBAUTHN_DOMAIN",
+        "TEST_API_URL",
+        "CYPRESS_*"
+      ]
+    },
+    "build-storybook": {
+      "outputs": ["storybook-static/**"],
+      "env": ["NODE_ENV", "STORYBOOK_*"]
+    },
+    "build-storybook:test": {
+      "outputs": ["storybook-static/**"],
+      "env": ["NODE_ENV", "STORYBOOK_*"]
+    },
+    "test-storybook": {
+      "env": ["NODE_ENV", "STORYBOOK_*"]
+    },
+    "test-storybook:static": {
+      "dependsOn": ["build-storybook:test"],
+      "env": ["NODE_ENV", "STORYBOOK_*"]
+    }
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "name": "@stytch/vanilla-js",
+  "version": "6.0.0",
+  "description": "Stytch's official Javascript Client Library",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.mjs",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": {
+        "development": "./dist/esm-dev/index.mjs",
+        "production": "./dist/esm/index.mjs",
+        "default": "./dist/esm/index.mjs"
+      },
+      "require": {
+        "development": "./dist/cjs-dev/index.cjs",
+        "production": "./dist/cjs/index.cjs",
+        "default": "./dist/cjs/index.cjs"
+      },
+      "default": "./dist/esm/index.mjs"
+    },
+    "./headless": {
+      "types": "./dist/types/index.headless.d.ts",
+      "import": {
+        "development": "./dist/esm-dev/index.headless.mjs",
+        "production": "./dist/esm/index.headless.mjs",
+        "default": "./dist/esm/index.headless.mjs"
+      },
+      "require": {
+        "development": "./dist/cjs-dev/index.headless.cjs",
+        "production": "./dist/cjs/index.headless.cjs",
+        "default": "./dist/cjs/index.headless.cjs"
+      },
+      "default": "./dist/esm/index.headless.mjs"
+    },
+    "./b2b": {
+      "types": "./dist/types/b2b/index.d.ts",
+      "import": {
+        "development": "./dist/esm-dev/b2b/index.mjs",
+        "production": "./dist/esm/b2b/index.mjs",
+        "default": "./dist/esm/b2b/index.mjs"
+      },
+      "require": {
+        "development": "./dist/cjs-dev/b2b/index.cjs",
+        "production": "./dist/cjs/b2b/index.cjs",
+        "default": "./dist/cjs/b2b/index.cjs"
+      },
+      "default": "./dist/esm/b2b/index.mjs"
+    },
+    "./b2b/headless": {
+      "types": "./dist/types/b2b/index.headless.d.ts",
+      "import": {
+        "development": "./dist/esm-dev/b2b/index.headless.mjs",
+        "production": "./dist/esm/b2b/index.headless.mjs",
+        "default": "./dist/esm/b2b/index.headless.mjs"
+      },
+      "require": {
+        "development": "./dist/cjs-dev/b2b/index.headless.cjs",
+        "production": "./dist/cjs/b2b/index.headless.cjs",
+        "default": "./dist/cjs/b2b/index.headless.cjs"
+      },
+      "default": "./dist/esm/b2b/index.headless.mjs"
+    },
+    "./b2b/adminPortal": {
+      "types": "./dist/types/adminPortal/index.d.ts",
+      "import": {
+        "development": "./dist/esm-dev/adminPortal/index.mjs",
+        "production": "./dist/esm/adminPortal/index.mjs",
+        "default": "./dist/esm/adminPortal/index.mjs"
+      },
+      "require": {
+        "development": "./dist/cjs-dev/adminPortal/index.cjs",
+        "production": "./dist/cjs/adminPortal/index.cjs",
+        "default": "./dist/cjs/adminPortal/index.cjs"
+      },
+      "default": "./dist/esm/adminPortal/index.mjs"
+    },
+    "./compat": {
+      "types": "./dist/types/compat.d.ts",
+      "import": {
+        "development": "./dist/esm-dev/compat.mjs",
+        "production": "./dist/esm/compat.mjs",
+        "default": "./dist/esm/compat.mjs"
+      },
+      "require": {
+        "development": "./dist/cjs-dev/compat.cjs",
+        "production": "./dist/cjs/compat.cjs",
+        "default": "./dist/cjs/compat.cjs"
+      },
+      "default": "./dist/esm/compat.mjs"
+    },
+    "./theme/*": "./dist/theme/*"
+  },
+  "files": [
+    "dist",
+    "messages/en.po",
+    "messages/b2b/en.po",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "yarn clean && yarn compile",
+    "clean": "rm -rf ./dist",
+    "compile": "NODE_OPTIONS='--max-old-space-size=10000' rollup -c",
+    "dev": "NODE_OPTIONS='--max-old-space-size=10000' rollup -c -w",
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
+  },
+  "license": "MIT",
+  "homepage": "https://stytch.com/docs/api-reference/b2b/frontend-sdks/vanilla-js/overview",
+  "author": "Stytch",
+  "keywords": [
+    "stytch",
+    "typescript",
+    "auth",
+    "authentication",
+    "session",
+    "jwt",
+    "user"
+  ],
+  "devDependencies": {
+    "@preact/compat": "17.1.2",
+    "@rollup/plugin-alias": "6.0.0",
+    "@stytch/internal-build-config": "workspace:*",
+    "@stytch/internal-jest-config": "workspace:*",
+    "@stytch/internal-style-injector": "workspace:*",
+    "@stytch/internal-tsconfigs": "workspace:*",
+    "@stytch/js-utils": "workspace:*",
+    "@stytch/web": "workspace:*",
+    "@testing-library/dom": "10.4.1",
+    "@testing-library/react": "16.3.0",
+    "@types/jest": "30.0.0",
+    "@types/react": "18.3.26",
+    "@types/react-dom": "18.0.5",
+    "concurrently": "8.2.2",
+    "eslint-config-custom": "workspace:*",
+    "identity-obj-proxy": "3.0.0",
+    "jest": "30.2.0",
+    "preact": "10.19.2",
+    "react": "npm:@preact/compat@17.1.2",
+    "react-dom": "npm:@preact/compat@17.1.2",
+    "tslib": "2.8.1",
+    "tsx": "4.21.0",
+    "typescript": "5.9.3"
+  }
+}

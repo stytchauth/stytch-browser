@@ -1,0 +1,71 @@
+{
+  "name": "stytch-sdk-core",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "internal/*",
+      "services/*",
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "build": "NODE_OPTIONS=--max_old_space_size=10000 turbo run build",
+    "build:clientside-services": "NODE_OPTIONS=--max_old_space_size=10000 turbo run build --filter=clientside-services...",
+    "build:react": "NODE_OPTIONS=--max_old_space_size=10000 turbo run build --filter=react-demo...",
+    "build:b2b:react": "NODE_OPTIONS=--max_old_space_size=10000 turbo run build --filter=react-b2b-demo...",
+    "build:next": "NODE_OPTIONS=--max_old_space_size=10000 turbo run build --filter=next-demo...",
+    "build:react-native": "NODE_OPTIONS=--max_old_space_size=10000 turbo run build --filter=react-native-demo...",
+    "build:vanilla-js": "NODE_OPTIONS=--max_old_space_size=10000 turbo run build --filter=@stytch/vanilla-js...",
+    "build:packages": "NODE_OPTIONS=--max_old_space_size=10000 turbo run build --filter='./packages/*'",
+    "build-storybook": "turbo run build-storybook",
+    "clean": "turbo run clean",
+    "dev:b2b:react": "turbo run dev --filter=react-b2b-demo... --filter=clientside-services",
+    "dev:react": "DEV_REACT_B2C=true turbo run dev --filter=react-demo... --filter=clientside-services",
+    "dev:next": "turbo run dev --filter=next-demo... --filter=clientside-services",
+    "dev:passkey-demo": "turbo run dev --filter=passkey-demo... --filter=clientside-services",
+    "e2e:local": "BROWSER=none yarn workspace react-demo start & yarn workspace e2e-tests start",
+    "test": "turbo run test",
+    "test-storybook": "turbo run test-storybook",
+    "test-storybook:static": "turbo run test-storybook:static",
+    "typecheck": "turbo run typecheck",
+    "lint": "eslint '*/**/*.{js,jsx,ts,tsx}' --max-warnings=0 && prettier -c \"**/*\"",
+    "blt": "yarn lint && turbo run build test",
+    "format": "eslint '*/**/*.{js,jsx,ts,tsx}' --fix --max-warnings=0 && prettier --write \"**/*\"",
+    "version": "changeset version && yarn && yarn build:packages",
+    "release": "yarn build:packages && yarn workspaces foreach -W --no-private --from '@stytch/*' npm publish --tolerate-republish --access public && yarn changeset tag",
+    "strings": "turbo run strings",
+    "sizes": "size-limit"
+  },
+  "devDependencies": {
+    "@changesets/cli": "2.29.7",
+    "@eslint/compat": "1.4.0",
+    "@size-limit/preset-small-lib": "11.2.0",
+    "@types/jest": "30.0.0",
+    "@types/node": "20.19.24",
+    "eslint": "9.36.0",
+    "eslint-config-custom": "workspace:*",
+    "jest": "30.2.0",
+    "msw": "2.12.7",
+    "msw-storybook-addon": "2.0.6",
+    "prettier": "3.5.1",
+    "prettier-plugin-svelte": "3.4.1",
+    "rollup": "4.52.5",
+    "size-limit": "11.2.0",
+    "svelte": "5.48.4",
+    "ts-jest": "29.4.5",
+    "turbo": "2.4.2"
+  },
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": "22.x"
+  },
+  "packageManager": "yarn@4.12.0",
+  "resolutions": {
+    "@types/react@npm:*": "npm:18.3.26",
+    "browserslist": "4.28.1",
+    "@radix-ui/react-roving-focus@npm:1.1.11": "patch:@radix-ui/react-roving-focus@npm%3A1.1.11#~/.yarn/patches/@radix-ui-react-roving-focus-npm-1.1.11-9c90ef8d68.patch",
+    "esbuild": "npm:0.27.2"
+  }
+}

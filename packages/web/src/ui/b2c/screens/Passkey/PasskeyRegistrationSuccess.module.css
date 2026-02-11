@@ -1,0 +1,7 @@
+.existing {
+  border-top: 1px solid var(--st-border);
+}
+
+.passkeyRow {
+  border-bottom: 1px solid var(--st-border);
+}

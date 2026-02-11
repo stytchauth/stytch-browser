@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tailwind Demo</title>
+    <link href="shadcn.css" rel="stylesheet" />
+  </head>
+  <body class="font-sans py-10 px-5 max-w-2xl mx-auto">
+    <h1 class="text-center mb-4 text-3xl">Tailwind</h1>
+
+    <nav class="flex gap-2 mb-8 bg-twilio-red p-3 px-4 rounded-lg shadow-md">
+      <a
+        href="../index.html"
+        class="text-base font-medium py-2.5 px-4 text-white rounded transition-all duration-200 hover:bg-twilio-ink hover:shadow-lg"
+        >Back</a
+      >
+    </nav>
+
+    <div class="mb-6">
+      <stytch-ui id="app" shadow></stytch-ui>
+    </div>
+
+    <button
+      id="toggle-theme"
+      class="bg-twilio-ink py-2.5 px-4 text-white rounded cursor-pointer border-0 transition-all duration-200 hover:bg-slate-600"
+    >
+      Toggle Dark Mode
+    </button>
+
+    <div id="themes" class="mt-4">
+      <h3 class="mb-2 text-lg">Themes</h3>
+
+      <button
+        data-theme="neobrutalism"
+        class="bg-twilio-ink py-2.5 px-4 text-white rounded cursor-pointer border-0 transition-all duration-200 hover:bg-slate-600"
+      >
+        Neobrutalism
+      </button>
+
+      <button
+        data-theme="bubblegum"
+        class="bg-twilio-ink py-2.5 px-4 text-white rounded cursor-pointer border-0 transition-all duration-200 hover:bg-slate-600"
+      >
+        Bubblegum
+      </button>
+
+      <button
+        data-theme="amethyst"
+        class="bg-twilio-ink py-2.5 px-4 text-white rounded cursor-pointer border-0 transition-all duration-200 hover:bg-slate-600"
+      >
+        Amethyst
+      </button>
+    </div>
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>

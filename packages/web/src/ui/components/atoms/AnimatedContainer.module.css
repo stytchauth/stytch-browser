@@ -1,0 +1,15 @@
+/* Inspired by: https://keithjgrant.com/posts/2023/04/transitioning-to-height-auto/#with-grid */
+.container {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--st-transition-duration) ease-out;
+}
+
+.open {
+  grid-template-rows: 1fr;
+}
+
+.inner {
+  overflow: clip;
+  min-height: 0;
+}

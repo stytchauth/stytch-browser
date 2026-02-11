@@ -1,0 +1,3 @@
+.darkInvert {
+  filter: invert(var(--st-dark-mode, 0));
+}

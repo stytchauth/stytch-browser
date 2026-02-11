@@ -1,0 +1,31 @@
+import { StytchProvider } from '@stytch/react';
+import { render, screen } from '@testing-library/react';
+import React from 'react';
+
+import { App } from './App';
+
+const mockStytch = {
+  session: {
+    onChange: () => () => null,
+    getSync: () => null,
+    getInfo: () => ({}),
+  },
+  user: {
+    onChange: () => () => null,
+    getSync: () => null,
+    getInfo: () => ({}),
+  },
+  onStateChange: () => () => null,
+  parseAuthenticateUrl: () => null,
+};
+
+describe('App', () => {
+  it('Renders without crashing', () => {
+    render(
+      <StytchProvider stytch={mockStytch}>
+        <App />
+      </StytchProvider>,
+    );
+    expect(screen.getByText('SDK Workbench')).toBeDefined();
+  });
+});

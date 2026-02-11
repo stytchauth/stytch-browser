@@ -1,0 +1,158 @@
+name: On Push [merge PR]
+on:
+  push:
+    branches:
+      - 'main'
+env:
+  IMAGE_NAMESPACE: 928657068455.dkr.ecr.us-west-2.amazonaws.com
+jobs:
+  pre-build:
+    runs-on: ubuntu-latest
+    outputs:
+      starttime: ${{ steps.settime.outputs.time }}
+    steps:
+      - id: settime
+        run: echo "time=$(date +%s)" >> $GITHUB_OUTPUT
+
+  node-lint-build-test:
+    needs: [pre-build]
+    uses: ./.github/workflows/node-lint-build-test.yml
+    secrets:
+      honeycomb_api_key: ${{ secrets.HONEYCOMB_CI_API_KEY }}
+      CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+
+  deploy-react-demo-app-staging:
+    needs: [pre-build, node-lint-build-test]
+    uses: ./.github/workflows/deploy-react-demo-app.yml
+    with:
+      sha_to_deploy: ${{ github.sha }}
+      env: staging
+      s3_bucket: demo-sdk-app-staging-stytch-com
+      app_dir: react-demo
+      build_script: 'build:react'
+    secrets:
+      honeycomb_api_key: ${{ secrets.HONEYCOMB_CI_API_KEY }}
+      cloudfront_distribution_id: ${{ secrets.STAGING_DEMO_APP_DISTRIBUTION_ID }}
+      ci_aws_access_key_id: ${{ secrets.STAGING_CDN_UPDATER_AWS_ACCESS_KEY_ID }}
+      ci_aws_secret_access_key: ${{ secrets.STAGING_CDN_UPDATER_AWS_SECRET_ACCESS_KEY_ID }}
+
+  deploy-react-b2b-demo-app-staging:
+    needs: [pre-build, node-lint-build-test]
+    uses: ./.github/workflows/deploy-react-demo-app.yml
+    with:
+      sha_to_deploy: ${{ github.sha }}
+      env: staging
+      s3_bucket: demo-sdk-b2b-app-staging-stytch-com
+      app_dir: react-b2b-demo
+      build_script: 'build:b2b:react'
+    secrets:
+      honeycomb_api_key: ${{ secrets.HONEYCOMB_CI_API_KEY }}
+      cloudfront_distribution_id: ${{ secrets.STAGING_DEMO_APP_DISTRIBUTION_ID }}
+      ci_aws_access_key_id: ${{ secrets.STAGING_CDN_UPDATER_AWS_ACCESS_KEY_ID }}
+      ci_aws_secret_access_key: ${{ secrets.STAGING_CDN_UPDATER_AWS_SECRET_ACCESS_KEY_ID }}
+
+  e2e-react-demo-app-staging:
+    needs: [deploy-react-demo-app-staging, deploy-react-b2b-demo-app-staging]
+    uses: ./.github/workflows/run-e2e-tests.yml
+    with:
+      env: 'staging'
+    secrets:
+      cypress_mailosaur_api_key: ${{ secrets.CYPRESS_MAILOSAUR_API_KEY }}
+      cypress_mailosaur_server_id: ${{ secrets.CYPRESS_MAILOSAUR_SERVER_ID }}
+      cypress_record_key: ${{ secrets.CYPRESS_RECORD_KEY }}
+
+  deploy-assets-staging:
+    needs: [pre-build, node-lint-build-test]
+    uses: ./.github/workflows/deploy-assets.yml
+    with:
+      sha_to_deploy: ${{ github.sha }}
+      env: staging
+      s3_bucket: js-staging-stytch-com
+    secrets:
+      honeycomb_api_key: ${{ secrets.HONEYCOMB_CI_API_KEY }}
+      cloudfront_distribution_id: ${{ secrets.STAGING_CLOUDFRONT_DISTRIBUTION_ID }}
+      ci_aws_access_key_id: ${{ secrets.STAGING_CDN_UPDATER_AWS_ACCESS_KEY_ID }}
+      ci_aws_secret_access_key: ${{ secrets.STAGING_CDN_UPDATER_AWS_SECRET_ACCESS_KEY_ID }}
+
+  deploy-assets-prod:
+    needs: [pre-build, node-lint-build-test]
+    uses: ./.github/workflows/deploy-assets.yml
+    with:
+      sha_to_deploy: ${{ github.sha }}
+      env: prod
+      s3_bucket: js-stytch-com
+    secrets:
+      honeycomb_api_key: ${{ secrets.HONEYCOMB_CI_API_KEY }}
+      cloudfront_distribution_id: ${{ secrets.PROD_CLOUDFRONT_DISTRIBUTION_ID }}
+      ci_aws_access_key_id: ${{ secrets.PROD_CDN_UPDATER_AWS_ACCESS_KEY_ID }}
+      ci_aws_secret_access_key: ${{ secrets.PROD_CDN_UPDATER_AWS_SECRET_ACCESS_KEY_ID }}
+
+  deploy-clientside-services-staging:
+    needs: [pre-build, node-lint-build-test]
+    uses: ./.github/workflows/deploy-clientside-services.yml
+    with:
+      sha_to_deploy: ${{ github.sha }}
+      env: staging
+      s3_bucket: js-staging-stytch-com
+    secrets:
+      honeycomb_api_key: ${{ secrets.HONEYCOMB_CI_API_KEY }}
+      cloudfront_distribution_id: ${{ secrets.STAGING_CLOUDFRONT_DISTRIBUTION_ID }}
+      ci_aws_access_key_id: ${{ secrets.STAGING_CDN_UPDATER_AWS_ACCESS_KEY_ID }}
+      ci_aws_secret_access_key: ${{ secrets.STAGING_CDN_UPDATER_AWS_SECRET_ACCESS_KEY_ID }}
+
+  deploy-clientside-services-prod:
+    needs: [deploy-clientside-services-staging, e2e-react-demo-app-staging]
+    uses: ./.github/workflows/deploy-clientside-services.yml
+    with:
+      sha_to_deploy: ${{ github.sha }}
+      env: prod
+      s3_bucket: js-stytch-com
+    secrets:
+      honeycomb_api_key: ${{ secrets.HONEYCOMB_CI_API_KEY }}
+      cloudfront_distribution_id: ${{ secrets.PROD_CLOUDFRONT_DISTRIBUTION_ID }}
+      ci_aws_access_key_id: ${{ secrets.PROD_CDN_UPDATER_AWS_ACCESS_KEY_ID }}
+      ci_aws_secret_access_key: ${{ secrets.PROD_CDN_UPDATER_AWS_SECRET_ACCESS_KEY_ID }}
+
+  post-build-fail:
+    if: ${{ failure() }}
+    needs: [pre-build, deploy-clientside-services-prod, e2e-react-demo-app-staging]
+    runs-on: ubuntu-latest
+    env:
+      BUILDEVENT_APIKEY: ${{ secrets.HONEYCOMB_CI_API_KEY }}
+      BUILDEVENT_DATASET: 'stytch-ci'
+      BUILDEVENT_CIPROVIDER: 'github-actions'
+    steps:
+      - name: install honeycomb buildevents tool
+        run: |
+          echo $(date +%s) > ../step-start
+          echo $(echo post-build | sum | cut -f 1 -d \ ) > ../step_span_id
+          sudo curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
+          sudo chmod 755 /usr/local/bin/buildevents
+          buildevents step $GITHUB_RUN_ID $(cat ../step_span_id) $(cat ../step-start) post-build
+
+      - name: finalize and send failed buildevents build
+        run: |
+          traceURL=$(buildevents build $GITHUB_RUN_ID ${{ needs.pre-build.outputs.starttime }} failure)
+          echo "build failed: $traceURL"
+
+  post-build-success:
+    if: ${{ success() }}
+    needs: [pre-build, deploy-clientside-services-prod, deploy-react-demo-app-staging, e2e-react-demo-app-staging]
+    runs-on: ubuntu-latest
+    env:
+      BUILDEVENT_APIKEY: ${{ secrets.HONEYCOMB_CI_API_KEY }}
+      BUILDEVENT_DATASET: 'stytch-ci'
+      BUILDEVENT_CIPROVIDER: 'github-actions'
+    steps:
+      - name: install honeycomb buildevents tool
+        run: |
+          echo $(date +%s) > ../step-start
+          echo $(echo post-build | sum | cut -f 1 -d \ ) > ../step_span_id
+          sudo curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
+          sudo chmod 755 /usr/local/bin/buildevents
+          buildevents step $GITHUB_RUN_ID $(cat ../step_span_id) $(cat ../step-start) post-build
+
+      - name: finalize and send success buildevents build
+        run: |
+          traceURL=$(buildevents build $GITHUB_RUN_ID ${{ needs.pre-build.outputs.starttime }} success)
+          echo "build success: $traceURL"

@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "lib": ["es2023", "DOM", "DOM.Iterable"],
+    "types": ["vite/client"]
+  }
+}

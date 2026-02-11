@@ -1,0 +1,37 @@
+/**
+ * Compares two arrays and returns true if they are equal, false otherwise.
+ * The arrays are considered equal if they have the same length and the same elements in the any order.
+ * The elements are compared using strict equality.
+ *
+ * @param arr1 - The first array to compare.
+ * @param arr2 - The second array to compare.
+ * @returns True if the arrays are equal, false otherwise.
+ *
+ * @example
+ * ```ts
+ * arraysHaveSameContents([1, 2, 3], [1, 2, 3]); // true
+ * arraysHaveSameContents([1, 2, 3], [1, 3, 2]); // true
+ * arraysHaveSameContents([1, 2, 3], [1, 2, 4]); // false
+ * arraysHaveSameContents([1, 2, 3], [1, 2]); // false
+ * arraysHaveSameContents([1, 2, 3], [1, 2, 3, 4]); // false
+ * arraysHaveSameContents([{test: '123'}, 2, 3], [{test: '123'}, 2, 3]); // true
+ * ```
+ */
+export const arraysHaveSameContents = <T>(arr1: T[] | undefined, arr2: T[] | undefined) => {
+  if (Array.isArray(arr1) && Array.isArray(arr2)) {
+    if (arr1.length !== arr2.length) {
+      return false;
+    }
+    const array2Sorted = arr2.slice().sort();
+    const isEqual = arr1
+      .slice()
+      .sort()
+      .every(function (value, index) {
+        return JSON.stringify(value) === JSON.stringify(array2Sorted[index]);
+      });
+    if (!isEqual) return false;
+
+    return true;
+  }
+  return false;
+};

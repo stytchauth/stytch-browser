@@ -1,0 +1,9 @@
+{
+  "name": "@stytch/jest-environment",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "jest-environment-jsdom": "30.2.0"
+  }
+}

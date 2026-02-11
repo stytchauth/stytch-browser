@@ -1,0 +1,23 @@
+.container {
+  height: var(--st-spacing);
+  background-color: var(--st-muted);
+  border-radius: var(--st-rounded-full);
+  overflow: clip;
+}
+
+.progress {
+  height: 100%;
+  width: 100%;
+  background-color: var(--st-primary);
+  animation: loading 10s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes loading {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(-1%);
+  }
+}

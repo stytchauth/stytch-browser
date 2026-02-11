@@ -1,0 +1,68 @@
+name: deploy-assets
+on:
+  workflow_dispatch: # Can be called manually.
+  workflow_call:
+    inputs:
+      s3_bucket:
+        required: true
+        type: string
+      sha_to_deploy:
+        required: true
+        type: string
+      env:
+        required: true
+        type: string
+    secrets:
+      honeycomb_api_key:
+        required: true
+      cloudfront_distribution_id:
+        required: true
+      ci_aws_access_key_id:
+        required: true
+      ci_aws_secret_access_key:
+        required: true
+env:
+  BUILDEVENT_APIKEY: ${{ secrets.honeycomb_api_key }}
+  BUILDEVENT_DATASET: 'stytch-ci'
+  BUILDEVENT_CIPROVIDER: 'github-actions'
+jobs:
+  deploy:
+    environment: ${{ inputs.env }}
+    name: Deploy Assets
+    runs-on: ubuntu-latest
+    env:
+      S3_BUCKET: ${{ inputs.s3_bucket }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.sha_to_deploy }}
+
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+
+      - name: Install node dependencies
+        run: yarn install --immutable
+
+      - name: Generate asset manifest and hash files
+        run: |
+          cd internal/assets
+          yarn build
+
+      - name: Configure AWS credentials from account
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.ci_aws_access_key_id }}
+          aws-secret-access-key: ${{ secrets.ci_aws_secret_access_key }}
+          aws-region: us-east-1
+
+      - name: Upload hashed assets to S3
+        run: |
+          aws s3 sync ./internal/assets/dist/files/ s3://$S3_BUCKET/sdk-assets --cache-control max-age=31536000,public
+
+      - name: Invalidate CloudFront Cache
+        run: aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/sdk-assets/*"
+        env:
+          CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.cloudfront_distribution_id }}

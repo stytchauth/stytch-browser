@@ -1,0 +1,4 @@
+.container {
+  background: var(--st-accent);
+  padding: var(--st-spacing-2) var(--st-spacing-4);
+}

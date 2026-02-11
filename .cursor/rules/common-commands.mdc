@@ -1,0 +1,52 @@
+---
+description: Common commands and workflows
+globs: ['**/*']
+alwaysApply: true
+---
+
+# Common Commands and Workflows
+
+## Essential Commands
+
+### Build and Development
+
+```bash
+# Install dependencies
+yarn install
+
+# Build all packages
+yarn build
+```
+
+### Code Quality
+
+```bash
+# Run all tests
+yarn test
+
+# Run tests for specific package
+yarn workspace @stytch/vanilla-js test
+```
+
+### Package Management
+
+```bash
+# Add dependency to specific package
+yarn workspace @stytch/vanilla-js add package-name@version -D
+
+# Remove dependency from specific package
+yarn workspace @stytch/vanilla-js remove package-name -D
+```
+
+### UI Development
+
+```bash
+# Run Storybook tests
+yarn test-storybook
+```
+
+## Workflow Patterns
+
+### After Making Changes
+
+1. Run checks script: `.cursor/checks.sh`

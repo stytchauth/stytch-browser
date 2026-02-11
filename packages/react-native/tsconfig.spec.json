@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  // https://kulshekhar.github.io/ts-jest/docs/guides/react-native/#typescript-configuration
+  "compilerOptions": {
+    "jsx": "react",
+    "isolatedModules": true
+  }
+}

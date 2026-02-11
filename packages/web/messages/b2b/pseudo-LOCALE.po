@@ -1,0 +1,627 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-05-07 12:59-0400\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: pseudo-LOCALE\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+msgid "button.continue"
+msgstr ""
+
+msgid "button.continueWithEmail"
+msgstr ""
+
+msgid "button.createAnOrganization"
+msgstr ""
+
+msgid "button.emailCode"
+msgstr ""
+
+msgid "button.emailLink"
+msgstr ""
+
+msgid "button.emailResent"
+msgstr ""
+
+msgid "button.goBack"
+msgstr ""
+
+msgid "button.hidePassword"
+msgstr ""
+
+msgid "button.loginWithoutPassword"
+msgstr ""
+
+msgid "button.resendEmail"
+msgstr ""
+
+msgid "button.retry"
+msgstr ""
+
+msgid "button.showPassword"
+msgstr ""
+
+msgid "button.totpQrManual"
+msgstr ""
+
+msgid "button.totpQrRetry"
+msgstr ""
+
+msgid "button.tryDifferentEmailAddress"
+msgstr ""
+
+msgid "button.usePassword"
+msgstr ""
+
+msgid "emailConfirmation.content"
+msgstr ""
+
+msgid "emailConfirmation.emailSent"
+msgstr ""
+
+msgid "emailConfirmation.title"
+msgstr ""
+
+msgid "emailMethodSelection.code"
+msgstr ""
+
+msgid "emailMethodSelection.link"
+msgstr ""
+
+msgid "emailMethodSelection.title"
+msgstr ""
+
+msgid "emailVerification.content"
+msgstr ""
+
+msgid "emailVerification.title"
+msgstr ""
+
+msgid "error.adBlockerDetected"
+msgstr ""
+
+msgid "error.authPolicyNoOrg"
+msgstr ""
+
+msgid "error.authPolicyWithOrg"
+msgstr ""
+
+msgid "error.breachedPassword"
+msgstr ""
+
+msgid "error.claimedDomain"
+msgstr ""
+
+msgid "error.default"
+msgstr ""
+
+msgid "error.duplicatePhoneNumber"
+msgstr ""
+
+msgid "error.emailNoAccessToOrg"
+msgstr ""
+
+msgid "error.emailNotFound"
+msgstr ""
+
+msgid "error.eml"
+msgstr ""
+
+msgid "error.inactiveEmail"
+msgstr ""
+
+msgid "error.invalidCode"
+msgstr ""
+
+msgid "error.invalidEmail"
+msgstr ""
+
+msgid "error.invalidEmailAddress"
+msgstr ""
+
+msgid "error.invalidPhoneNumber"
+msgstr ""
+
+msgid "error.invalidPhoneNumberCountryCode"
+msgstr ""
+
+msgid "error.invalidSessionToken"
+msgstr ""
+
+msgid "error.jitIneligible"
+msgstr ""
+
+msgid "error.memberPasswordNotFound"
+msgstr ""
+
+msgid "error.noUserPassword"
+msgstr ""
+
+msgid "error.oauthFlowCallbackError"
+msgstr ""
+
+msgid "error.oauthTokenNotFound"
+msgstr ""
+
+msgid "error.organization"
+msgstr ""
+
+msgid "error.otpCodeNotFound"
+msgstr ""
+
+msgid "error.passcodeInvalid"
+msgstr ""
+
+msgid "error.resetPassword"
+msgstr ""
+
+msgid "error.sessionNotFound"
+msgstr ""
+
+msgid "error.title"
+msgstr ""
+
+msgid "error.unableToAuthMagicLink"
+msgstr ""
+
+msgid "error.unauthorizedAction"
+msgstr ""
+
+msgid "error.unauthorizedCredentials"
+msgstr ""
+
+msgid "error.unsubscribedPhoneNumber"
+msgstr ""
+
+msgid "error.userLockLimitReached"
+msgstr ""
+
+msgid "error.userUnauthenticated"
+msgstr ""
+
+msgid "formField.backupCode.ariaLabel"
+msgstr ""
+
+msgid "formField.backupCode.placeholder"
+msgstr ""
+
+msgid "formField.countryCode.label"
+msgstr ""
+
+msgid "formField.email.label"
+msgstr ""
+
+msgid "formField.email.placeholder"
+msgstr ""
+
+msgid "formField.orgSlug.label"
+msgstr ""
+
+msgid "formField.otp.ariaLabel"
+msgstr ""
+
+msgid "formField.passcode.status.verifying"
+msgstr ""
+
+msgid "formField.password.label"
+msgstr ""
+
+msgid "formField.phone.label"
+msgstr ""
+
+msgid "idpConsent.allowClientTo"
+msgstr ""
+
+msgid "idpConsent.button.allow"
+msgstr ""
+
+msgid "idpConsent.button.deny"
+msgstr ""
+
+msgid "idpConsent.customScopes.title"
+msgstr ""
+
+msgid "idpConsent.defaultClientName"
+msgstr ""
+
+msgid "idpConsent.denied"
+msgstr ""
+
+msgid "idpConsent.noActiveSession"
+msgstr ""
+
+msgid "idpConsent.noPermissionsToGrant"
+msgstr ""
+
+msgid "idpConsent.signIn.title"
+msgstr ""
+
+msgid "idpLogout.confirmMessage"
+msgstr ""
+
+msgid "idpLogout.no"
+msgstr ""
+
+msgid "idpLogout.notLoggedOut"
+msgstr ""
+
+msgid "idpLogout.title"
+msgstr ""
+
+msgid "idpLogout.yes"
+msgstr ""
+
+msgid "link.openInGmail"
+msgstr ""
+
+msgid "link.openInOutlook"
+msgstr ""
+
+msgid "link.openInYahoo"
+msgstr ""
+
+msgid "link.signupResetPassword"
+msgstr ""
+
+msgid "loading.label"
+msgstr ""
+
+msgid "login.loading"
+msgstr ""
+
+msgid "login.success.content"
+msgstr ""
+
+msgid "login.title"
+msgstr ""
+
+msgid "methodDivider.text"
+msgstr ""
+
+msgid "mfa.enrollment.content"
+msgstr ""
+
+msgid "mfa.enrollment.option.sms"
+msgstr ""
+
+msgid "mfa.enrollment.option.totp"
+msgstr ""
+
+msgid "mfa.enrollment.title"
+msgstr ""
+
+msgid "mfa.methods.authenticatorApp"
+msgstr ""
+
+msgid "mfa.smsEnrollment.content"
+msgstr ""
+
+msgid "mfa.smsEnrollment.title"
+msgstr ""
+
+msgid "mfa.totpEnrollment.content"
+msgstr ""
+
+msgid "mfa.totpEnrollment.copyCode.codeCopied"
+msgstr ""
+
+msgid "mfa.totpEnrollment.copyCode.label"
+msgstr ""
+
+msgid "mfa.totpEnrollment.title"
+msgstr ""
+
+msgid "mfa.totpEnrollment.toast.copyFailed"
+msgstr ""
+
+msgid "mfa.totpEntry.getNewCode"
+msgstr ""
+
+msgid "mfa.totpEntry.switchToSms"
+msgstr ""
+
+msgid "mfa.totpEntry.useBackupCode"
+msgstr ""
+
+msgid "mfaTotpEnrollment.qrAltText"
+msgstr ""
+
+msgid "oauth.continueWithGitHub"
+msgstr ""
+
+msgid "oauth.continueWithGoogle"
+msgstr ""
+
+msgid "oauth.continueWithHubSpot"
+msgstr ""
+
+msgid "oauth.continueWithMicrosoft"
+msgstr ""
+
+msgid "oauth.continueWithSlack"
+msgstr ""
+
+msgid "organizationDiscovery.acceptInvite"
+msgstr ""
+
+msgid "organizationDiscovery.join"
+msgstr ""
+
+msgid "organizationDiscovery.noOrgs.content"
+msgstr ""
+
+msgid "organizationDiscovery.noOrgs.create.content"
+msgstr ""
+
+msgid "organizationDiscovery.noOrgs.create.title"
+msgstr ""
+
+msgid "organizationDiscovery.noOrgs.title"
+msgstr ""
+
+msgid "organizationDiscovery.title"
+msgstr ""
+
+msgid "organizationLogin.title"
+msgstr ""
+
+#. Used instead of organizationLogin.title when the organization name is not available
+msgid "organizationLogin.titleUnknown"
+msgstr ""
+
+msgid "passcode.codeSent"
+msgstr ""
+
+msgid "passcode.expirationCountdown"
+msgstr ""
+
+msgid "passcode.expired"
+msgstr ""
+
+msgid "passcode.resendCode"
+msgstr ""
+
+msgid "passcode.sentConfirmation"
+msgstr ""
+
+msgid "passcode.title"
+msgstr ""
+
+msgid "password.forgot.content.discovery"
+msgstr ""
+
+msgid "password.forgot.content.organization"
+msgstr ""
+
+msgid "password.forgot.title"
+msgstr ""
+
+msgid "password.login.title"
+msgstr ""
+
+msgid "password.requirement.fulfilled"
+msgstr ""
+
+msgid "password.requirement.notFulfilled"
+msgstr ""
+
+msgid "password.requirement.suggestion"
+msgstr ""
+
+msgid "password.requirement.warning"
+msgstr ""
+
+msgid "password.reset.emailSent.content"
+msgstr ""
+
+msgid "password.reset.emailSent.title"
+msgstr ""
+
+msgid "password.setNew.title"
+msgstr ""
+
+msgid "password.strength"
+msgstr ""
+
+msgid "password.strength.accepted"
+msgstr ""
+
+msgid "password.strength.notAccepted"
+msgstr ""
+
+msgid "password.strength.requirementsNotMet"
+msgstr ""
+
+msgid "password.strengthError.breached"
+msgstr ""
+
+msgid "password.strengthError.complexity"
+msgstr ""
+
+msgid "password.strengthError.minimumLength"
+msgstr ""
+
+msgid "password.verification.content"
+msgstr ""
+
+msgid "password.verification.title"
+msgstr ""
+
+msgid "password.zxcvbn.suggestion.addWords"
+msgstr ""
+
+msgid "password.zxcvbn.suggestion.allUppercase"
+msgstr ""
+
+msgid "password.zxcvbn.suggestion.avoidDatesAndYearsAssociatedWithYou"
+msgstr ""
+
+msgid "password.zxcvbn.suggestion.avoidRecentYears"
+msgstr ""
+
+msgid "password.zxcvbn.suggestion.avoidRepeats"
+msgstr ""
+
+msgid "password.zxcvbn.suggestion.avoidSequences"
+msgstr ""
+
+msgid "password.zxcvbn.suggestion.avoidYearsAssociatedWithYou"
+msgstr ""
+
+msgid "password.zxcvbn.suggestion.capitalization"
+msgstr ""
+
+msgid "password.zxcvbn.suggestion.longerKeyboardPattern"
+msgstr ""
+
+msgid "password.zxcvbn.suggestion.noSymbolsDigitsUppercase"
+msgstr ""
+
+msgid "password.zxcvbn.suggestion.predictableSubstitutions"
+msgstr ""
+
+msgid "password.zxcvbn.suggestion.reversed"
+msgstr ""
+
+msgid "password.zxcvbn.suggestion.useAFewWords"
+msgstr ""
+
+msgid "password.zxcvbn.warning.commonNames"
+msgstr ""
+
+msgid "password.zxcvbn.warning.dates"
+msgstr ""
+
+msgid "password.zxcvbn.warning.longerRepeats"
+msgstr ""
+
+msgid "password.zxcvbn.warning.names"
+msgstr ""
+
+msgid "password.zxcvbn.warning.recentYears"
+msgstr ""
+
+msgid "password.zxcvbn.warning.repeats"
+msgstr ""
+
+msgid "password.zxcvbn.warning.sequences"
+msgstr ""
+
+msgid "password.zxcvbn.warning.shortKeyboardPatterns"
+msgstr ""
+
+msgid "password.zxcvbn.warning.similarToCommonPassword"
+msgstr ""
+
+msgid "password.zxcvbn.warning.straightRows"
+msgstr ""
+
+msgid "password.zxcvbn.warning.top100CommonPassword"
+msgstr ""
+
+msgid "password.zxcvbn.warning.top10CommonPassword"
+msgstr ""
+
+msgid "password.zxcvbn.warning.veryCommonPassword"
+msgstr ""
+
+msgid "password.zxcvbn.warning.wordByItself"
+msgstr ""
+
+msgid "provider.continueWith"
+msgstr ""
+
+msgid "provider.continueWithSSO"
+msgstr ""
+
+msgid "provider.lastUsed"
+msgstr ""
+
+msgid "recoveryCodes.entry.content"
+msgstr ""
+
+msgid "recoveryCodes.entry.error.invalidCode"
+msgstr ""
+
+msgid "recoveryCodes.entry.title"
+msgstr ""
+
+msgid "recoveryCodes.filename.noOrganizationName"
+msgstr ""
+
+msgid "recoveryCodes.filename.withOrganizationName"
+msgstr ""
+
+msgid "recoveryCodes.save.button.copied"
+msgstr ""
+
+msgid "recoveryCodes.save.button.copyAll"
+msgstr ""
+
+msgid "recoveryCodes.save.button.done"
+msgstr ""
+
+msgid "recoveryCodes.save.button.download"
+msgstr ""
+
+msgid "recoveryCodes.save.content"
+msgstr ""
+
+msgid "recoveryCodes.save.title"
+msgstr ""
+
+msgid "recoveryCodes.save.toast.copyFailed"
+msgstr ""
+
+msgid "ssoDiscovery.email.error.unknown"
+msgstr ""
+
+msgid "ssoDiscovery.email.title"
+msgstr ""
+
+msgid "ssoDiscovery.fallback.button.reset"
+msgstr ""
+
+msgid "ssoDiscovery.fallback.content"
+msgstr ""
+
+msgid "ssoDiscovery.fallback.error.orgNotFound"
+msgstr ""
+
+msgid "ssoDiscovery.fallback.error.unknown"
+msgstr ""
+
+msgid "ssoDiscovery.fallback.title"
+msgstr ""
+
+msgid "ssoDiscovery.title"
+msgstr ""
+
+msgid "success.title"
+msgstr ""
+
+msgid "totp.content"
+msgstr ""
+
+msgid "totp.setupQr.content"
+msgstr ""
+
+msgid "totp.setupQr.title"
+msgstr ""
+
+msgid "totp.title"
+msgstr ""
+
+msgid "watermark.altText"
+msgstr ""
+
+msgid "watermark.poweredBy"
+msgstr ""

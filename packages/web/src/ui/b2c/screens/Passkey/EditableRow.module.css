@@ -1,0 +1,22 @@
+.row {
+  display: flex;
+  gap: var(--st-spacing-2);
+  align-items: center;
+  width: 100%;
+
+  /* prettier-ignore */
+  height: calc(
+     (var(--st-line-height-sm) * var(--st-text-sm)) /* Button text height */
+    + var(--st-spacing-8) /* Button padding (4 units) + Row padding (4 units) */
+  );
+}
+
+.input {
+  flex: 1 1 auto;
+}
+
+.actions {
+  flex: 0 0 auto;
+  display: flex;
+  gap: var(--st-spacing);
+}

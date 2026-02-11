@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "@stytch/internal-tsconfigs/tsconfig.base.json",
+    "@stytch/internal-tsconfigs/tsconfig.web.json",
+    "@stytch/internal-tsconfigs/tsconfig.react.json"
+  ],
+  "compilerOptions": {
+    // Workaround for @lingui type error and improve performance
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*", "lingui.config.ts", "custom.d.ts", ".storybook/storybook.d.ts", ".storybook/env.d.ts"]
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Default",
+  "compilerOptions": {
+    "declaration": false,
+    "sourceMap": false,
+    "isolatedModules": false,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "module": "esnext",
+    "lib": ["es2017", "DOM"],
+    "strict": true,
+    "baseUrl": "."
+  },
+  "exclude": ["node_modules", "dist"]
+}

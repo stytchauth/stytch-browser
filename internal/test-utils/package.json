@@ -1,0 +1,14 @@
+{
+  "name": "@stytch/internal-test-utils",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@stytch/internal-tsconfigs": "workspace:*",
+    "@types/jest": "30.0.0",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,43 @@
+.tabRow {
+  display: flex;
+  margin-bottom: var(--st-spacing-8);
+}
+
+.tab:focus-visible {
+  z-index: 1;
+}
+
+/* Override outline button hover style */
+.tabRow .tab:hover {
+  background-color: var(--st-tab-background);
+}
+
+/* Only keep rounded corners on buttons at the two ends */
+.tabRow .tab:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.tabRow .tab:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.tabRow .tab:not(:first-child, :last-child) {
+  border-radius: 0;
+}
+
+/* Collapse doubled borders between buttons */
+.tabRow .tab:not(:first-child) {
+  border-left-width: 0;
+}
+
+.tabRow .tab:not(:first-child):focus-visible {
+  border-left-width: 1px;
+  margin-left: -1px;
+}
+
+.tabRow .tab[data-state='active'] {
+  background: var(--st-accent);
+  color: var(--st-accent-foreground);
+}

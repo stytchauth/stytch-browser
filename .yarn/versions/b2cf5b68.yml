@@ -1,0 +1,5 @@
+undecided:
+  - stytch-sdk-core
+  - "@stytch/core"
+  - "@stytch/nextjs"
+  - "@stytch/vanilla-js"

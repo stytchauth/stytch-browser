@@ -1,0 +1,16 @@
+.container {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  right: var(--st-spacing-3);
+  /* Move 60% of the badge out, we need translate where % basis is element height rather than parent height */
+  top: 0;
+  translate: 0 -60%;
+}
+
+.badge:dir(rtl) {
+  right: auto;
+  left: var(--st-spacing-3);
+}

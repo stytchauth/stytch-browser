@@ -1,0 +1,1 @@
+export = Record<string, string>;

@@ -1,0 +1,10 @@
+import { ConnectionType } from './ConnectionType';
+
+export type Connection = {
+  id: string;
+  displayName: string;
+  connectionType: ConnectionType;
+  idp: string | undefined;
+  status: string;
+  isDefault: boolean;
+};

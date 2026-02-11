@@ -1,0 +1,10 @@
+.codeContainer {
+  cursor: pointer;
+}
+
+.code {
+  display: grid;
+  column-gap: 1ch;
+  grid-template-columns: repeat(var(--st-column-count, auto-fill), var(--st-chunk-size, 4ch));
+  justify-content: center;
+}

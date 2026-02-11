@@ -1,0 +1,66 @@
+/* Note: These are not directly referenced anywhere, and updating these values do not do anything.
+   The source of truth for these values are in JS (themeToCssVariables and themes.ts),
+   and these are just the values for the default light theme.
+   This file exists mostly for reference and for IDE autocomplete */
+.root {
+  /* Color variables - DO NOT USE DIRECTLY, these are here for reference below */
+  --st-neutral-50: oklch(0.99 0 0);
+  --st-neutral-100: oklch(0.97 0 0);
+  --st-neutral-200: oklch(0.92 0 0);
+  --st-neutral-300: oklch(0.87 0 0);
+  --st-neutral-400: oklch(0.72 0 0);
+  --st-neutral-500: oklch(0.56 0 0);
+  --st-neutral-600: oklch(0.44 0 0);
+  --st-neutral-700: oklch(0.37 0 0);
+  --st-neutral-800: oklch(0.27 0 0);
+  --st-neutral-900: oklch(0.2 0 0);
+  --st-neutral-950: oklch(0.14 0 0);
+
+  --st-color-white: oklch(1 0 0);
+  --st-color-black: oklch(0 0 0);
+
+  --st-font-family: system-ui, sans-serif;
+  --st-font-family-mono:
+    ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+
+  --st-spacing: 4px;
+  --st-rounded-base: 4px;
+
+  --st-text-base: 1rem;
+
+  --st-transition-duration: 0.15s;
+  --st-container-width: 400px;
+
+  --st-color-scheme: light;
+  --st-dark-mode: 0;
+
+  /** Note: MUST use with max-width */
+  --st-mobile-breakpoint: 768px;
+
+  /* Semantic tokens, from shadcn */
+  --st-background: var(--st-color-white);
+  --st-foreground: var(--st-neutral-950);
+
+  --st-primary: var(--st-neutral-900);
+  --st-primary-foreground: var(--st-neutral-50);
+
+  --st-secondary: var(--st-neutral-100);
+  --st-secondary-foreground: var(--st-neutral-900);
+
+  --st-muted: var(--st-neutral-100);
+  --st-muted-foreground: var(--st-neutral-500);
+
+  --st-accent: var(--st-neutral-100);
+  --st-accent-foreground: var(--st-neutral-900);
+
+  --st-border: var(--st-neutral-200);
+  --st-input: var(--st-neutral-200);
+  --st-ring: var(--st-neutral-400);
+
+  --st-destructive: oklch(0.577 0.245 27.325);
+  --st-destructive-foreground: var(--st-color-white);
+
+  /* Added on top of shadcn's base */
+  --st-warning: oklch(0.67 0.16 58);
+  --st-success: oklch(0.6 0.13 163);
+}

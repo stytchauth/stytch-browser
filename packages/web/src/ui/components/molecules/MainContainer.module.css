@@ -1,0 +1,16 @@
+.container {
+  composes: root from '../mixins/Root.module.css';
+
+  width: 100%;
+  max-width: var(--st-container-width);
+  background-color: var(--st-background);
+  color: var(--st-foreground);
+  border: 1px solid var(--st-container-border);
+  border-radius: var(--st-container-radius);
+  padding: var(--st-spacing-10) var(--st-spacing-9);
+}
+
+.watermarkContainer {
+  display: flex;
+  justify-content: center;
+}

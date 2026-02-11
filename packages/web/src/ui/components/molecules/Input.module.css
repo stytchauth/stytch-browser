@@ -1,0 +1,51 @@
+.container {
+}
+
+.label {
+  display: block;
+  width: fit-content;
+  color: var(--st-foreground);
+  font-family: var(--st-font-family);
+  font-size: var(--st-text-sm);
+  line-height: var(--st-line-height-sm);
+  font-weight: var(--st-font-weight-semibold);
+  margin-bottom: var(--st-spacing-0_5);
+}
+
+.input {
+  composes: inputBase focusRing from '../mixins/inputBase.module.css';
+  width: 100%;
+  padding: var(--st-spacing-2) var(--st-spacing-3);
+
+  :global(.-st-mobile) & {
+    padding: var(--st-spacing-3);
+  }
+
+  &:disabled {
+    color: var(--st-muted-foreground);
+  }
+
+  &::placeholder {
+    color: var(--st-muted-foreground);
+  }
+}
+
+.inputWrapper {
+  display: flex;
+  position: relative;
+}
+
+.action {
+  transform-origin: center right;
+  scale: 0.75;
+  position: absolute;
+  inset-inline-end: var(--st-spacing-2);
+
+  &:dir(rtl) {
+    transform-origin: center left;
+  }
+}
+
+.error {
+  margin-top: var(--st-spacing-2);
+}

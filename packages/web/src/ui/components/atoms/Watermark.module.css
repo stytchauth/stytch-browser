@@ -1,0 +1,38 @@
+a.watermark {
+  display: flex;
+  align-items: center;
+  gap: var(--st-spacing);
+  padding: var(--st-spacing-2) var(--st-spacing-3);
+  border-radius: var(--st-rounded-md);
+  color: var(--st-muted-foreground);
+  transition:
+    background var(--st-transition-duration),
+    color var(--st-transition-duration);
+
+  &:hover {
+    color: var(--st-accent-foreground);
+    background: var(--st-accent);
+  }
+
+  span {
+    font-size: var(--st-text-sm);
+    line-height: var(--st-line-height-sm);
+    font-weight: var(--st-font-weight-medium);
+  }
+
+  svg {
+    height: 24px;
+  }
+
+  path {
+    /*
+     * HACK: We want this to be white in dark mode and dark blue in light mode.
+     * In HSL, the color is white if the L component is 100%, so we add a multiplier
+     * that is 1 in light mode and 101 in dark mode since --st-dark-mode
+     * is 0 in light mode and 1 in dark mode. We could use color-mix
+     * (using calc(100% * var(--st-dark-mode)) but this has better compatibility.
+     * The color is #000d25 in RGB.
+     */
+    fill: hsl(218.92, 100%, calc(7.25% * (1 + 100 * var(--st-dark-mode, 0))));
+  }
+}

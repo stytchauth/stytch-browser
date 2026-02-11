@@ -1,0 +1,5 @@
+# Cursor rule files
+*.mdc linguist-language=Markdown
+
+# Mark Lingui generated files
+**/messages/**/*.json linguist-generated

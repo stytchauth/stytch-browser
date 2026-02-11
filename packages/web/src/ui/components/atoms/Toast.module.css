@@ -1,0 +1,28 @@
+.container {
+  pointer-events: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 10vh;
+  display: flex;
+  justify-content: center;
+}
+
+.toast {
+  pointer-events: auto;
+
+  top: 0;
+  position: absolute;
+
+  font-family: var(--st-font-family);
+  font-size: var(--st-text-sm);
+  line-height: var(--st-line-height-sm);
+  color: var(--st-destructive);
+  white-space: pre;
+
+  padding: var(--st-spacing-2) var(--st-spacing-3);
+  border: 1px solid var(--st-border);
+  background: var(--st-background);
+  border-radius: var(--st-rounded-md);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}

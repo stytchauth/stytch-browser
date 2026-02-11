@@ -1,0 +1,5 @@
+export type Optional<T> =
+  | T
+  | {
+      [K in keyof T]?: never;
+    };

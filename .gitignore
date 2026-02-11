@@ -1,0 +1,72 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# testing
+coverage
+
+#output
+dist
+build
+.expo
+storybook-static
+*.tgz
+services/e2e-tests/cypress/videos
+services/e2e-tests/cypress/screenshots
+
+# misc
+.DS_Store
+*.pem
+.idea
+.sonda
+.swc
+.parcel-cache
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# turbo
+.turbo
+
+# Lingui temp files 
+.lingui
+
+# messages copied from web so they can be packed
+packages/react/messages
+packages/nextjs/messages
+packages/vanilla-js/messages
+
+# IDE configs
+.vscode/settings.json
+.claude/settings.local.json
+
+.gradle
+local.properties
+.vercel
+
+Pods/
+Podfile.lock
+
+xcuserdata/
+credentials.json
+
+# next
+.next/

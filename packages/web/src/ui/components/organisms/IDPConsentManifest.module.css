@@ -1,0 +1,77 @@
+/* Base styling */
+.manifest details {
+  overflow: clip;
+}
+
+.manifest summary,
+.summaryNoDetail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.manifest summary {
+  cursor: pointer;
+  outline: 0;
+}
+
+.manifest details,
+.summaryNoDetail {
+  padding: var(--st-spacing-2) var(--st-spacing-3);
+}
+
+.summaryNoDetail {
+  /* Mimic the height of summaries with chevrons (spacing-5 + spacing-2 + spacing-2) */
+  min-height: var(--st-spacing-9);
+}
+
+.ungrantable {
+  composes: manifest;
+  background: var(--st-muted);
+}
+
+/* Focusable styling */
+.ungrantable,
+.outerList details {
+  border-radius: var(--st-rounded-md);
+}
+
+.ungrantable:has(:focus-visible),
+.outerList details:has(:focus-visible) {
+  box-shadow: var(--st-focus-ring-shadow);
+}
+
+@supports not selector(:has(:focus-visible)) {
+  .ungrantable:focus-within,
+  .outerList details:focus-within {
+    box-shadow: var(--st-focus-ring-shadow);
+  }
+}
+
+/* List styling */
+.borderBetween:not(:last-child) {
+  border-bottom: 1px solid var(--st-border);
+}
+
+.outerList {
+  list-style: none;
+}
+
+.nestedList {
+  composes: borderBetween;
+  padding-block: var(--st-spacing) var(--st-spacing-2);
+
+  list-style: disc;
+  padding-inline-start: var(--st-spacing-4);
+}
+
+/* Arrow (chevron) styling */
+.chevron {
+  composes: rtlIcon from '../mixins/i18n.module.css';
+  flex-shrink: 0;
+  transition: transform var(--st-transition-duration) ease;
+}
+
+details[open] .chevron {
+  transform: rotate(90deg);
+}

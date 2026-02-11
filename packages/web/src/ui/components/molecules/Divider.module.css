@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: var(--st-spacing-2);
+  line-height: var(--st-line-height-xs);
+}
+
+.bar {
+  flex: 1 1 auto;
+  border-bottom: 1px solid var(--st-divider-color);
+}

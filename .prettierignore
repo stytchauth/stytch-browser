@@ -1,0 +1,59 @@
+# Ignore generated output
+dist
+build
+.turbo
+*.map
+.expo
+coverage
+storybook-static
+*.tgz
+.next
+videos
+screenshots
+*.mp4
+mockServiceWorker.js
+messages
+*.tsbuildinfo
+
+# Package management
+.yarn
+yarn.lock
+
+# Misc
+.env
+.env*
+.gitignore
+.DS_Store
+*.log
+CODEOWNERS
+.snyk
+*.sh
+.gitattributes
+
+# Static assets
+.idea
+.nvmrc
+*LICENSE*
+*.png
+*.ico
+*.svg
+*.jpg
+*.po
+
+# Meta!
+.prettierignore
+
+# React Native
+ios
+android
+Gemfile
+.ruby-version
+.buckconfig
+.bundle
+*.podspec
+*.plist
+*.h
+*.modulemap
+*.a
+*.m
+recaptcha

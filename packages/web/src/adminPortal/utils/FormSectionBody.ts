@@ -1,0 +1,5 @@
+export interface FormSectionBody<TFormState> {
+  localState: TFormState;
+  remoteState: TFormState;
+  setLocalState: (state: React.SetStateAction<TFormState>) => void;
+}

@@ -1,0 +1,25 @@
+.container {
+  overflow: clip;
+  width: fit-content;
+  display: grid;
+}
+
+.primary,
+.secondary {
+  grid-area: 1 / 1 / 2 / 2;
+  transition: translate var(--st-transition-duration) ease-in-out;
+}
+
+.secondary {
+  translate: 0 100%;
+}
+
+.hoverTrigger:is(:hover, :focus) .canTriggerByHover .primary,
+.container.triggered .primary {
+  translate: 0 -100%;
+}
+
+.hoverTrigger:is(:hover, :focus) .canTriggerByHover .secondary,
+.container.triggered .secondary {
+  translate: 0 0;
+}

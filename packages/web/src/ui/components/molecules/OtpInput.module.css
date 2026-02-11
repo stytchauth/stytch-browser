@@ -1,0 +1,68 @@
+.inputContainer {
+  /* Can't use fit-width because otp-input uses calc(100% + 40px) so we need a fixed width here,
+   * so we compute it numerically instead */
+
+  /* 6 slots of 9 spacing each + 5 gaps of 2 spacing each = 64 spacing */
+  width: calc(var(--st-spacing) * 64);
+
+  :global(.-st-mobile) & {
+    /* 6 slots of 10 spacing each + 5 gaps of 2 spacing each = 70 spacing */
+    width: calc(var(--st-spacing) * 70);
+  }
+}
+
+.slotsContainer {
+  display: flex;
+  justify-content: start;
+  gap: var(--st-spacing-2);
+  width: fit-content;
+}
+
+.otpSlot {
+  composes: inputBase from '../mixins/inputBase.module.css';
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: calc(var(--st-spacing) * 9);
+  height: calc(var(--st-spacing) * 9);
+
+  :global(.-st-mobile) & {
+    width: calc(var(--st-spacing) * 10);
+    height: calc(var(--st-spacing) * 10);
+  }
+
+  .disabled & {
+    color: var(--st-muted-foreground);
+  }
+}
+
+.active {
+  composes: forceFocusRing from '../mixins/inputBase.module.css';
+}
+
+.caret {
+  display: inline-block;
+  width: 0;
+  height: calc(var(--st-text-sm) * 1.25);
+  border-right: 1px solid var(--st-foreground);
+  animation: caret-blink 1.5s step-start infinite;
+
+  /* Safari's caret is very different from the others */
+  .safari & {
+    border-right-width: 2px;
+    animation: caret-blink 1s ease-in-out infinite;
+  }
+}
+
+@keyframes caret-blink {
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}

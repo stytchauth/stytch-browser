@@ -1,0 +1,175 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+name: Monorepo Build
+on:
+  workflow_call:
+    secrets:
+      honeycomb_api_key:
+        required: true
+      CHROMATIC_PROJECT_TOKEN:
+        required: true
+env:
+  BUILDEVENT_APIKEY: ${{ secrets.honeycomb_api_key }}
+  BUILDEVENT_DATASET: 'stytch-ci'
+  BUILDEVENT_CIPROVIDER: 'github-actions'
+jobs:
+  build:
+    runs-on: ubuntu-latest-16-cores
+    steps:
+      - name: install honeycomb buildevents tool
+        run: |
+          echo $(date +%s) > ../step_start
+          echo $(echo node-build | sum | cut -f 1 -d \ ) > ../step_span_id
+          sudo curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
+          sudo chmod 755 /usr/local/bin/buildevents
+      - uses: actions/checkout@v3
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+      - name: Install dependencies
+        run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-install -- yarn install --immutable
+      - name: Verify string extraction
+        run: |
+          buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-strings -- yarn strings
+          if ! git diff --quiet; then
+            echo "yarn strings generated changes. Please run it locally and commit the results."
+            git diff
+            exit 1
+          fi
+      - name: Build Packages
+        run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-build -- yarn build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          include-hidden-files: true
+          path: |
+            packages/*/dist/
+            packages/*/build/
+            apps/*/dist/
+            apps/*/build/
+            apps/*/.next/
+            !apps/*/.next/cache/
+            internal/*/dist/
+          retention-days: 1
+      - name: Upload Sonda report
+        uses: actions/upload-artifact@v4
+        with:
+          name: sonda-reports
+          include-hidden-files: true
+          path: |
+            apps/*/.sonda/
+            apps/react-sizes/dist/
+            apps/other-framework-demo/dist/
+          retention-days: 90
+      - name: Finish step
+        run: buildevents step $GITHUB_RUN_ID $(cat ../step_span_id) $(cat ../step_start) node-build
+
+  lint:
+    needs: [build]
+    runs-on: ubuntu-latest-16-cores
+    steps:
+      - name: install honeycomb buildevents tool
+        run: |
+          echo $(date +%s) > ../step_start
+          echo $(echo node-lint | sum | cut -f 1 -d \ ) > ../step_span_id
+          sudo curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
+          sudo chmod 755 /usr/local/bin/buildevents
+      - uses: actions/checkout@v3
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+      - name: Install dependencies
+        run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-install -- yarn install --immutable
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - name: Run linter
+        run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-lint -- yarn lint
+      - name: Finish step
+        run: buildevents step $GITHUB_RUN_ID $(cat ../step_span_id) $(cat ../step_start) node-lint
+
+  typecheck:
+    needs: [build]
+    runs-on: ubuntu-latest-16-cores
+    steps:
+      - name: install honeycomb buildevents tool
+        run: |
+          echo $(date +%s) > ../step_start
+          echo $(echo node-typecheck | sum | cut -f 1 -d \ ) > ../step_span_id
+          sudo curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
+          sudo chmod 755 /usr/local/bin/buildevents
+      - uses: actions/checkout@v3
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+      - name: Install dependencies
+        run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-install -- yarn install --immutable
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - name: Run type check
+        run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-typecheck -- yarn typecheck
+      - name: Finish step
+        run: buildevents step $GITHUB_RUN_ID $(cat ../step_span_id) $(cat ../step_start) node-typecheck
+
+  test:
+    needs: [build]
+    runs-on: ubuntu-latest-16-cores
+    steps:
+      - name: install honeycomb buildevents tool
+        run: |
+          echo $(date +%s) > ../step_start
+          echo $(echo node-test | sum | cut -f 1 -d \ ) > ../step_span_id
+          sudo curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
+          sudo chmod 755 /usr/local/bin/buildevents
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+      - name: Install dependencies
+        run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-install -- yarn install --immutable
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - name: Run tests
+        run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-test -- yarn test
+      - name: Cache Playwright browsers
+        uses: actions/cache@v3
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('packages/web/package.json') }}
+      - name: Install Playwright
+        working-directory: packages/web
+        run: buildevents cmd $GITHUB_RUN_ID $(cat ../../../step_span_id) npx-install-playwright -- npx playwright install
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+      - name: Install Playwright system dependencies
+        working-directory: packages/web
+        run: npx playwright install-deps
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+      - name: Run Storybook tests
+        run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-test-storybook -- yarn test-storybook:static
+      - name: Run Chromatic
+        uses: chromaui/action@v15
+        with:
+          storybookBuildDir: 'packages/web/storybook-static'
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          onlyChanged: true
+          exitOnceUploaded: true
+          storybookBaseDir: 'packages/web'
+      - name: Finish step
+        run: buildevents step $GITHUB_RUN_ID $(cat ../step_span_id) $(cat ../step_start) node-test

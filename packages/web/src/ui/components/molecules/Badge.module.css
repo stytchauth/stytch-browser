@@ -1,0 +1,8 @@
+.badge {
+  border: 1px solid var(--st-border);
+  border-radius: var(--st-rounded-base);
+  padding: var(--st-spacing-0_5) var(--st-spacing);
+  width: fit-content;
+  background-color: var(--st-background);
+  cursor: default;
+}

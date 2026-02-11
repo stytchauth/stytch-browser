@@ -1,0 +1,14 @@
+.codes {
+  margin: 0 auto;
+  list-style: none;
+  display: grid;
+  justify-content: center;
+  column-gap: 4ch;
+  max-width: calc(var(--st-max-code-length) * 2 + 4ch);
+  grid-template-columns: repeat(auto-fill, var(--st-max-code-length));
+
+  li {
+    white-space: nowrap;
+    user-select: all;
+  }
+}

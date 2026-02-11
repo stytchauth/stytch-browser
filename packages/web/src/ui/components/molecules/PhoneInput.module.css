@@ -1,0 +1,38 @@
+.container {
+  display: grid;
+  gap: var(--st-spacing-2);
+  /* The country code gets 90px at default 4px spacing */
+  grid-template-columns: calc(var(--st-spacing) * 22.5) 1fr;
+}
+
+.phone {
+  /* Named grid not used because it will leave a gap even when error is not present */
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+.select {
+  composes: inputBase from '../mixins/inputBase.module.css';
+  grid-area: 1 / 1 / 2 / 2;
+
+  /* Allows us to use our own chevron but also line-height for some reason doesn't work without this */
+  appearance: none;
+  padding-inline: var(--st-spacing-3) var(--st-spacing-6);
+  padding-block: var(--st-spacing-2);
+
+  :global(.-st-mobile) & {
+    padding-block: var(--st-spacing-3);
+  }
+}
+
+.chevron {
+  grid-area: 1 / 1 / 2 / 2;
+  pointer-events: none;
+  place-self: center end;
+  rotate: 90deg;
+  color: var(--st-muted-foreground);
+  margin-inline-end: var(--st-spacing-2);
+}
+
+.error {
+  grid-area: 2 / 1 / 3 / 3;
+}

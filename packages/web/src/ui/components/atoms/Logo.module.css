@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--st-spacing-2);
+}
+
+.logo {
+  max-height: 50px;
+  max-width: 100px;
+}

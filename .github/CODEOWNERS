@@ -1,0 +1,4 @@
+# Snyk File changes can only be approved by Security & Compliance team members
+# TODO: Should this include latacora?
+# TODO: Should this be wrapped up in a GH Team?
+.snyk @shawn-stytch @howard-stytch

@@ -1,0 +1,54 @@
+diff --git a/dist/index.js b/dist/index.js
+index b49982f5a62521aaf0be8831ad7c86d661ab04a0..73882c20e61b6690aa4bb10f0cf3af52283e78bb 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -248,16 +248,20 @@ function getFocusIntent(event, orientation, dir) {
+   return MAP_KEY_TO_FOCUS_INTENT[key];
+ }
+ function focusFirst(candidates, preventScroll = false) {
+-  const PREVIOUSLY_FOCUSED_ELEMENT = document.activeElement;
++  const PREVIOUSLY_FOCUSED_ELEMENT = getActiveElement();
+   for (const candidate of candidates) {
+     if (candidate === PREVIOUSLY_FOCUSED_ELEMENT) return;
+     candidate.focus({ preventScroll });
+-    if (document.activeElement !== PREVIOUSLY_FOCUSED_ELEMENT) return;
++    if (getActiveElement() !== PREVIOUSLY_FOCUSED_ELEMENT) return;
+   }
+ }
+ function wrapArray(array, startIndex) {
+   return array.map((_, index) => array[(startIndex + index) % array.length]);
+ }
++function getActiveElement(root = document) {
++  const activeElement = root.activeElement;
++  return activeElement && activeElement.shadowRoot ? getActiveElement(activeElement.shadowRoot) : activeElement;
++}
+ var Root = RovingFocusGroup;
+ var Item = RovingFocusGroupItem;
+ //# sourceMappingURL=index.js.map
+diff --git a/dist/index.mjs b/dist/index.mjs
+index 08aaabcdb5402c74bcbd935a34e2b7f4a50fdfc0..261456f5196d23adff437b5e11d009ced58b5a6b 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -209,11 +209,11 @@ function getFocusIntent(event, orientation, dir) {
+   return MAP_KEY_TO_FOCUS_INTENT[key];
+ }
+ function focusFirst(candidates, preventScroll = false) {
+-  const PREVIOUSLY_FOCUSED_ELEMENT = document.activeElement;
++  const PREVIOUSLY_FOCUSED_ELEMENT = getActiveElement();
+   for (const candidate of candidates) {
+     if (candidate === PREVIOUSLY_FOCUSED_ELEMENT) return;
+     candidate.focus({ preventScroll });
+-    if (document.activeElement !== PREVIOUSLY_FOCUSED_ELEMENT) return;
++    if (getActiveElement() !== PREVIOUSLY_FOCUSED_ELEMENT) return;
+   }
+ }
+ function wrapArray(array, startIndex) {
+@@ -228,4 +228,8 @@ export {
+   RovingFocusGroupItem,
+   createRovingFocusGroupScope
+ };
++function getActiveElement(root = document) {
++  const activeElement = root.activeElement;
++  return activeElement && activeElement.shadowRoot ? getActiveElement(activeElement.shadowRoot) : activeElement;
++}
+ //# sourceMappingURL=index.mjs.map

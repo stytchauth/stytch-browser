@@ -1,0 +1,113 @@
+/* Global */
+.button {
+  composes: focusRing from '../mixins/inputBase.module.css';
+
+  font-family: var(--st-font-family);
+  font-size: var(--st-text-sm);
+  font-weight: var(--st-font-weight-medium);
+  line-height: var(--st-line-height-sm);
+
+  border-radius: var(--st-button-radius);
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  gap: var(--st-spacing-2);
+  padding: var(--st-spacing-2) var(--st-spacing-3);
+  transition:
+    background-color var(--st-transition-duration) ease-in-out,
+    border-color var(--st-transition-duration) ease-in-out;
+  box-shadow: var(--st-shadow-button);
+}
+
+:global(.-st-mobile) .button {
+  padding: var(--st-spacing-3);
+}
+
+.button:focus-visible {
+  /* Use --st-shadow-button as the base shadow instead of --st-shadow-input */
+  box-shadow: var(--st-shadow-button), var(--st-focus-ring-shadow);
+}
+
+.button:not(:disabled) {
+  cursor: pointer;
+}
+
+.button:disabled {
+  opacity: 0.5;
+}
+
+.block {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Primary */
+.primary {
+  background-color: var(--st-primary);
+  border-color: var(--st-primary);
+  color: var(--st-primary-foreground);
+}
+
+.primary:not(:disabled):hover {
+  background-color: var(--st-primary-button-hover);
+  border-color: var(--st-primary-button-hover);
+}
+
+/* Secondary */
+.secondary {
+  background-color: var(--st-secondary);
+  border-color: var(--st-secondary);
+  color: var(--st-secondary-foreground);
+}
+
+.secondary:not(:disabled):hover {
+  background-color: var(--st-secondary-button-hover);
+  border-color: var(--st-secondary-button-hover);
+}
+
+/* Outline */
+.outline {
+  background-color: var(--st-background);
+  border: 1px solid var(--st-border);
+  color: var(--st-foreground);
+}
+
+.outline:not(:disabled):hover {
+  background-color: var(--st-accent);
+  color: var(--st-accent-foreground);
+}
+
+.outline:focus-visible {
+  border-color: var(--st-ring);
+}
+
+/* Ghost */
+.ghost {
+  background-color: var(--st-background);
+  color: var(--st-foreground);
+  border: 1px solid var(--st-background);
+  box-shadow: none;
+}
+
+.ghost:not(:disabled):hover {
+  background-color: var(--st-accent);
+  color: var(--st-accent-foreground);
+  border-color: var(--st-background);
+}
+
+.ghost:focus-visible {
+  /* Do not add --st-shadow-button to ghost buttons on focus */
+  box-shadow: var(--st-focus-ring-shadow);
+}
+
+/* Destructive */
+.destructive {
+  background-color: var(--st-destructive);
+  border-color: var(--st-destructive);
+  color: var(--st-destructive-foreground);
+}
+
+.destructive:not(:disabled):hover {
+  background-color: var(--st-destructive-button-hover);
+  border-color: var(--st-destructive-button-hover);
+}
