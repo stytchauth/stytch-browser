@@ -1,0 +1,30 @@
+{
+  "name": "@stytch/internal-react-shared",
+  "private": true,
+  "sideEffects": false,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./src/b2b": "./src/b2b/index.ts",
+    "./src/b2b/StytchB2BContext": "./src/b2b/StytchB2BContext.tsx"
+  },
+  "scripts": {
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@stytch/internal-test-utils": "workspace:*",
+    "@stytch/internal-tsconfigs": "workspace:*",
+    "@stytch/jest-environment": "workspace:*",
+    "@stytch/vanilla-js": "workspace:*",
+    "@types/jest": "29.5.14",
+    "jest": "29.7.0",
+    "react": "18.2.0",
+    "ts-jest": "29.2.5",
+    "typescript": "5.3.3"
+  },
+  "peerDependencies": {
+    "react": "^17 || ^18 || ^19"
+  }
+}

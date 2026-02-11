@@ -1,0 +1,45 @@
+name: Run E2E Tests
+on:
+  workflow_call:
+    inputs:
+      env:
+        required: true
+        type: string
+    secrets:
+      cypress_mailosaur_api_key:
+        required: true
+      cypress_mailosaur_server_id:
+        required: true
+      cypress_record_key:
+        required: true
+
+jobs:
+  run-e2e-tests:
+    runs-on: ubuntu-latest-16-cores
+    container:
+      image: cypress/browsers:22.19.0
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+
+      # If we let Cypress handle installing, we run into strange file permission issues
+      # Easier for us to install ourselves. the "focus" command only installs dependencies for the e2e-tests package
+      - name: Install node dependencies
+        run: yarn workspaces focus e2e-tests
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        env:
+          ENV: ${{ inputs.env }}
+          CYPRESS_MAILOSAUR_API_KEY: ${{ secrets.cypress_mailosaur_api_key }}
+          CYPRESS_MAILOSAUR_SERVER_ID: ${{ secrets.cypress_mailosaur_server_id }}
+          CYPRESS_RECORD_KEY: ${{ secrets.cypress_record_key }}
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+        with:
+          install: false
+          record: true
+          working-directory: services/e2e-tests

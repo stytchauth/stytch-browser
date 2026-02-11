@@ -1,0 +1,101 @@
+import * as React from 'react';
+import { MessageDescriptor } from '@lingui/core';
+import { msg } from '@lingui/core/macro';
+import { useLingui } from '@lingui/react/macro';
+import styled from 'styled-components';
+import { WalletButton } from '../../../components/WalletButton';
+import { Wallets } from '@stytch/core/public';
+
+import { useConfig, useGlobalReducer, AppScreens } from '../../GlobalContextProvider';
+import { WalletToIcon, WalletToText, isWalletVisible } from '../../../../utils/crypto';
+import { Flex } from '../../../components/Flex';
+import { BaseButton } from '../../../components/BaseButton';
+
+const MAX_BUTTONS = 6;
+
+const SetupButton = styled(BaseButton)`
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+`;
+
+const walletMessages = {
+  [Wallets.Phantom]: msg({ id: 'crypto.wallet.continueWithPhantom', message: 'Continue with Phantom' }),
+  [Wallets.Vessel]: msg({ id: 'crypto.wallet.continueWithVessel', message: 'Continue with Vessel' }),
+  [Wallets.Binance]: msg({ id: 'crypto.wallet.continueWithBinance', message: 'Continue with Binance' }),
+  [Wallets.Coinbase]: msg({ id: 'crypto.wallet.continueWithCoinbase', message: 'Continue with Coinbase' }),
+  [Wallets.Metamask]: msg({ id: 'crypto.wallet.continueWithMetamask', message: 'Continue with Metamask' }),
+  [Wallets.GenericEthereumWallet]: msg({
+    id: 'crypto.wallet.continueWithEthereum',
+    message: 'Continue with Other Ethereum Wallet',
+  }),
+  [Wallets.GenericSolanaWallet]: msg({
+    id: 'crypto.wallet.continueWithSolana',
+    message: 'Continue with Other Solana Wallet',
+  }),
+} satisfies Record<Wallets, MessageDescriptor>;
+
+export const CryptoWalletButtons = ({ type }: { type: 'main' | 'other' }) => {
+  const { t } = useLingui();
+  const [state, dispatch] = useGlobalReducer();
+  const config = useConfig();
+  const oAuthOptions = config.oauthOptions?.providers.length ?? 0;
+
+  // Crypto Buttons on screen = Maximum Buttons - OAuth Buttons - 1 (Other crypto or set up new wallet)
+  const cryptoButtonsOnMainScreen = MAX_BUTTONS - oAuthOptions - 1;
+  const onWalletStart = (wallet: Wallets) => {
+    dispatch({
+      type: 'update_crypto_state',
+      cryptoState: {
+        ...state.formState.cryptoState,
+        walletOption: wallet,
+      },
+    });
+    dispatch({ type: 'transition', screen: AppScreens.CryptoConnect });
+  };
+
+  const allDetectedWallets = (Object.keys(Wallets) as (keyof typeof Wallets)[]).filter((wallet) =>
+    isWalletVisible(Wallets[wallet]),
+  );
+
+  const renderOtherScreenButton = allDetectedWallets.length > cryptoButtonsOnMainScreen;
+
+  const mainWallets = allDetectedWallets.slice(0, cryptoButtonsOnMainScreen);
+  const otherWallet = allDetectedWallets.slice(cryptoButtonsOnMainScreen);
+
+  const walletsToRender = type === 'main' ? mainWallets : otherWallet;
+
+  const WalletIconComponent = ({ wallet }: { wallet: Wallets }) => {
+    const Icon = WalletToIcon[wallet];
+    return <Icon />;
+  };
+
+  return (
+    <Flex direction="column" gap={8} className="wallet-buttons">
+      {walletsToRender.map((wallet) => (
+        <WalletButton
+          key={wallet}
+          icon={<WalletIconComponent wallet={Wallets[wallet]} />}
+          walletTypeTitle={type === 'main' ? t(walletMessages[Wallets[wallet]]) : t(WalletToText[Wallets[wallet]])}
+          onClick={() => onWalletStart(Wallets[wallet])}
+        />
+      ))}
+      {renderOtherScreenButton && type === 'main' ? (
+        <WalletButton
+          walletTypeTitle={t(
+            msg({ id: 'crypto.wallet.continueWithOtherWallet', message: 'Continue with other Crypto Wallet' }),
+          )}
+          icon={<WalletIconComponent wallet={Wallets.GenericEthereumWallet} />}
+          onClick={() => dispatch({ type: 'transition', screen: AppScreens.CryptoOtherScreen })}
+        />
+      ) : (
+        <SetupButton
+          type="button"
+          onClick={() => dispatch({ type: 'transition', screen: AppScreens.CryptoSetupWallet })}
+        >
+          {t(msg({ id: 'crypto.wallet.setupNewWallet', message: 'Set up a new crypto wallet' }))}
+        </SetupButton>
+      )}
+    </Flex>
+  );
+};

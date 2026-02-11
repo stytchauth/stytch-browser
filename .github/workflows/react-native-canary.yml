@@ -1,0 +1,100 @@
+name: 'React Native Canary'
+on:
+  workflow_dispatch: # Can be called manually
+  workflow_call: # Can be called by other workflows
+    secrets:
+      EXPO_TOKEN:
+        required: true
+jobs:
+  configure:
+    name: Configure Canary
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Pre-install Globals
+        run: npm install -g yarn
+
+      - name: Configure Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Configure Canary
+        working-directory: canaries/react-native-canary
+        run: |
+          echo "Resetting lockfile..."
+          rm yarn.lock
+          touch yarn.lock
+          echo "... Lockfile reset"
+
+          echo "Installing dependencies at 'latest'..."
+          yarn --no-immutable
+          echo "... all dependencies at 'latest'"
+
+          echo "Run expo-doctor to pin versions..."
+          npx expo install --fix
+          echo "... dependencies pinned"
+
+          echo "Canary is configured"
+
+      - name: Upload relevant package data
+        uses: actions/upload-artifact@v4
+        with:
+          name: react-native-canary-data
+          path: |
+            ./canaries/react-native-canary/package.json
+            ./canaries/react-native-canary/yarn.lock
+
+  build:
+    name: Build ${{ matrix.platform }}
+    needs: [configure]
+    strategy:
+      matrix:
+        include:
+          - runner: ubuntu-latest-16-cores
+            platform: android
+          - runner: macos-latest
+            platform: ios
+    runs-on: ${{ matrix.runner }}
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Pre-install Globals
+        run: npm install -g yarn eas-cli
+
+      - name: Configure Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        if: ${{ matrix.platform == 'android' }}
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - name: Setup Android SDK
+        if: ${{ matrix.platform == 'android' && env.ACT }}
+        uses: android-actions/setup-android@v3
+
+      - name: Overwrite relevant data
+        uses: actions/download-artifact@v4
+        with:
+          name: react-native-canary-data
+          path: ./canaries/react-native-canary/
+
+      - name: Install JS dependencies
+        working-directory: canaries/react-native-canary
+        run: |
+          yarn install --no-immutable
+
+      - name: Build App
+        working-directory: canaries/react-native-canary
+        run: |
+          EXPO_TOKEN=$EXPO_TOKEN eas build -e production -p ${{ matrix.platform }} --local --non-interactive

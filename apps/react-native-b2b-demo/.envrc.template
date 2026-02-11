@@ -1,0 +1,10 @@
+# Copy this from your Stytch Dashboard
+export STYTCH_PUBLIC_TOKEN=public-token-...
+# Replace with the name you use in remote dev
+export STYTCH_ORG_ID=organization-test-...
+export STYTCH_OAUTH_URL=something://auth
+export STYTCH_TEST_API_URL=https://test.${name}.stytch.com
+export STYTCH_LIVE_API_URL=https://api.${name}.stytch.com
+export STYTCH_DFP_BACKEND_URL=https://telemetry.stytch.com
+export STYTCH_WEBAUTHN_DOMAIN=stytch.com
+export STYTCH_SAML_CONNECTION_ID=saml-connection-...

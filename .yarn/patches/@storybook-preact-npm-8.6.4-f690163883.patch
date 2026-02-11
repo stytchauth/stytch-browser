@@ -1,0 +1,13 @@
+diff --git a/dist/chunk-YWXRTNBA.mjs b/dist/chunk-YWXRTNBA.mjs
+index ff10d3501114fac080afb6610b46b1d8748d8562..1ffab136b825661439fb42c028720462eb1c80f0 100644
+--- a/dist/chunk-YWXRTNBA.mjs
++++ b/dist/chunk-YWXRTNBA.mjs
+@@ -2,7 +2,7 @@ import { __export } from './chunk-CEH6MNVV.mjs';
+ import * as preact from 'preact';
+ import { dedent } from 'ts-dedent';
+ 
+-var entry_preview_exports={};__export(entry_preview_exports,{parameters:()=>parameters,render:()=>render2,renderToCanvas:()=>renderToCanvas});var {h:h2}=preact,render2=(args,context)=>{let{id,component:Component}=context;if(!Component)throw new Error(`Unable to render story ${id} as the component annotation is missing from the default export`);return h2(Component,{...args})},renderedStory;function preactRender(story,canvasElement){preact.Fragment?preact.render(story,canvasElement):renderedStory=preact.render(story,canvasElement,renderedStory);}var StoryHarness=({showError,name,title,storyFn,canvasElement})=>{let content=preact.h(storyFn,null);return content||(showError({title:`Expecting a Preact element from the story: "${name}" of "${title}".`,description:dedent`
++var entry_preview_exports={};__export(entry_preview_exports,{parameters:()=>parameters,render:()=>render2,renderToCanvas:()=>renderToCanvas});var {h:h2}=preact,render2=(args,context)=>{let{id,component:Component}=context;if(!Component)throw new Error(`Unable to render story ${id} as the component annotation is missing from the default export`);return h2(Component,{...args})},renderedStory;function preactRender(story,canvasElement){preact.Fragment?preact.render(story,canvasElement):renderedStory=preact.render(story,canvasElement,renderedStory);}var StoryHarness=({showError,name,title,storyFn,canvasElement})=>{let content=storyFn();return content||(showError({title:`Expecting a Preact element from the story: "${name}" of "${title}".`,description:dedent`
+         Did you forget to return the Preact element from the story?
+         Use "() => (<MyComp/>)" or "() => { return <MyComp/>; }" when defining the story.
+       `}),null)};function renderToCanvas({storyFn,title,name,showMain,showError,forceRemount},canvasElement){forceRemount&&preactRender(null,canvasElement),showMain(),preactRender(preact.h(StoryHarness,{name,title,showError,storyFn,canvasElement}),canvasElement);}var parameters={renderer:"preact"};

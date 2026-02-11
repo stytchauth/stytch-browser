@@ -1,0 +1,14 @@
+{
+  "git": {
+    "deploymentEnabled": {
+      "changeset-release/main": false
+    }
+  },
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "name": "react-native-canary",
+  "main": "expo-router/entry",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "expo start",
+    "reset-project": "node ./scripts/reset-project.js",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "lint": "expo lint"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "latest",
+    "@react-navigation/bottom-tabs": "latest",
+    "@react-navigation/elements": "latest",
+    "@react-navigation/native": "latest",
+    "@stytch/react-native": "latest",
+    "@stytch/react-native-inappbrowser-reborn": "latest",
+    "expo": "latest",
+    "expo-constants": "latest",
+    "expo-dev-client": "latest",
+    "expo-font": "latest",
+    "expo-haptics": "latest",
+    "expo-image": "latest",
+    "expo-linking": "latest",
+    "expo-router": "latest",
+    "expo-splash-screen": "latest",
+    "expo-status-bar": "latest",
+    "expo-symbols": "latest",
+    "expo-system-ui": "latest",
+    "expo-web-browser": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-native": "latest",
+    "react-native-gesture-handler": "latest",
+    "react-native-reanimated": "latest",
+    "react-native-safe-area-context": "latest",
+    "react-native-screens": "latest",
+    "react-native-worklets": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "latest",
+    "eslint": "latest",
+    "eslint-config-expo": "latest",
+    "typescript": "latest"
+  },
+  "private": true
+}

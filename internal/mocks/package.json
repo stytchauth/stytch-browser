@@ -1,0 +1,16 @@
+{
+  "name": "@stytch/internal-mocks",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@stytch/internal-tsconfigs": "workspace:*",
+    "typescript": "5.3.3"
+  }
+}

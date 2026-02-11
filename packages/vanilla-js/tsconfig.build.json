@@ -1,0 +1,17 @@
+{
+  "extends": ["@stytch/internal-tsconfigs/tsconfig.base.json", "@stytch/internal-tsconfigs/tsconfig.web.json"],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "sourceMap": true
+  },
+  "files": [
+    "src/index.ts",
+    "src/index.headless.ts",
+    "src/b2b/index.ts",
+    "src/b2b/index.headless.ts",
+    "src/adminPortal/index.ts",
+    "src/adminPortal/shared/createTheme.d.ts",
+    "src/lingui.d.ts"
+  ]
+}

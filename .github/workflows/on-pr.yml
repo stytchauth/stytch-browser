@@ -1,0 +1,63 @@
+name: On Pull Requests [PR]
+on:
+  merge_group:
+  pull_request:
+    branches: [main, feature/**]
+jobs:
+  pre-build:
+    runs-on: ubuntu-latest
+    outputs:
+      starttime: ${{ steps.settime.outputs.time }}
+    steps:
+      - id: settime
+        run: echo "time=$(date +%s)" >> $GITHUB_OUTPUT
+
+  node-lint-build-test:
+    needs: [pre-build]
+    uses: ./.github/workflows/node-lint-build-test.yml
+    secrets:
+      honeycomb_api_key: ${{ secrets.HONEYCOMB_CI_API_KEY }}
+
+  post-build-fail:
+    if: ${{ failure() }}
+    needs: [pre-build, node-lint-build-test]
+    runs-on: ubuntu-latest
+    env:
+      BUILDEVENT_APIKEY: ${{ secrets.HONEYCOMB_CI_API_KEY }}
+      BUILDEVENT_DATASET: 'stytch-ci'
+      BUILDEVENT_CIPROVIDER: 'github-actions'
+    steps:
+      - name: install honeycomb buildevents tool
+        run: |
+          echo $(date +%s) > ../step-start
+          echo $(echo post-build | sum | cut -f 1 -d \ ) > ../step_span_id
+          sudo curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
+          sudo chmod 755 /usr/local/bin/buildevents
+          buildevents step $GITHUB_RUN_ID $(cat ../step_span_id) $(cat ../step-start) post-build
+
+      - name: finalize and send failed buildevents build
+        run: |
+          traceURL=$(buildevents build $GITHUB_RUN_ID ${{ needs.pre-build.outputs.starttime }} failure)
+          echo "build failed: $traceURL"
+
+  post-build-success:
+    if: ${{ success() }}
+    needs: [pre-build, node-lint-build-test]
+    runs-on: ubuntu-latest
+    env:
+      BUILDEVENT_APIKEY: ${{ secrets.HONEYCOMB_CI_API_KEY }}
+      BUILDEVENT_DATASET: 'stytch-ci'
+      BUILDEVENT_CIPROVIDER: 'github-actions'
+    steps:
+      - name: install honeycomb buildevents tool
+        run: |
+          echo $(date +%s) > ../step-start
+          echo $(echo post-build | sum | cut -f 1 -d \ ) > ../step_span_id
+          sudo curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
+          sudo chmod 755 /usr/local/bin/buildevents
+          buildevents step $GITHUB_RUN_ID $(cat ../step_span_id) $(cat ../step-start) post-build
+
+      - name: finalize and send success buildevents build
+        run: |
+          traceURL=$(buildevents build $GITHUB_RUN_ID ${{ needs.pre-build.outputs.starttime }} success)
+          echo "build success: $traceURL"

@@ -1,0 +1,6 @@
+framework module StytchDFP {
+  umbrella header "StytchDFP.h"
+  export *
+
+  module * { export * }
+}

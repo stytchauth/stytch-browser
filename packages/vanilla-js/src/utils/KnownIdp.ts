@@ -1,0 +1,4 @@
+export type SamlKnownIdp = 'generic' | 'okta' | 'microsoft-entra' | 'google-workspace';
+export type OidcKnownIdp = 'generic' | 'okta' | 'microsoft-entra';
+
+export type SsoKnownIdp = SamlKnownIdp | OidcKnownIdp;

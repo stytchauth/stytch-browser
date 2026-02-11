@@ -1,0 +1,602 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-05-07 12:59-0400\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+
+msgid "button.back.ariaLabel"
+msgstr "Back"
+
+msgid "button.cancel"
+msgstr "Cancel"
+
+msgid "button.continue"
+msgstr "Continue"
+
+msgid "button.createPasskey"
+msgstr "Create a Passkey"
+
+msgid "button.createPasswordInstead"
+msgstr "Create a password instead"
+
+msgid "button.delete"
+msgstr "Delete"
+
+msgid "button.done"
+msgstr "Done"
+
+msgid "button.edit"
+msgstr "Edit"
+
+msgid "button.emailLogin"
+msgstr "Continue with email"
+
+msgid "button.emailMagicLink"
+msgstr "Email me a login link"
+
+msgid "button.emailOTP"
+msgstr "Email me a login code"
+
+msgid "button.forgotPassword"
+msgstr "Forgot Password?"
+
+msgid "button.hidePassword"
+msgstr "Hide password"
+
+msgid "button.loginWithPasskey"
+msgstr "Login with a Passkey"
+
+msgid "button.loginWithoutPassword"
+msgstr "Login without a password"
+
+msgid "button.retry"
+msgstr "Try again"
+
+msgid "button.save"
+msgstr "Save"
+
+msgid "button.showPassword"
+msgstr "Show password"
+
+msgid "button.skip"
+msgstr "Skip"
+
+msgid "button.sms"
+msgstr "Continue with text message"
+
+msgid "button.whatsapp"
+msgstr "Continue with WhatsApp"
+
+msgid "createAccount.title"
+msgstr "Choose how you would like to create your account."
+
+msgid "crypto.connectWallet.instructionPopup"
+msgstr "Complete sign in by connecting through the wallet pop up in the right corner of your screen."
+
+msgid "crypto.connectWallet.title"
+msgstr "Connecting to your wallet..."
+
+msgid "crypto.continueWithOtherWallet.title"
+msgstr "Continue with other wallet"
+
+msgid "crypto.error.content"
+msgstr "Your sign in request could not be completed. Use the back arrow to return to the log in screen and try again!"
+
+msgid "crypto.error.title"
+msgstr "Looks like there was an error!"
+
+msgid "crypto.setupNewWallet.content"
+msgstr "Signing in with a crypto wallet can help keep your account private and secure."
+
+msgid "crypto.setupNewWallet.instruction"
+msgstr "Get started by downloading any Ethereum or Solana wallet. We’ve included a few examples of wallet extensions you can find below. Once you’ve set up your wallet, you can use it to sign in!"
+
+msgid "crypto.setupNewWallet.title"
+msgstr "Set up a new crypto wallet"
+
+msgid "crypto.signMessage.instruction"
+msgstr "Complete the signature request through the wallet pop up in the right corner of your screen."
+
+msgid "crypto.signMessage.title"
+msgstr "Completing signature request..."
+
+msgid "crypto.success.content"
+msgstr "You have successfully connected your wallet."
+
+msgid "crypto.success.title"
+msgstr "Success!"
+
+msgid "crypto.troubleHelp"
+msgstr "Having trouble? Use the back arrow to return to the main screen and try logging in again."
+
+msgid "crypto.wallet.binance"
+msgstr "Binance"
+
+msgid "crypto.wallet.coinbase"
+msgstr "Coinbase"
+
+msgid "crypto.wallet.continueWithBinance"
+msgstr "Continue with Binance"
+
+msgid "crypto.wallet.continueWithCoinbase"
+msgstr "Continue with Coinbase"
+
+msgid "crypto.wallet.continueWithEthereum"
+msgstr "Continue with Other Ethereum Wallet"
+
+msgid "crypto.wallet.continueWithMetamask"
+msgstr "Continue with Metamask"
+
+msgid "crypto.wallet.continueWithOtherWallet"
+msgstr "Continue with other Crypto Wallet"
+
+msgid "crypto.wallet.continueWithPhantom"
+msgstr "Continue with Phantom"
+
+msgid "crypto.wallet.continueWithSolana"
+msgstr "Continue with Other Solana Wallet"
+
+msgid "crypto.wallet.continueWithVessel"
+msgstr "Continue with Vessel"
+
+msgid "crypto.wallet.metamask"
+msgstr "Metamask"
+
+msgid "crypto.wallet.otherEthereum"
+msgstr "Other Ethereum Wallet"
+
+msgid "crypto.wallet.otherSolana"
+msgstr "Other Solana Wallet"
+
+msgid "crypto.wallet.phantom"
+msgstr "Phantom"
+
+msgid "crypto.wallet.setupNewWallet"
+msgstr "Set up a new crypto wallet"
+
+msgid "crypto.wallet.vessel"
+msgstr "Vessel"
+
+msgid "emailConfirmation.content"
+msgstr "An email was sent to <bold>{email}</bold>."
+
+msgid "emailConfirmation.title"
+msgstr "Check your email"
+
+msgid "error.breachedPassword"
+msgstr "Password appears in the list of breached passwords and must be reset."
+
+msgid "error.duplicatePasskey"
+msgstr "The Passkey cannot be created as it seems to be already registered. It is possible this Passkey was registered on another device but has synced cross-device."
+
+msgid "error.duplicatePhoneNumber"
+msgstr "A member with the specified phone number already exists for this organization."
+
+msgid "error.emailNotFound"
+msgstr "Email not found."
+
+msgid "error.inactiveEmail"
+msgstr "The email address is marked as inactive. Please try another email address, or contact your admin if you think this is a mistake."
+
+msgid "error.invalidCode"
+msgstr "Code format is invalid, please try again."
+
+msgid "error.invalidEmail"
+msgstr "Email format is invalid."
+
+msgid "error.invalidPhoneNumber"
+msgstr "Phone number format is invalid. Ensure the phone number is in the E.164 format."
+
+msgid "error.invalidPhoneNumberCountryCode"
+msgstr "The phone number's country code is invalid, unsupported, or disabled."
+
+msgid "error.invalidSessionToken"
+msgstr "Invalid session token."
+
+msgid "error.memberPasswordNotFound"
+msgstr "Member password not found."
+
+msgid "error.noUserPassword"
+msgstr "Password not found for this user. Please try again."
+
+msgid "error.oauthFlowCallbackError"
+msgstr "An error was encountered in the callback of the OAuth flow. Please try again."
+
+msgid "error.oauthTokenNotFound"
+msgstr "OAuth Token could not be found."
+
+msgid "error.otpCodeNotFound"
+msgstr "Invalid passcode, please try again."
+
+msgid "error.passkeyNotCreated"
+msgstr "Your Passkey was not created. Click “Create a Passkey” to try again or skip without adding a Passkey."
+
+msgid "error.passkeyRegistrationNotFound"
+msgstr "Passkey registration not found. You may have deleted the passkey from your account but not password manager. Please try again."
+
+msgid "error.passkeyUnknown"
+msgstr "Unknown error occurred during passkey authentication. Please try again."
+
+msgid "error.resetPassword"
+msgstr "Password must be reset."
+
+msgid "error.sessionNotFound"
+msgstr "Session not found."
+
+msgid "error.title"
+msgstr "Looks like there was an error!"
+
+msgid "error.unableToAuthMagicLink"
+msgstr "The magic link could not be authenticated because it was either already used or expired. Please try again."
+
+msgid "error.unauthorizedAction"
+msgstr "Unauthorized action."
+
+msgid "error.unauthorizedCredentials"
+msgstr "Unauthorized credentials."
+
+msgid "error.unsubscribedPhoneNumber"
+msgstr "Phone number is unsubscribed. User has unsubscribed. Resubscribe by texting 'START' before messages can be sent."
+
+msgid "error.userLockLimitReached"
+msgstr "Too many failed authentication attempts. Please try again later."
+
+msgid "error.userUnauthenticated"
+msgstr "Must have an active session to call this method. Have you logged in yet?"
+
+msgid "errors.invalidEmail"
+msgstr "Invalid email address."
+
+msgid "formField.countryCode.label"
+msgstr "Country code"
+
+msgid "formField.email.label"
+msgstr "Email"
+
+msgid "formField.email.placeholder"
+msgstr "example@email.com"
+
+msgid "formField.otp.ariaLabel"
+msgstr "One-time passcode"
+
+msgid "formField.passcode.status.verifying"
+msgstr "Verifying passcode..."
+
+msgid "formField.password.label"
+msgstr "Password"
+
+msgid "formField.phone.label"
+msgstr "Phone number"
+
+msgid "idpConsent.allowClientTo"
+msgstr "Allow {clientName} to:"
+
+msgid "idpConsent.button.allow"
+msgstr "Allow"
+
+msgid "idpConsent.button.deny"
+msgstr "Deny"
+
+msgid "idpConsent.cannotGrantRequest"
+msgstr "You cannot grant {clientName}'s request to:"
+
+msgid "idpConsent.customScopes.title"
+msgstr "{clientName} wants to access your {projectName} account"
+
+msgid "idpConsent.defaultClientName"
+msgstr "The App"
+
+msgid "idpConsent.denied"
+msgstr "Access to the application was denied."
+
+msgid "idpConsent.noActiveSession"
+msgstr "No active session detected. Please log in to continue."
+
+msgid "idpConsent.noPermissionsToGrant"
+msgstr "You do not have permissions to grant {clientName} access to some of the requested scopes."
+
+msgid "idpConsent.signIn.title"
+msgstr "Sign in to {clientName} with {projectName}"
+
+msgid "idpLogout.confirmMessage"
+msgstr "Are you sure you want to log out of your {projectName} account?"
+
+msgid "idpLogout.no"
+msgstr "No"
+
+msgid "idpLogout.notLoggedOut"
+msgstr "You have not been logged out. You may close this page."
+
+msgid "idpLogout.title"
+msgstr "Log out?"
+
+msgid "idpLogout.yes"
+msgstr "Yes"
+
+msgid "link.openInGmail"
+msgstr "Open in Gmail"
+
+msgid "link.openInOutlook"
+msgstr "Open in Outlook"
+
+msgid "link.openInYahoo"
+msgstr "Open in Yahoo"
+
+msgid "login.loading"
+msgstr "Logging in..."
+
+msgid "login.success.content"
+msgstr "You have successfully logged in."
+
+msgid "login.title"
+msgstr "Sign up or log in"
+
+msgid "methodDivider.text"
+msgstr "or"
+
+msgid "oauth.continueWithAmazon"
+msgstr "Continue with Amazon"
+
+msgid "oauth.continueWithApple"
+msgstr "Continue with Apple"
+
+msgid "oauth.continueWithBitbucket"
+msgstr "Continue with Bitbucket"
+
+msgid "oauth.continueWithCoinbase"
+msgstr "Continue with Coinbase"
+
+msgid "oauth.continueWithDiscord"
+msgstr "Continue with Discord"
+
+msgid "oauth.continueWithFacebook"
+msgstr "Continue with Facebook"
+
+msgid "oauth.continueWithFigma"
+msgstr "Continue with Figma"
+
+msgid "oauth.continueWithGitHub"
+msgstr "Continue with GitHub"
+
+msgid "oauth.continueWithGitLab"
+msgstr "Continue with GitLab"
+
+msgid "oauth.continueWithGoogle"
+msgstr "Continue with Google"
+
+msgid "oauth.continueWithLinkedIn"
+msgstr "Continue with LinkedIn"
+
+msgid "oauth.continueWithMicrosoft"
+msgstr "Continue with Microsoft"
+
+msgid "oauth.continueWithSalesforce"
+msgstr "Continue with Salesforce"
+
+msgid "oauth.continueWithSlack"
+msgstr "Continue with Slack"
+
+msgid "oauth.continueWithSnapchat"
+msgstr "Continue with Snapchat"
+
+msgid "oauth.continueWithTikTok"
+msgstr "Continue with TikTok"
+
+msgid "oauth.continueWithTwitch"
+msgstr "Continue with Twitch"
+
+msgid "oauth.continueWithTwitter"
+msgstr "Continue with Twitter"
+
+msgid "oauth.continueWithYahoo"
+msgstr "Continue with Yahoo"
+
+msgid "otp.success.content"
+msgstr "Your passcode has been successfully verified."
+
+msgid "passcode.codeSent"
+msgstr "Code sent"
+
+msgid "passcode.didntGetIt"
+msgstr "Didn't get it?"
+
+msgid "passcode.expirationCountdown"
+msgstr "Your code expires in {timeRemaining}."
+
+msgid "passcode.expired"
+msgstr "Your code has expired."
+
+msgid "passcode.resendCode"
+msgstr "Resend code"
+
+msgid "passcode.sentConfirmation"
+msgstr "A 6-digit passcode was sent to you at <bold>{destination}</bold>."
+
+msgid "passcode.title"
+msgstr "Enter passcode"
+
+msgid "passkey.editing.label"
+msgstr "Passkey name"
+
+msgid "passkey.registrationStart.description"
+msgstr "Passkeys are encrypted digital keys you create using your fingerprint, face, or screen lock. Creating a Passkey will allow you to easily and securely log in to your account."
+
+msgid "passkey.registrationStart.error.noUser"
+msgstr "Error: Cannot use PasskeyRegistration component without active user authenticated."
+
+msgid "passkey.registrationStart.subtitle"
+msgstr "With Passkeys you don't need to remember complex passwords."
+
+msgid "passkey.registrationStart.title"
+msgstr "Set up a new Passkey"
+
+msgid "passkey.registrationSuccess.deleteWarning"
+msgstr "Once deleted, the passkey cannot be restored."
+
+msgid "passkey.registrationSuccess.existingPasskeys"
+msgstr "Existing Passkeys"
+
+msgid "passkey.registrationSuccess.setupAnother"
+msgstr "Set up another Passkey"
+
+msgid "passkey.registrationSuccess.title"
+msgstr "Passkey successfully created!"
+
+msgid "passkey.success.content"
+msgstr "Your Passkey has been successfully authenticated."
+
+msgid "password.breached.content"
+msgstr "A different site where you use the same password had a security issue recently. For your safety, an email was sent to you at <bold>{email}</bold> to reset your password."
+
+msgid "password.breached.title"
+msgstr "Check your email to set a new password"
+
+msgid "password.createAccount.content"
+msgstr "Finish creating your account by setting a password."
+
+msgid "password.didntGetItResend"
+msgstr "Didn't get it? <resendButton>Resend email</resendButton>"
+
+msgid "password.forgot.content"
+msgstr "A link to reset your password was sent to you at <bold>{email}</bold>."
+
+msgid "password.forgot.title"
+msgstr "Forgot password?"
+
+msgid "password.login.title"
+msgstr "Log In"
+
+msgid "password.reset.loggingInProgress"
+msgstr "Logging in..."
+
+msgid "password.reset.loginWithoutPassword"
+msgstr "Login without a password"
+
+msgid "password.reset.title"
+msgstr "Reset your password"
+
+msgid "password.resetRequired.content"
+msgstr "We want to make sure your account is secure and that it's really you logging in! A login link was sent to you at <bold>{email}</bold>."
+
+msgid "password.resetRequired.title"
+msgstr "Check your email to set a new password!"
+
+msgid "password.setNew.content"
+msgstr "A login link was sent to you at <bold>{email}</bold>."
+
+msgid "password.setNew.title"
+msgstr "Check your email!"
+
+msgid "password.strengthError.breached"
+msgstr "This password may have been used on a different site that experienced a security issue. Please choose another password."
+
+msgid "password.strengthError.complexity"
+msgstr "{complexity, plural, one {Must contain # of the following: uppercase letter, lowercase letter, number, symbol} other {Must contain # of the following: uppercase letter, lowercase letter, number, symbol}}"
+
+msgid "password.strengthError.minimumLength"
+msgstr "{characterLength, plural, one {Must be at least # character long} other {Must be at least # characters long}}"
+
+msgid "password.zxcvbn.suggestion.addWords"
+msgstr "Add another word or two. Uncommon words are better."
+
+msgid "password.zxcvbn.suggestion.allUppercase"
+msgstr "All-uppercase is almost as easy to guess as all-lowercase."
+
+msgid "password.zxcvbn.suggestion.avoidDatesAndYearsAssociatedWithYou"
+msgstr "Avoid dates and years that are associated with you."
+
+msgid "password.zxcvbn.suggestion.avoidRecentYears"
+msgstr "Avoid recent years."
+
+msgid "password.zxcvbn.suggestion.avoidRepeats"
+msgstr "Avoid repeated words and characters."
+
+msgid "password.zxcvbn.suggestion.avoidSequences"
+msgstr "Avoid sequences."
+
+msgid "password.zxcvbn.suggestion.avoidYearsAssociatedWithYou"
+msgstr "Avoid years that are associated with you."
+
+msgid "password.zxcvbn.suggestion.capitalization"
+msgstr "Capitalization doesn't help very much."
+
+msgid "password.zxcvbn.suggestion.longerKeyboardPattern"
+msgstr "Use a longer keyboard pattern with more turns."
+
+msgid "password.zxcvbn.suggestion.noSymbolsDigitsUppercase"
+msgstr "No need for symbols, digits, or uppercase letters."
+
+msgid "password.zxcvbn.suggestion.predictableSubstitutions"
+msgstr "Predictable substitutions like '@' instead of 'a' don't help very much."
+
+msgid "password.zxcvbn.suggestion.reversed"
+msgstr "Reversed words aren't much harder to guess."
+
+msgid "password.zxcvbn.suggestion.useAFewWords"
+msgstr "Use a few words, avoid common phrases."
+
+msgid "password.zxcvbn.warning.commonNames"
+msgstr "Common names and surnames are easy to guess."
+
+msgid "password.zxcvbn.warning.dates"
+msgstr "Dates are often easy to guess."
+
+msgid "password.zxcvbn.warning.longerRepeats"
+msgstr "Repeats like \"abcabcabc\" are only slightly harder to guess than \"abc\"."
+
+msgid "password.zxcvbn.warning.names"
+msgstr "Names and surnames by themselves are easy to guess."
+
+msgid "password.zxcvbn.warning.recentYears"
+msgstr "Recent years are easy to guess."
+
+msgid "password.zxcvbn.warning.repeats"
+msgstr "Repeats like \"aaa\" are easy to guess."
+
+msgid "password.zxcvbn.warning.sequences"
+msgstr "Sequences like \"abc\" or \"6543\" are easy to guess."
+
+msgid "password.zxcvbn.warning.shortKeyboardPatterns"
+msgstr "Short keyboard patterns are easy to guess."
+
+msgid "password.zxcvbn.warning.similarToCommonPassword"
+msgstr "This is similar to a commonly used password."
+
+msgid "password.zxcvbn.warning.straightRows"
+msgstr "Straight rows of keys are easy to guess."
+
+msgid "password.zxcvbn.warning.top100CommonPassword"
+msgstr "This is a top-100 common password."
+
+msgid "password.zxcvbn.warning.top10CommonPassword"
+msgstr "This is a top-10 common password."
+
+msgid "password.zxcvbn.warning.veryCommonPassword"
+msgstr "This is a very common password."
+
+msgid "password.zxcvbn.warning.wordByItself"
+msgstr "A word by itself is easy to guess."
+
+msgid "provider.lastUsed"
+msgstr "Last used"
+
+msgid "success.title"
+msgstr "Success!"
+
+msgid "tab.email"
+msgstr "Email"
+
+msgid "tab.text"
+msgstr "Text"
+
+msgid "tab.whatsapp"
+msgstr "WhatsApp"
+
+msgid "toast.emailResent"
+msgstr "Email resent"
+
+msgid "watermark.altText"
+msgstr "Powered by Stytch"

@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "B57F11C6-0154-4F8E-9C4B-AD4E238C5060",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:StytchReactNativeModule.xcodeproj",
+        "identifier" : "775CBC0B2AF4387900393E75",
+        "name" : "StytchReactNativeModuleTests"
+      }
+    }
+  ],
+  "version" : 1
+}

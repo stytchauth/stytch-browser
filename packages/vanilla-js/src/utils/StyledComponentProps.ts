@@ -1,0 +1,8 @@
+import type {
+  AnyStyledComponent,
+  StyledComponentInnerOtherProps,
+  StyledComponentPropsWithRef,
+} from 'styled-components';
+
+export type StyledComponentProps<T extends AnyStyledComponent> = StyledComponentPropsWithRef<T> &
+  StyledComponentInnerOtherProps<T>;

@@ -1,0 +1,7 @@
+{
+  "extends": "@stytch/internal-tsconfigs/tsconfig.base.json",
+  "exclude": [
+    // We need to exclude Cypress or else it collides with Jest, which we use everywhere else
+    "./services/e2e-tests/**/*"
+  ]
+}

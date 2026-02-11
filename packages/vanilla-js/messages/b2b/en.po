@@ -1,0 +1,588 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-05-07 12:59-0400\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+
+msgid "button.back.ariaLabel"
+msgstr "Back"
+
+msgid "button.continue"
+msgstr "Continue"
+
+msgid "button.continueWithEmail"
+msgstr "Continue with email"
+
+msgid "button.createAnOrganization"
+msgstr "Create an organization"
+
+msgid "button.emailCode"
+msgstr "Email me a code"
+
+msgid "button.emailLink"
+msgstr "Email me a link"
+
+msgid "button.hidePassword"
+msgstr "Hide password"
+
+msgid "button.retry"
+msgstr "Try again"
+
+msgid "button.showPassword"
+msgstr "Show password"
+
+msgid "button.totpQrManual"
+msgstr "Having trouble scanning?"
+
+msgid "button.totpQrRetry"
+msgstr "Try to scan the QR code again"
+
+msgid "button.tryDifferentEmailAddress"
+msgstr "Try a different email address"
+
+msgid "button.usePassword"
+msgstr "Use a password instead"
+
+msgid "emailConfirmation.content"
+msgstr "An email was sent to <bold>{email}</bold>."
+
+msgid "emailConfirmation.title"
+msgstr "Check your email"
+
+msgid "emailMethodSelection.code"
+msgstr "Email me a log in code"
+
+msgid "emailMethodSelection.link"
+msgstr "Email me a log in link"
+
+msgid "emailMethodSelection.title"
+msgstr "Select how you’d like to continue."
+
+msgid "emailVerification.content"
+msgstr "Confirm your email address with one of the following:"
+
+msgid "emailVerification.title"
+msgstr "Verify your email"
+
+msgid "error.adBlockerDetected"
+msgstr "The request was blocked by an Ad Blocker. Please disable your ad blocker, refresh the page, and try again."
+
+msgid "error.authPolicyNoOrg"
+msgstr "Unable to join due to the organization's authentication policy. Please contact your admin for more information."
+
+msgid "error.authPolicyWithOrg"
+msgstr "Unable to join due to {organizationName}'s authentication policy. Please contact your admin for more information."
+
+msgid "error.breachedPassword"
+msgstr "Password appears in the list of breached passwords and must be reset."
+
+msgid "error.claimedDomain"
+msgstr "Your email domain is associated with a particular organization, so you are unable to join or create other organizations. Please contact your admin for more information."
+
+msgid "error.default"
+msgstr "Something went wrong. Try again later or contact your admin for help."
+
+msgid "error.duplicatePhoneNumber"
+msgstr "A member with the specified phone number already exists for this organization."
+
+msgid "error.emailNoAccessToOrg"
+msgstr "{email} does not have access to {organizationName}. If you think this is a mistake, contact your admin."
+
+msgid "error.emailNotFound"
+msgstr "Email not found."
+
+msgid "error.eml"
+msgstr "Something went wrong. Your login link may have expired, been revoked, or been used more than once. Request a new login link to try again, or contact your admin for help."
+
+msgid "error.inactiveEmail"
+msgstr "The email address is marked as inactive. Please try another email address, or contact your admin if you think this is a mistake."
+
+msgid "error.invalidCode"
+msgstr "Code format is invalid, please try again."
+
+msgid "error.invalidEmail"
+msgstr "Email format is invalid."
+
+msgid "error.invalidEmailAddress"
+msgstr "Invalid email address"
+
+msgid "error.invalidPhoneNumber"
+msgstr "Phone number format is invalid. Ensure the phone number is in the E.164 format."
+
+msgid "error.invalidPhoneNumberCountryCode"
+msgstr "The phone number's country code is invalid, unsupported, or disabled."
+
+msgid "error.invalidSessionToken"
+msgstr "Invalid session token."
+
+msgid "error.jitIneligible"
+msgstr "{email} does not have access to {organizationName}. If you think this is a mistake, contact your admin"
+
+msgid "error.memberPasswordNotFound"
+msgstr "Member password not found."
+
+msgid "error.noUserPassword"
+msgstr "Password not found for this user. Please try again."
+
+msgid "error.oauthFlowCallbackError"
+msgstr "An error was encountered in the callback of the OAuth flow. Please try again."
+
+msgid "error.oauthTokenNotFound"
+msgstr "OAuth Token could not be found."
+
+msgid "error.organization"
+msgstr "The organization you are looking for could not be found. If you think this is a mistake, contact your admin."
+
+msgid "error.otpCodeNotFound"
+msgstr "Invalid passcode, please try again."
+
+msgid "error.passcodeInvalid"
+msgstr "Invalid passcode, please try again."
+
+msgid "error.resetPassword"
+msgstr "Password must be reset."
+
+msgid "error.sessionNotFound"
+msgstr "Session not found."
+
+msgid "error.title"
+msgstr "Looks like there was an error!"
+
+msgid "error.unableToAuthMagicLink"
+msgstr "The magic link could not be authenticated because it was either already used or expired. Please try again."
+
+msgid "error.unauthorizedAction"
+msgstr "Unauthorized action."
+
+msgid "error.unauthorizedCredentials"
+msgstr "Unauthorized credentials."
+
+msgid "error.unsubscribedPhoneNumber"
+msgstr "Phone number is unsubscribed. User has unsubscribed. Resubscribe by texting 'START' before messages can be sent."
+
+msgid "error.userLockLimitReached"
+msgstr "Too many failed authentication attempts. Please try again later."
+
+msgid "error.userUnauthenticated"
+msgstr "Must have an active session to call this method. Have you logged in yet?"
+
+msgid "formField.backupCode.ariaLabel"
+msgstr "Backup code"
+
+msgid "formField.backupCode.placeholder"
+msgstr "Enter backup code"
+
+msgid "formField.countryCode.label"
+msgstr "Country code"
+
+msgid "formField.email.label"
+msgstr "Email"
+
+msgid "formField.email.placeholder"
+msgstr "example@email.com"
+
+msgid "formField.orgSlug.placeholder"
+msgstr "Enter org slug"
+
+msgid "formField.otp.ariaLabel"
+msgstr "One-time passcode"
+
+msgid "formField.passcode.status.verifying"
+msgstr "Verifying passcode..."
+
+msgid "formField.password.label"
+msgstr "Password"
+
+msgid "formField.phone.label"
+msgstr "Phone number"
+
+msgid "idpConsent.allowClientTo"
+msgstr "Allow {clientName} to:"
+
+msgid "idpConsent.button.allow"
+msgstr "Allow"
+
+msgid "idpConsent.button.deny"
+msgstr "Deny"
+
+msgid "idpConsent.cannotGrantRequest"
+msgstr "You cannot grant {clientName}'s request to:"
+
+msgid "idpConsent.customScopes.title"
+msgstr "{clientName} wants to access your {projectName} account"
+
+msgid "idpConsent.defaultClientName"
+msgstr "The App"
+
+msgid "idpConsent.denied"
+msgstr "Access to the application was denied."
+
+msgid "idpConsent.noActiveSession"
+msgstr "No active session detected. Please log in to continue."
+
+msgid "idpConsent.noPermissionsToGrant"
+msgstr "You do not have permissions to grant {clientName} access to some of the requested scopes."
+
+msgid "idpConsent.signIn.title"
+msgstr "Sign in to {clientName} with {projectName}"
+
+msgid "idpLogout.confirmMessage"
+msgstr "Are you sure you want to log out of your {projectName} account?"
+
+msgid "idpLogout.no"
+msgstr "No"
+
+msgid "idpLogout.notLoggedOut"
+msgstr "You have not been logged out. You may close this page."
+
+msgid "idpLogout.title"
+msgstr "Log out?"
+
+msgid "idpLogout.yes"
+msgstr "Yes"
+
+msgid "link.openInGmail"
+msgstr "Open in Gmail"
+
+msgid "link.openInOutlook"
+msgstr "Open in Outlook"
+
+msgid "link.openInYahoo"
+msgstr "Open in Yahoo"
+
+msgid "link.signupResetPassword"
+msgstr "Sign up or reset password"
+
+msgid "login.loading"
+msgstr "Logging in..."
+
+msgid "login.success.content"
+msgstr "You have successfully logged in."
+
+msgid "login.title"
+msgstr "Sign up or log in"
+
+msgid "methodDivider.text"
+msgstr "or"
+
+msgid "mfa.enrollment.content"
+msgstr "Your organization requires an additional form of verification to make your account more secure."
+
+msgid "mfa.enrollment.option.sms"
+msgstr "Text me a code"
+
+msgid "mfa.enrollment.option.totp"
+msgstr "Use an authenticator app"
+
+msgid "mfa.enrollment.title"
+msgstr "Set up Multi-Factor Authentication"
+
+msgid "mfa.methods.authenticatorApp"
+msgstr "Use an authenticator app"
+
+msgid "mfa.smsEnrollment.content"
+msgstr "Your organization requires an additional form of verification to make your account more secure."
+
+msgid "mfa.smsEnrollment.title"
+msgstr "Enter your phone number to set up Multi-Factor Authentication"
+
+msgid "mfa.totpEnrollment.content"
+msgstr "Click to copy the code below. Enter into your authenticator app to link your account."
+
+msgid "mfa.totpEnrollment.copyCode.ariaLabel"
+msgstr "Copy code"
+
+msgid "mfa.totpEnrollment.title"
+msgstr "Having trouble scanning the QR code?"
+
+msgid "mfa.totpEnrollment.toast.codeCopied"
+msgstr "Code copied"
+
+msgid "mfa.totpEnrollment.toast.copyFailed"
+msgstr "Couldn't copy code to clipboard"
+
+msgid "mfa.totpEntry.getNewCode"
+msgstr "If the verification code doesn’t work, go back to your authenticator app to get a new code."
+
+msgid "mfa.totpEntry.switchToSms"
+msgstr "Text me a code instead"
+
+msgid "mfa.totpEntry.useBackupCode"
+msgstr "Can’t access your authenticator app? <backupCodeLink>Use a backup code</backupCodeLink>"
+
+msgid "mfaTotpEnrollment.qrAltText"
+msgstr "QR code for TOTP enrollment"
+
+msgid "oauth.continueWithGitHub"
+msgstr "Continue with GitHub"
+
+msgid "oauth.continueWithGoogle"
+msgstr "Continue with Google"
+
+msgid "oauth.continueWithHubSpot"
+msgstr "Continue with HubSpot"
+
+msgid "oauth.continueWithMicrosoft"
+msgstr "Continue with Microsoft"
+
+msgid "oauth.continueWithSlack"
+msgstr "Continue with Slack"
+
+msgid "organizationDiscovery.acceptInvite"
+msgstr "Accept Invite"
+
+msgid "organizationDiscovery.join"
+msgstr "Join"
+
+msgid "organizationDiscovery.noOrgs.content"
+msgstr "Make sure your email address is correct. Otherwise, you might need to be invited by your admin."
+
+msgid "organizationDiscovery.noOrgs.create.content"
+msgstr "{email} does not have an account. Think this is a mistake? Try a different email address, or contact your admin."
+
+msgid "organizationDiscovery.noOrgs.create.title"
+msgstr "Create an organization to get started"
+
+msgid "organizationDiscovery.noOrgs.title"
+msgstr "{email} does not belong to any organizations."
+
+msgid "organizationDiscovery.title"
+msgstr "Select an organization to continue"
+
+msgid "organizationLogin.title"
+msgstr "Continue to {organizationName}"
+
+#. Used instead of organizationLogin.title when the organization name is not available
+msgid "organizationLogin.titleUnknown"
+msgstr "Continue to ..."
+
+msgid "passcode.codeSent"
+msgstr "Code sent"
+
+msgid "passcode.didntGetIt"
+msgstr "Didn't get it?"
+
+msgid "passcode.expirationCountdown"
+msgstr "Your code expires in {timeRemaining}."
+
+msgid "passcode.expired"
+msgstr "Your code has expired."
+
+msgid "passcode.resendCode"
+msgstr "Resend code"
+
+msgid "passcode.sentConfirmation"
+msgstr "A 6-digit passcode was sent to you at <bold>{destination}</bold>."
+
+msgid "passcode.title"
+msgstr "Enter passcode"
+
+msgid "password.forgot.content.discovery"
+msgstr "We'll email you a verification link to sign up for an account or reset your password if you have one."
+
+msgid "password.forgot.content.organization"
+msgstr "We'll email you a login link to sign in to your account directly or reset your password if you have one."
+
+msgid "password.forgot.title"
+msgstr "Check your email for help signing in!"
+
+msgid "password.login.title"
+msgstr "Log in with email and password"
+
+msgid "password.reset.emailSent.content"
+msgstr "A login link was sent to you at <bold>{email}</bold>."
+
+msgid "password.reset.emailSent.resendText"
+msgstr "Didn't get it? <resendButton>Resend email</resendButton>"
+
+msgid "password.reset.emailSent.title"
+msgstr "Check your email!"
+
+msgid "password.reset.toast.emailResent"
+msgstr "Email resent"
+
+msgid "password.setNew.title"
+msgstr "Set a new password"
+
+msgid "password.strengthError.breached"
+msgstr "This password may have been used on a different site that experienced a security issue. Please choose another password."
+
+msgid "password.strengthError.complexity"
+msgstr "{complexity, plural, one {Must contain # of the following: uppercase letter, lowercase letter, number, symbol} other {Must contain # of the following: uppercase letter, lowercase letter, number, symbol}}"
+
+msgid "password.strengthError.minimumLength"
+msgstr "{characterLength, plural, one {Must be at least # character long} other {Must be at least # characters long}}"
+
+msgid "password.verification.content"
+msgstr "A login link was sent to you at <bold>{email}</bold>."
+
+msgid "password.verification.resendEmail"
+msgstr "Didn't get it? <resendButton>Resend email</resendButton>"
+
+msgid "password.verification.title"
+msgstr "Verify your email first."
+
+msgid "password.zxcvbn.suggestion.addWords"
+msgstr "Add another word or two. Uncommon words are better."
+
+msgid "password.zxcvbn.suggestion.allUppercase"
+msgstr "All-uppercase is almost as easy to guess as all-lowercase."
+
+msgid "password.zxcvbn.suggestion.avoidDatesAndYearsAssociatedWithYou"
+msgstr "Avoid dates and years that are associated with you."
+
+msgid "password.zxcvbn.suggestion.avoidRecentYears"
+msgstr "Avoid recent years."
+
+msgid "password.zxcvbn.suggestion.avoidRepeats"
+msgstr "Avoid repeated words and characters."
+
+msgid "password.zxcvbn.suggestion.avoidSequences"
+msgstr "Avoid sequences."
+
+msgid "password.zxcvbn.suggestion.avoidYearsAssociatedWithYou"
+msgstr "Avoid years that are associated with you."
+
+msgid "password.zxcvbn.suggestion.capitalization"
+msgstr "Capitalization doesn't help very much."
+
+msgid "password.zxcvbn.suggestion.longerKeyboardPattern"
+msgstr "Use a longer keyboard pattern with more turns."
+
+msgid "password.zxcvbn.suggestion.noSymbolsDigitsUppercase"
+msgstr "No need for symbols, digits, or uppercase letters."
+
+msgid "password.zxcvbn.suggestion.predictableSubstitutions"
+msgstr "Predictable substitutions like '@' instead of 'a' don't help very much."
+
+msgid "password.zxcvbn.suggestion.reversed"
+msgstr "Reversed words aren't much harder to guess."
+
+msgid "password.zxcvbn.suggestion.useAFewWords"
+msgstr "Use a few words, avoid common phrases."
+
+msgid "password.zxcvbn.warning.commonNames"
+msgstr "Common names and surnames are easy to guess."
+
+msgid "password.zxcvbn.warning.dates"
+msgstr "Dates are often easy to guess."
+
+msgid "password.zxcvbn.warning.longerRepeats"
+msgstr "Repeats like \"abcabcabc\" are only slightly harder to guess than \"abc\"."
+
+msgid "password.zxcvbn.warning.names"
+msgstr "Names and surnames by themselves are easy to guess."
+
+msgid "password.zxcvbn.warning.recentYears"
+msgstr "Recent years are easy to guess."
+
+msgid "password.zxcvbn.warning.repeats"
+msgstr "Repeats like \"aaa\" are easy to guess."
+
+msgid "password.zxcvbn.warning.sequences"
+msgstr "Sequences like \"abc\" or \"6543\" are easy to guess."
+
+msgid "password.zxcvbn.warning.shortKeyboardPatterns"
+msgstr "Short keyboard patterns are easy to guess."
+
+msgid "password.zxcvbn.warning.similarToCommonPassword"
+msgstr "This is similar to a commonly used password."
+
+msgid "password.zxcvbn.warning.straightRows"
+msgstr "Straight rows of keys are easy to guess."
+
+msgid "password.zxcvbn.warning.top100CommonPassword"
+msgstr "This is a top-100 common password."
+
+msgid "password.zxcvbn.warning.top10CommonPassword"
+msgstr "This is a top-10 common password."
+
+msgid "password.zxcvbn.warning.veryCommonPassword"
+msgstr "This is a very common password."
+
+msgid "password.zxcvbn.warning.wordByItself"
+msgstr "A word by itself is easy to guess."
+
+msgid "provider.continueWith"
+msgstr "Continue with {displayName}"
+
+msgid "provider.continueWithSSO"
+msgstr "Continue with SSO"
+
+msgid "provider.lastUsed"
+msgstr "Last used"
+
+msgid "recoveryCodes.entry.content"
+msgstr "Enter one of the backup codes you saved when setting up your authenticator app."
+
+msgid "recoveryCodes.entry.error.invalidCode"
+msgstr "Invalid backup code, please try again."
+
+msgid "recoveryCodes.entry.title"
+msgstr "Enter backup code"
+
+msgid "recoveryCodes.save.button.copyAll"
+msgstr "Copy all"
+
+msgid "recoveryCodes.save.button.done"
+msgstr "Done"
+
+msgid "recoveryCodes.save.button.download"
+msgstr "Download file"
+
+msgid "recoveryCodes.save.content"
+msgstr "This is the only time you will be able to access and save your backup codes."
+
+msgid "recoveryCodes.save.title"
+msgstr "Save your backup codes!"
+
+msgid "recoveryCodes.save.toast.copied"
+msgstr "Copied"
+
+msgid "recoveryCodes.save.toast.copyFailed"
+msgstr "Couldn't copy codes to clipboard"
+
+msgid "ssoDiscovery.email.error.unknown"
+msgstr "Something went wrong. Try again later or contact your admin for help."
+
+msgid "ssoDiscovery.email.title"
+msgstr "Enter your email to continue"
+
+msgid "ssoDiscovery.fallback.button.reset"
+msgstr "Try another log in method"
+
+msgid "ssoDiscovery.fallback.content"
+msgstr "Please input the Organization's unique slug to continue. If you don't know the unique slug, log in through another method to view all of your available Organizations."
+
+msgid "ssoDiscovery.fallback.error.orgNotFound"
+msgstr "Organization not found. Please try again."
+
+msgid "ssoDiscovery.fallback.error.unknown"
+msgstr "An error occurred. Please try again."
+
+msgid "ssoDiscovery.fallback.title"
+msgstr "Sorry, we couldn't find any connections."
+
+msgid "ssoDiscovery.title"
+msgstr "Select a connection to continue"
+
+msgid "success.title"
+msgstr "Success!"
+
+msgid "totp.content"
+msgstr "Enter the 6-digit code from your authenticator app."
+
+msgid "totp.setupQr.content"
+msgstr "Your organization requires an additional form of verification to make your account more secure. If you don’t have an authenticator app, you’ll need to install one first."
+
+msgid "totp.setupQr.title"
+msgstr "Scan the QR code to link your authenticator app"
+
+msgid "totp.title"
+msgstr "Enter verification code"
+
+msgid "watermark.altText"
+msgstr "Powered by Stytch"

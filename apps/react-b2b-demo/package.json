@@ -1,0 +1,50 @@
+{
+  "name": "react-b2b-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@stytch/react": "workspace:*",
+    "@stytch/vanilla-js": "workspace:*",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "6.30.3"
+  },
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "dev:esbuild": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": "22.x"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@stytch/internal-demo-utils": "workspace:*",
+    "@testing-library/react": "16.2.0",
+    "@vitejs/plugin-react": "4.3.4",
+    "eslint-config-custom": "workspace:*",
+    "jsdom": "26.0.0",
+    "sonda": "0.9.0",
+    "typescript": "5.3.3",
+    "vite": "6.4.1",
+    "vitest": "3.0.8"
+  }
+}

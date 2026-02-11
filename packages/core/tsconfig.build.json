@@ -1,0 +1,10 @@
+{
+  "extends": ["@stytch/internal-tsconfigs/tsconfig.base.json"],
+  "compilerOptions": {
+    "outDir": "./dist",
+    // TODO: Figure out better ways to configure these - @types/node is particularly wrong
+    "types": ["@types/jest", "@types/node"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "./dist"]
+}

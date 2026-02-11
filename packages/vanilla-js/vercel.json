@@ -1,0 +1,9 @@
+{
+  "framework": "storybook",
+  "git": {
+    "deploymentEnabled": {
+      "changeset-release/main": false
+    }
+  },
+  "buildCommand": "cd ../.. && turbo run build --filter=@stytch/vanilla-js... && yarn workspace @stytch/vanilla-js build-storybook"
+}

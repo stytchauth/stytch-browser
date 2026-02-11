@@ -1,0 +1,40 @@
+{
+  "name": "react-native-b2b-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "eas-build-post-install": "cd ../.. && yarn build:react-native"
+  },
+  "installConfig": {
+    "hoistingLimits": "workspaces"
+  },
+  "dependencies": {
+    "@react-navigation/native": "6.1.6",
+    "@react-navigation/native-stack": "6.9.12",
+    "@stytch/react-native": "workspace:*",
+    "expo": "54.0.12",
+    "expo-apple-authentication": "~8.0.7",
+    "expo-background-fetch": "~14.0.7",
+    "expo-build-properties": "~1.0.9",
+    "expo-constants": "~18.0.9",
+    "expo-dev-client": "~6.0.13",
+    "expo-linking": "~8.0.8",
+    "expo-splash-screen": "~31.0.10",
+    "expo-status-bar": "~3.0.8",
+    "expo-task-manager": "~14.0.7",
+    "react": "19.1.0",
+    "react-native": "0.81.4",
+    "react-native-safe-area-context": "~5.6.0",
+    "react-native-screens": "~4.16.0",
+    "uuid": "3.4.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.27.1",
+    "@stytch/internal-tsconfigs": "workspace:*",
+    "typescript": "~5.9.2"
+  },
+  "private": true
+}

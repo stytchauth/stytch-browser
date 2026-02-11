@@ -1,0 +1,3 @@
+{
+  "extends": ["@stytch/internal-tsconfigs/tsconfig.base.json", "@stytch/internal-tsconfigs/tsconfig.web.json"]
+}

@@ -1,0 +1,37 @@
+{
+  "name": "clientside-services",
+  "private": true,
+  "installConfig": {
+    "hoistingLimits": "workspaces"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./dist",
+    "compile": "webpack",
+    "dev": "webpack serve --config webpack.dev.config.js",
+    "dev:esbuild": "webpack serve --config webpack.dev.config.js",
+    "test": "jest"
+  },
+  "engines": {
+    "node": "18.x"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "awesome-phonenumber": "3.2.0",
+    "js-cookie": "3.0.1"
+  },
+  "devDependencies": {
+    "@stytch/jest-environment": "workspace:*",
+    "@types/js-cookie": "3.0.2",
+    "clean-webpack-plugin": "4.0.0",
+    "dotenv": "16.0.1",
+    "html-webpack-plugin": "5.6.4",
+    "jest": "29.7.0",
+    "ts-jest": "29.2.5",
+    "ts-loader": "9.3.1",
+    "typescript": "5.3.3",
+    "webpack": "5.105.0",
+    "webpack-cli": "6.0.1",
+    "webpack-dev-server": "5.2.3"
+  }
+}

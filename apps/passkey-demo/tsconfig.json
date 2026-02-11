@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "@stytch/internal-tsconfigs/tsconfig.base.json",
+    "@stytch/internal-tsconfigs/tsconfig.web.json",
+    "@stytch/internal-tsconfigs/tsconfig.react.json"
+  ],
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "noEmit": true,
+    "incremental": true,
+    "jsx": "preserve"
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+}

@@ -1,0 +1,9 @@
+{
+  "extends": ["@stytch/internal-tsconfigs/tsconfig.base.json"],
+  "compilerOptions": {
+    "outDir": "./dist/public",
+    "types": ["@types/jest", "@types/node"]
+  },
+  "include": ["src/public/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

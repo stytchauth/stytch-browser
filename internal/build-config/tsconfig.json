@@ -1,0 +1,7 @@
+{
+  "extends": ["@stytch/internal-tsconfigs/tsconfig.base.json", "@stytch/internal-tsconfigs/tsconfig.script.json"],
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true
+  }
+}

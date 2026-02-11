@@ -1,0 +1,172 @@
+import { MockClient, MockGlobalContextProvider, MockState, render, screen } from '../../testUtils';
+import React from 'react';
+import Container from '../b2c/Container';
+import { AppScreens, DEFAULT_CONFIG } from '../b2c/GlobalContextProvider';
+import { MOCK_USER } from '@stytch/internal-mocks';
+import * as internals from '../../utils/internal';
+import { B2CInternals } from '../../utils/internal';
+import userEvent from '@testing-library/user-event';
+import { Callbacks, IDPOAuthFlowMissingParamError, StytchAPIError } from '@stytch/core/public';
+import { waitFor } from '@testing-library/preact';
+
+const urlParams = {
+  client_id: 'mock-client-123',
+  post_logout_redirect_uri: 'https://oauthdebugger.com/debug',
+  id_token_hint: 'eYJ...',
+  state: 'code',
+};
+
+describe('IDP SLO Flow', () => {
+  // This is a temporary fix to stop tests in Github actions from failing. See https://github.com/facebook/jest/issues/12670.
+  jest.setTimeout(10000);
+
+  const callbacks: Callbacks = {
+    onEvent: jest.fn(),
+    onError: jest.fn(),
+  };
+
+  const oauthLogoutStartSpy = jest.fn();
+
+  const client = {
+    onStateChange: jest.fn(),
+    user: {
+      getSync: jest.fn().mockReturnValue(MOCK_USER),
+    },
+    session: {
+      revoke: jest.fn().mockResolvedValueOnce(void 0),
+    },
+    idp: {
+      oauthAuthorizeStart: jest.fn(),
+      oauthAuthorizeSubmit: jest.fn(),
+      oauthLogoutStart: oauthLogoutStartSpy,
+    },
+  } satisfies MockClient;
+
+  const renderIDPApp = () => {
+    const state: MockState = {
+      screen: AppScreens.IDPConsent,
+      formState: {},
+    };
+    return render(
+      <MockGlobalContextProvider config={DEFAULT_CONFIG} state={state} client={client} callbacks={callbacks}>
+        <Container />
+      </MockGlobalContextProvider>,
+    );
+  };
+
+  const getSearchSpy = jest.fn();
+  const setHrefSpy = jest.fn();
+  beforeAll(() => {
+    Object.defineProperty(window, 'location', {
+      value: {},
+    });
+    Object.defineProperty(window.location, 'search', {
+      get: getSearchSpy,
+    });
+    Object.defineProperty(window.location, 'href', {
+      set: setHrefSpy,
+    });
+  });
+  beforeEach(() => {
+    getSearchSpy.mockReturnValue(`?${new URLSearchParams(urlParams).toString()}`);
+  });
+
+  beforeEach(() => {
+    const mockReadInternals = jest.spyOn(internals, 'readB2CInternals');
+    mockReadInternals.mockImplementation(
+      () =>
+        ({
+          bootstrap: {
+            getSync: jest.fn().mockReturnValue({ projectName: 'Test Project' }),
+            getAsync: jest.fn().mockResolvedValue({ projectName: 'Test Project' }),
+          },
+        }) as unknown as B2CInternals,
+    );
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it('Error on missing required fields', async () => {
+    getSearchSpy.mockClear().mockReturnValue('?');
+    renderIDPApp();
+
+    await screen.findByText('Required parameter is missing: client_id. Please reach out to the application developer.');
+    expect(callbacks.onError).toHaveBeenCalledWith(expect.any(IDPOAuthFlowMissingParamError));
+    expect(callbacks.onEvent).not.toHaveBeenCalled();
+  });
+
+  it('Success when all provided fields are present and auto-submit can occur', async () => {
+    oauthLogoutStartSpy.mockResolvedValueOnce({ consent_required: false, redirect_uri: 'https://final-location.com' });
+    renderIDPApp();
+
+    await waitFor(() => {
+      expect(setHrefSpy).toHaveBeenCalledWith('https://final-location.com');
+    });
+    expect(client.session.revoke).toHaveBeenCalled();
+  });
+
+  it('Success even when revoke fails', async () => {
+    oauthLogoutStartSpy.mockResolvedValueOnce({ consent_required: false, redirect_uri: 'https://final-location.com' });
+    client.session.revoke.mockRejectedValueOnce(
+      new StytchAPIError({
+        error_message: 'Session not found',
+        error_type: 'session_not_found',
+        error_url: 'https://stytch.com',
+        status_code: 400,
+        request_id: 'request-id-123',
+      }),
+    );
+    renderIDPApp();
+
+    await waitFor(() => {
+      expect(setHrefSpy).toHaveBeenCalledWith('https://final-location.com');
+    });
+    expect(client.session.revoke).toHaveBeenCalled();
+  });
+
+  it('Shows consent screen when required and submits on Allow', async () => {
+    oauthLogoutStartSpy.mockResolvedValueOnce({ consent_required: true, redirect_uri: 'https://final-location.com' });
+    renderIDPApp();
+
+    await screen.findByText('Log out?');
+
+    await userEvent.click(screen.getByText('Yes'));
+
+    await waitFor(() => {
+      expect(setHrefSpy).toHaveBeenCalledWith('https://final-location.com');
+    });
+    expect(client.session.revoke).toHaveBeenCalled();
+  });
+
+  it('Shows consent screen when required and does nothing on Deny', async () => {
+    oauthLogoutStartSpy.mockResolvedValueOnce({ consent_required: true, redirect_uri: 'https://final-location.com' });
+    renderIDPApp();
+
+    await screen.findByText('Log out?');
+
+    await userEvent.click(screen.getByText('No'));
+
+    await screen.findByText('You have not been logged out. You may close this page.');
+
+    expect(setHrefSpy).not.toHaveBeenCalled();
+    expect(client.session.revoke).not.toHaveBeenCalled();
+  });
+
+  it('Shows an error when Authorize Start fails', async () => {
+    oauthLogoutStartSpy.mockRejectedValueOnce(
+      new StytchAPIError({
+        error_message: 'Client not allowed around these parts no more',
+        error_type: 'client_not_allowed',
+        error_url: 'https://stytch.com',
+        status_code: 400,
+        request_id: 'request-id-123',
+      }),
+    );
+    renderIDPApp();
+
+    await screen.findByText('Looks like there was an error!');
+    expect(callbacks.onError).toHaveBeenCalledWith(expect.any(StytchAPIError));
+  });
+});

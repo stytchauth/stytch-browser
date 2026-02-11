@@ -1,0 +1,11 @@
+export enum AdminPortalB2BProducts {
+  emailMagicLinks = 'emailMagicLinks',
+  emailOtp = 'emailOtp',
+  sso = 'sso',
+  password = 'password',
+  oauthGoogle = 'oauthGoogle',
+  oauthMicrosoft = 'oauthMicrosoft',
+  oauthHubspot = 'oauthHubspot',
+  oauthSlack = 'oauthSlack',
+  oauthGithub = 'oauthGithub',
+}

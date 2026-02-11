@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    // TODO: remove module when base tsconfig is updated
+    "module": "ES2020",
+    "lib": ["es2023", "DOM", "DOM.Iterable"],
+    "types": ["vite/client"]
+  }
+}

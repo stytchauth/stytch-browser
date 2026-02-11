@@ -1,0 +1,47 @@
+{
+  "name": "@stytch/core",
+  "version": "2.66.1",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "public",
+    "testing",
+    "dist"
+  ],
+  "scripts": {
+    "test": "jest",
+    "build": "yarn clean && yarn compile && rm ./dist/**/*.d.ts && mv ./build/types/index.d.ts ./dist && mv ./build/types/public/index.d.ts ./dist/public && mv ./build/types/testing/index.d.ts ./dist/testing && rm -rf ./build",
+    "clean": "rm -rf ./build ./dist",
+    "compile:types": "tsc -p tsconfig.types.json",
+    "compile": "rollup -c",
+    "dev": "rollup -c -w",
+    "dev:esbuild": "node esbuild.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "license": "MIT",
+  "homepage": "https://stytch.com/docs/sdks/javascript-sdk",
+  "devDependencies": {
+    "@babel/preset-env": "7.27.2",
+    "@github/webauthn-json": "2.1.1",
+    "@rollup/plugin-babel": "5.3.1",
+    "@rollup/plugin-commonjs": "v21",
+    "@rollup/plugin-node-resolve": "13.3.0",
+    "@stytch/internal-mocks": "workspace:*",
+    "@stytch/internal-tsconfigs": "workspace:*",
+    "@stytch/jest-environment": "workspace:*",
+    "@stytch/js-utils": "workspace:*",
+    "@types/jest": "29.5.14",
+    "@types/uuid": "8.3.4",
+    "eslint": "9.36.0",
+    "eslint-config-custom": "workspace:*",
+    "jest": "29.7.0",
+    "rollup": "2.79.2",
+    "rollup-plugin-ts": "3.4.5",
+    "ts-jest": "29.2.5",
+    "typescript": "5.3.3"
+  },
+  "dependencies": {
+    "uuid": "8.3.2"
+  }
+}

@@ -1,0 +1,20 @@
+name: Dispatch Force Deploy Staging
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: 'Sha to Deploy'
+        required: true
+jobs:
+  deploy-clientside-services-staging:
+    uses: ./.github/workflows/deploy-clientside-services.yml
+    with:
+      sha_to_deploy: ${{ github.event.inputs.sha }}
+      env: staging
+      s3_bucket: js-staging-stytch-com
+      storyboard_s3_bucket: storybook-staging-stytch-com
+    secrets:
+      honeycomb_api_key: ${{ secrets.HONEYCOMB_CI_API_KEY }}
+      cloudfront_distribution_id: ${{ secrets.STAGING_CLOUDFRONT_DISTRIBUTION_ID }}
+      ci_aws_access_key_id: ${{ secrets.STAGING_CDN_UPDATER_AWS_ACCESS_KEY_ID }}
+      ci_aws_secret_access_key: ${{ secrets.STAGING_CDN_UPDATER_AWS_SECRET_ACCESS_KEY_ID }}

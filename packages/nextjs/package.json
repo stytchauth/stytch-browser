@@ -1,0 +1,60 @@
+{
+  "name": "@stytch/nextjs",
+  "version": "21.18.1",
+  "description": "Stytch's official Next.js Library",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "b2b",
+    "dist",
+    "headless",
+    "ui"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./dist",
+    "compile": "rollup -c",
+    "dev": "tsc -p tsconfig.build.json --watch",
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
+  },
+  "license": "MIT",
+  "author": "Stytch",
+  "devDependencies": {
+    "@babel/runtime": "7.27.1",
+    "@stytch/internal-tsconfigs": "workspace:*",
+    "@stytch/jest-environment": "workspace:*",
+    "@stytch/js-utils": "workspace:*",
+    "@stytch/vanilla-js": "workspace:*",
+    "@testing-library/react": "14.0.0",
+    "@types/jest": "29.5.14",
+    "@types/react": "18.3.26",
+    "eslint-config-custom": "workspace:*",
+    "jest": "29.7.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-test-renderer": "18.0.0",
+    "rollup": "2.79.2",
+    "rollup-plugin-ts": "3.4.5",
+    "ts-jest": "29.2.5",
+    "typescript": "5.3.3"
+  },
+  "peerDependencies": {
+    "@stytch/vanilla-js": "^5.0.0",
+    "react": ">= 17.0.2",
+    "react-dom": ">= 17.0.2"
+  },
+  "homepage": "https://stytch.com/docs/sdks/javascript-sdk",
+  "keywords": [
+    "stytch",
+    "react",
+    "nextjs",
+    "typescript",
+    "auth",
+    "authentication",
+    "session",
+    "jwt",
+    "user"
+  ]
+}
