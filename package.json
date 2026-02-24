@@ -36,7 +36,8 @@
     "version": "changeset version && yarn && yarn build:packages",
     "release": "yarn build:packages && yarn workspaces foreach -W --no-private --from '@stytch/*' npm publish --tolerate-republish --access public && yarn changeset tag",
     "strings": "turbo run strings",
-    "sizes": "size-limit"
+    "sizes": "size-limit",
+    "generate:cursor-rules": "node ai/generate-rules.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "2.29.7",
