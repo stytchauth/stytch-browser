@@ -4,46 +4,24 @@ globs: ['**/*.{spec,test}.{ts,tsx,js,jsx,json}']
 alwaysApply: true
 ---
 
-## Testing Standards
+# Testing
 
-- Prefer existing fixtures in `testUtils.ts`, `internal/mocks` and `__mock__` if available
-- After adding tests, review test files for
-  - No redundant tests
-  - No placeholder comments for logic that has not yet been written
-  - Test logic MUST match test description
-- Mock as little as possible. Use msw to mock network calls instead of mocking out the entire client call, and use `jest.spyOn` to mock specific functions rather than mocking the entire module using `jest.mock`. For example:
+- Use existing fixtures in `testUtils.ts`, `internal/mocks`, and `__mock__` directories
+- Use `msw` to mock network calls instead of mocking entire client calls
+- Use `jest.spyOn` to mock specific functions rather than `jest.mock` for entire modules
+- Follow this pattern for StytchClient mocks:
 
-  ```ts
-  // BAD
-  jest.mock('../utils/safeLocalStorage', {
-    getItem: jest.fn(),
-  });
+```ts
+const client = {
+  sso: {
+    start: jest.fn().mockResolvedValue({}),
+  },
+} satisfies MockClient;
 
-  // GOOD
-  const getItemSpy = jest.spyOn(safeLocalStorage, 'getItem');
-  ```
+beforeEach(() => {
+  jest.clearAllMocks();
+});
 
-- Use this pattern for defining StytchClient mocks
-
-  ```ts
-  const client = {
-    sso: {
-      start: jest.fn().mockResolvedValue({});
-    },
-  } satisfies MockClient;
-
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('should call SSO start', async () => {
-    // Run code that should trigger client.sso.start()
-    expect(client.sso.start).toHaveBeenCalled();
-  });
-
-  it('should handle SSO error', async () => {
-    // Mock behavior for this test specifically
-    client.sso.mockRejectedValue(new StytchAPIError({ error_code: 'unknown_error' });
-    await expect(action()).toBeRejectedWith(...);
-  });
-  ```
+// Override for specific test
+client.sso.start.mockRejectedValue(new StytchAPIError({...}));
+```

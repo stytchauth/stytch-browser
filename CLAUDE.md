@@ -4,64 +4,92 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 # Stytch JavaScript SDK Monorepo
 
-This is a monorepo containing Stytch JavaScript SDKs for various platforms and demo applications.
+This is a monorepo for Stytch JavaScript SDKs. The codebase is split between B2C and B2B authentication APIs, with separate headless clients and UI component exports.
 
-## Project Structure
+## Package Hierarchy
 
-### Core SDK Packages (in `packages/`)
+**Core SDK Package:**
 
-Stytch has two main set of authentication API, B2C and B2B. Code in these packages are split between them - usually exports from the root index file are B2C while B2B code and components are exported via `/b2b`. In addition, most libraries have separate headless and UI component exports.
+- `@stytch/web` - Contains all core functionality: headless client, UI components built with Preact, and React bindings. Everything in vanilla-js, react, and nextjs wraps or re-exports from this package. Not published directly.
 
-- **`web`** - Core JavaScript SDK for frontend projects with stateful headless client and Preact-based UI components.
-- **`react-native`** - React Native SDK with headless client and prebuilt UI.
-  A lot of code in this package are copied from vanilla-js. When editing files in both packages MAKE SURE you are editing the correct version of the file since many files will have the same name but slightly different function or logic to accommodate the specific platform.
+**Published Wrapper Packages:**
 
-The following packages are wrappers around `web`
+- `@stytch/vanilla-js` - Framework-agnostic bindings using custom elements. Re-exports from `@stytch/web`.
+- `@stytch/react` - React-specific bindings (client-side only). Re-exports from `@stytch/web` and adds React Context/hooks.
+- `@stytch/nextjs` - Next.js bindings with SSR support. Re-exports from `@stytch/web`.
+- `@stytch/react-native` - Standalone SDK for React Native with native Kotlin/Swift/Objective-C code. Shares some copied code with web, but code reuse should be done primarily by lifting them to `@stytch/core` 
 
-- **`vanilla-js`** - Framework-less, custom element based bindings
-- **`react`** - React-specific bindings (client-side only)
-- **`nextjs`** - Next.js bindings with SSR support
+**Helper Packages:**
 
-### Helper Packages (in `packages/`)
+- `@stytch/core` - Business logic, session management, PKCE, Subscription Service. Exports:
+  - `@stytch/core/public` - Public API (types, constants)
+  - `@stytch/core` - Internal implementation consumed by web and react-native
+  - Defines the `StytchClient` template with platform-agnostic logic
+- `@stytch/js-utils` - Utility functions bundled into other packages (not published)
 
-- **`core`** - Constants, types, business logic, session management, PKCE, and Subscription Service. `core/public` forms part of the public interface, while `core` code not exported through `public` are internal to Stytch.
-- **`js-utils`** - Utility functions bundled into other packages (not published to npm)
+## B2C vs B2B Split
 
-### Demo Applications (in `apps/`)
+- **B2C exports**: Root exports (e.g., `import {} from '@stytch/react'`)
+- **B2B exports**: `/b2b` subpath (e.g., `import {} from '@stytch/react/b2b'`)
+- **AdminPortal exports**: `/adminPortal` subpath
 
-Demo applications only need to be updated when significant new functionality (such as a new auth method) is added.
+Most libraries have this dual export structure throughout their codebase.
 
-- **`react-demo`** - React consumer demo app
-- **`react-b2b-demo`** - React B2B demo app
-- **`other-framework-demo`** -
-- **`next-demo`** - Next.js demo app
-- **`passkey-demo`** - Passkey-specific demo
-- **`react-native-demo`** - React Native demo app
-- **`react-native-b2b-demo`** - React Native B2B demo app
+## Headless vs UI
 
-### Services (in `services/`)
+- **Headless**: Stateful client APIs only (`@stytch/web/headless`)
+- **UI**: Prebuilt components
 
-- **`clientside-services`** - Static files loaded from Stytch servers (Google One Tap, phone formatting)
-- **`e2e-tests`** - End-to-end tests using Cypress
+## React Native Specifics
 
-### Internal Packages (in `internal/`)
+React Native package contains code copied from web to accommodate platform differences. When editing files that exist in both packages, verify you're modifying the correct version - they often have identical names but different platform-specific logic.
 
-- **`test-utils`** - Testing utilities
-- **`mocks`** - Mock data for testing
-- **`build-config`** - Shared build configuration
-- **`demo-utils`** - Shared code between demo apps
+## StytchClient Architecture
 
-## Important Notes
+1. `@stytch/core` defines the `StytchClient` template with platform-agnostic business logic
+2. Individual SDK packages implement platform-specific components:
+   - `StorageClient` - Handles persistent storage (cookies, localStorage, AsyncStorage)
+   - `NetworkClient` - Handles HTTP requests, telemetry, metadata
+3. These components are injected to create the final `StytchClient` export consumed by developers
 
-- All commands should be run from the repository root unless specified otherwise
-- The project uses Yarn instead of npm
-- JSDoc comments are used for documentation and are the source of truth for API documentation
+## Monorepo Structure
 
-# Common Commands and Workflows
+```
+packages/          # Published and internal packages
+  web/            # Core implementation (private)
+  vanilla-js/     # Framework-agnostic SDK
+  react/          # React bindings
+  nextjs/         # Next.js bindings
+  react-native/   # React Native SDK
+  core/           # Business logic and session management
+  js-utils/       # Utility functions (bundled, not published)
+apps/             # Demo applications
+  react-demo/
+  react-b2b-demo/
+  next-demo/
+  passkey-demo/
+  react-native-demo/
+  other-framework-demo/
+services/
+  clientside-services/  # Static files loaded from Stytch servers
+  e2e-tests/           # Cypress end-to-end tests
+internal/         # Build config, mocks, test utils
+```
 
-## Essential Commands
+## Workflow
 
-### Build and Development
+- Always run from repository root
+- Use Yarn, not npm
+- Run `yarn format` after making changes
+- Run `yarn typecheck` and `yarn test` for logic changes
+- Node version specified in `.nvmrc`
+- Uses Turborepo for build orchestration and Yarn Workspaces for dependency management
+
+# Commands
+
+All commands should be run from the repository root.
+
+## Build and Development
 
 ```bash
 # Install dependencies
@@ -69,130 +97,103 @@ yarn install
 
 # Build all packages
 yarn build
+
+# Build specific package and its dependencies
+yarn build:vanilla-js
+yarn build:react
+yarn build:packages  # All packages only
+
+# Run demo apps with auto-recompile
+yarn dev:react        # B2C React demo
+yarn dev:b2b:react    # B2B React demo
+yarn dev:next         # Next.js demo
 ```
 
-### Code Quality
+## Testing
 
 ```bash
 # Run all tests
 yarn test
 
-# Run tests for specific package
-yarn workspace @stytch/web test
+# Test specific package
+yarn workspace @stytch/vanilla-js test
+
+# Watch mode for specific package
+yarn workspace @stytch/vanilla-js test --watch
+
+# Storybook tests (for vanilla-js UI components)
+yarn test-storybook
+
+# Run Storybook locally
+yarn workspace @stytch/vanilla-js storybook  # http://localhost:6006
 ```
 
-### Package Management
+## Code Quality
+
+```bash
+# Check linting and formatting (no changes)
+yarn lint
+
+# Auto-fix linting and formatting issues
+yarn format
+
+# Type checking
+yarn typecheck
+
+# Build, lint, and test all at once
+yarn blt
+```
+
+## Dependencies
 
 ```bash
 # Add dependency to specific package
-yarn workspace @stytch/web add package-name@version -D
+yarn workspace @stytch/vanilla-js add package-name@version -D
 
-# Remove dependency from specific package
-yarn workspace @stytch/web remove package-name -D
+# Remove dependency
+yarn workspace @stytch/vanilla-js remove package-name
 ```
 
-### UI Development
+# Code Standards
 
-```bash
-# Run Storybook tests
-yarn test-storybook
-```
+## TypeScript
 
-## Workflow Patterns
+- Avoid `any`, type casting, and `@ts-expect-error` annotations
+- All headless client methods must have JSDoc comments
+- Use `@rbac` tag for RBAC info: `@rbac action="create", resource="stytch.member"`
 
-### After Making Changes
-
-Run `yarn format` after all changes. Run `yarn typecheck` and `yarn test` for logic changes.
-
-# Code Standards and Formatting
-
-## Language and TypeScript
-
-- Primary Language: TypeScript for all packages
-- Native Code: Kotlin, Swift, and Objective-C for React Native
-
-## Code Quality Tools
-
-- ESLint: Code quality and style enforcement
-- Prettier: Code formatting
-- Jest: Testing framework
-- Storybook: UI preview and testing
-
-## Coding standard
-
-- Avoid type casting, `any` type and `@ts-expect-error` annotations
-- Avoid comments that merely repeat what the code is doing. Only comment if the code is unintuitive, complex or exists to handle unusual business requirements. Do not add comments that repeats the user's prompt.
-
-## Documentation Standards
-
-### JSDoc Comments
+## Documentation
 
 - **Required**: All headless client methods and exports must have JSDoc comments
 - **Source of Truth**: JSDoc comments are the primary source for API documentation
 - **Method Descriptions**: Based on JSDoc blocks corresponding to method signatures
 
-### RBAC Documentation
+## Comments
 
-- Use `@rbac` tag for RBAC information
-- Format: `@rbac action="action_name", resource="resource_name"`
-- Example:
-  ```ts
-  /**
-   * Method description...
-   * @rbac action="create", resource="stytch.member"
-   * ...
-   */
-  ```
+Only add comments when code is unintuitive, complex, or handles unusual business requirements. Avoid comments that repeat what code does or echo user prompts.
 
-## Code Organization
+## Internationalization
 
-- Follow monorepo structure with packages in `packages/`
-- Keep related functionality together
+Lingui is used for i18n. Run `yarn strings` to extract and compile message catalogs after modifying translatable strings.
 
-## Quality Checks
+# Testing
 
-- Run `.cursor/checks.sh` after source code changes
+- Use existing fixtures in `testUtils.ts`, `internal/mocks`, and `__mock__` directories
+- Use `msw` to mock network calls instead of mocking entire client calls
+- Use `jest.spyOn` to mock specific functions rather than `jest.mock` for entire modules
+- Follow this pattern for StytchClient mocks:
 
-## Testing Standards
+```ts
+const client = {
+  sso: {
+    start: jest.fn().mockResolvedValue({}),
+  },
+} satisfies MockClient;
 
-- Prefer existing fixtures in `testUtils.ts`, `internal/mocks` and `__mock__` if available
-- After adding tests, review test files for
-  - No redundant tests
-  - No placeholder comments for logic that has not yet been written
-  - Test logic MUST match test description
-- Mock as little as possible. Use msw to mock network calls instead of mocking out the entire client call, and use `jest.spyOn` to mock specific functions rather than mocking the entire module using `jest.mock`. For example:
+beforeEach(() => {
+  jest.clearAllMocks();
+});
 
-  ```ts
-  // BAD
-  jest.mock('../utils/safeLocalStorage', {
-    getItem: jest.fn(),
-  });
-
-  // GOOD
-  const getItemSpy = jest.spyOn(safeLocalStorage, 'getItem');
-  ```
-
-- Use this pattern for defining StytchClient mocks
-
-  ```ts
-  const client = {
-    sso: {
-      start: jest.fn().mockResolvedValue({});
-    },
-  } satisfies MockClient;
-
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('should call SSO start', async () => {
-    // Run code that should trigger client.sso.start()
-    expect(client.sso.start).toHaveBeenCalled();
-  });
-
-  it('should handle SSO error', async () => {
-    // Mock behavior for this test specifically
-    client.sso.mockRejectedValue(new StytchAPIError({ error_code: 'unknown_error' });
-    await expect(action()).toBeRejectedWith(...);
-  });
-  ```
+// Override for specific test
+client.sso.start.mockRejectedValue(new StytchAPIError({...}));
+```

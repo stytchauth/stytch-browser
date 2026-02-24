@@ -4,51 +4,24 @@ globs: ['**/*.{ts,tsx,js,jsx,json}']
 alwaysApply: true
 ---
 
-# Code Standards and Formatting
+# Code Standards
 
-## Language and TypeScript
+## TypeScript
 
-- Primary Language: TypeScript for all packages
-- Native Code: Kotlin, Swift, and Objective-C for React Native
+- Avoid `any`, type casting, and `@ts-expect-error` annotations
+- All headless client methods must have JSDoc comments
+- Use `@rbac` tag for RBAC info: `@rbac action="create", resource="stytch.member"`
 
-## Code Quality Tools
-
-- ESLint: Code quality and style enforcement
-- Prettier: Code formatting
-- Jest: Testing framework
-- Storybook: UI preview and testing
-
-## Coding standard
-
-- Avoid type casting, `any` type and `@ts-expect-error` annotations
-- Avoid comments that merely repeat what the code is doing. Only comment if the code is unintuitive, complex or exists to handle unusual business requirements. Do not add comments that repeats the user's prompt.
-
-## Documentation Standards
-
-### JSDoc Comments
+## Documentation
 
 - **Required**: All headless client methods and exports must have JSDoc comments
 - **Source of Truth**: JSDoc comments are the primary source for API documentation
 - **Method Descriptions**: Based on JSDoc blocks corresponding to method signatures
 
-### RBAC Documentation
+## Comments
 
-- Use `@rbac` tag for RBAC information
-- Format: `@rbac action="action_name", resource="resource_name"`
-- Example:
-  ```ts
-  /**
-   * Method description...
-   * @rbac action="create", resource="stytch.member"
-   * ...
-   */
-  ```
+Only add comments when code is unintuitive, complex, or handles unusual business requirements. Avoid comments that repeat what code does or echo user prompts.
 
-## Code Organization
+## Internationalization
 
-- Follow monorepo structure with packages in `packages/`
-- Keep related functionality together
-
-## Quality Checks
-
-- Run `.cursor/checks.sh` after source code changes
+Lingui is used for i18n. Run `yarn strings` to extract and compile message catalogs after modifying translatable strings.

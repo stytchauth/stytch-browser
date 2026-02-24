@@ -6,55 +6,83 @@ alwaysApply: true
 
 # Stytch JavaScript SDK Monorepo
 
-This is a monorepo containing Stytch JavaScript SDKs for various platforms and demo applications.
+This is a monorepo for Stytch JavaScript SDKs. The codebase is split between B2C and B2B authentication APIs, with separate headless clients and UI component exports.
 
-## Project Structure
+## Package Hierarchy
 
-### Core SDK Packages (in `packages/`)
+**Core SDK Package:**
 
-Stytch has two main set of authentication API, B2C and B2B. Code in these packages are split between them - usually exports from the root index file are B2C while B2B code and components are exported via `/b2b`. In addition, most libraries have separate headless and UI component exports.
+- `@stytch/web` - Contains all core functionality: headless client, UI components built with Preact, and React bindings. Everything in vanilla-js, react, and nextjs wraps or re-exports from this package. Not published directly.
 
-- **`web`** - Core JavaScript SDK for frontend projects with stateful headless client and Preact-based UI components.
-- **`react-native`** - React Native SDK with headless client and prebuilt UI.
-  A lot of code in this package are copied from vanilla-js. When editing files in both packages MAKE SURE you are editing the correct version of the file since many files will have the same name but slightly different function or logic to accommodate the specific platform.
+**Published Wrapper Packages:**
 
-The following packages are wrappers around `web`
+- `@stytch/vanilla-js` - Framework-agnostic bindings using custom elements. Re-exports from `@stytch/web`.
+- `@stytch/react` - React-specific bindings (client-side only). Re-exports from `@stytch/web` and adds React Context/hooks.
+- `@stytch/nextjs` - Next.js bindings with SSR support. Re-exports from `@stytch/web`.
+- `@stytch/react-native` - Standalone SDK for React Native with native Kotlin/Swift/Objective-C code. Shares some copied code with web, but code reuse should be done primarily by lifting them to `@stytch/core` 
 
-- **`vanilla-js`** - Framework-less, custom element based bindings
-- **`react`** - React-specific bindings (client-side only)
-- **`nextjs`** - Next.js bindings with SSR support
+**Helper Packages:**
 
-### Helper Packages (in `packages/`)
+- `@stytch/core` - Business logic, session management, PKCE, Subscription Service. Exports:
+  - `@stytch/core/public` - Public API (types, constants)
+  - `@stytch/core` - Internal implementation consumed by web and react-native
+  - Defines the `StytchClient` template with platform-agnostic logic
+- `@stytch/js-utils` - Utility functions bundled into other packages (not published)
 
-- **`core`** - Constants, types, business logic, session management, PKCE, and Subscription Service. `core/public` forms part of the public interface, while `core` code not exported through `public` are internal to Stytch.
-- **`js-utils`** - Utility functions bundled into other packages (not published to npm)
+## B2C vs B2B Split
 
-### Demo Applications (in `apps/`)
+- **B2C exports**: Root exports (e.g., `import {} from '@stytch/react'`)
+- **B2B exports**: `/b2b` subpath (e.g., `import {} from '@stytch/react/b2b'`)
+- **AdminPortal exports**: `/adminPortal` subpath
 
-Demo applications only need to be updated when significant new functionality (such as a new auth method) is added.
+Most libraries have this dual export structure throughout their codebase.
 
-- **`react-demo`** - React consumer demo app
-- **`react-b2b-demo`** - React B2B demo app
-- **`other-framework-demo`** -
-- **`next-demo`** - Next.js demo app
-- **`passkey-demo`** - Passkey-specific demo
-- **`react-native-demo`** - React Native demo app
-- **`react-native-b2b-demo`** - React Native B2B demo app
+## Headless vs UI
 
-### Services (in `services/`)
+- **Headless**: Stateful client APIs only (`@stytch/web/headless`)
+- **UI**: Prebuilt components
 
-- **`clientside-services`** - Static files loaded from Stytch servers (Google One Tap, phone formatting)
-- **`e2e-tests`** - End-to-end tests using Cypress
+## React Native Specifics
 
-### Internal Packages (in `internal/`)
+React Native package contains code copied from web to accommodate platform differences. When editing files that exist in both packages, verify you're modifying the correct version - they often have identical names but different platform-specific logic.
 
-- **`test-utils`** - Testing utilities
-- **`mocks`** - Mock data for testing
-- **`build-config`** - Shared build configuration
-- **`demo-utils`** - Shared code between demo apps
+## StytchClient Architecture
 
-## Important Notes
+1. `@stytch/core` defines the `StytchClient` template with platform-agnostic business logic
+2. Individual SDK packages implement platform-specific components:
+   - `StorageClient` - Handles persistent storage (cookies, localStorage, AsyncStorage)
+   - `NetworkClient` - Handles HTTP requests, telemetry, metadata
+3. These components are injected to create the final `StytchClient` export consumed by developers
 
-- All commands should be run from the repository root unless specified otherwise
-- The project uses Yarn instead of npm
-- JSDoc comments are used for documentation and are the source of truth for API documentation
+## Monorepo Structure
+
+```
+packages/          # Published and internal packages
+  web/            # Core implementation (private)
+  vanilla-js/     # Framework-agnostic SDK
+  react/          # React bindings
+  nextjs/         # Next.js bindings
+  react-native/   # React Native SDK
+  core/           # Business logic and session management
+  js-utils/       # Utility functions (bundled, not published)
+apps/             # Demo applications
+  react-demo/
+  react-b2b-demo/
+  next-demo/
+  passkey-demo/
+  react-native-demo/
+  other-framework-demo/
+services/
+  clientside-services/  # Static files loaded from Stytch servers
+  e2e-tests/           # Cypress end-to-end tests
+internal/         # Build config, mocks, test utils
+```
+
+## Workflow
+
+- Always run from repository root
+- Use Yarn, not npm
+- Run `yarn format` after making changes
+- Run `yarn typecheck` and `yarn test` for logic changes
+- Node version specified in `.nvmrc`
+- Uses Turborepo for build orchestration and Yarn Workspaces for dependency management
