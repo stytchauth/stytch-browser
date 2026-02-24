@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import { build } from 'vite';
@@ -10,7 +12,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Build each framework individually
-const frameworks = ['vanilla', 'vue', 'svelte'];
+const frameworks = ['vanilla', 'vue', 'svelte', 'tailwind', 'bundlerless'];
+const staticFiles = ['index.html', 'styles.css'];
 
 async function buildAll() {
   console.log('Starting individual framework builds...\n');
@@ -34,6 +37,13 @@ async function buildAll() {
   }
 
   console.log('All builds completed successfully!');
+
+  for (const file of staticFiles) {
+    const from = resolve(__dirname, `src/${file}`);
+    const to = resolve(__dirname, `dist/${file}`);
+    console.log(`Copying ${from} to ${to}`);
+    fs.cpSync(from, to);
+  }
 }
 
 buildAll();
