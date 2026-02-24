@@ -24,8 +24,6 @@ export interface MfaState {
     } | null;
   };
   totp: {
-    isCreating: boolean;
-    createError: unknown;
     enrollment: {
       secret: string;
       qrCode: string;
@@ -46,8 +44,6 @@ export const DEFAULT_MFA_STATE = {
     enrolledNumber: null,
   },
   totp: {
-    isCreating: false,
-    createError: null,
     enrollment: null,
   },
 } as const satisfies MfaState;
