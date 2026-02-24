@@ -1,14 +1,12 @@
 # Stytch JavaScript SDK monorepo
 
-This repo contains Stytch JavaScript SDKs, vanilla, React, and Next.js, and demo apps.
+This repo contains Stytch JavaScript SDKs.
 
 We welcome contributions from the community!
 
 ## Packages
 
 This monorepo contains the following published npm packages:
-
-### Core SDKs
 
 - **[@stytch/vanilla-js](https://www.npmjs.com/package/@stytch/vanilla-js)** - Core JavaScript SDK for frontend projects
 - **[@stytch/react](https://www.npmjs.com/package/@stytch/react)** - React-specific bindings for the JavaScript SDK
@@ -27,9 +25,7 @@ Our JS SDK also exposes in-line documentation in your IDE, just hover over a met
 
 ## Support
 
-If you've found a bug, [open an issue](https://github.com/stytchauth/js-sdk-turbo/issues/new)!
-
-If you have questions or want help troubleshooting, join us in [Slack](https://stytch.com/docs/resources/support/overview) or email support@stytch.com.
+If you have questions, found a bug or want help troubleshooting, join us in [Slack](https://stytch.com/docs/resources/support/overview) or email support@stytch.com.
 
 If you've found a security vulnerability, please follow our [responsible disclosure instructions](https://stytch.com/docs/resources/security-and-trust/security#:~:text=Responsible%20disclosure%20program).
 
@@ -51,7 +47,7 @@ The following workbench apps are also available in Vercel:
 - React Consumer Demo App - https://js-sdk-turbo-react-demo.vercel.app/configure
 - React B2B Demo App - https://js-sdk-turbo-react-b2b-demo.vercel.app/configure
 
-After building dependencies, you can now run demo apps from `/apps`.
+After building dependencies, you can also run demo apps from `/apps`.
 There are a few ways to run a demo app:
 
 1. Build all dependencies
