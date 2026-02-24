@@ -3,3 +3,4 @@
 
 # Mark Lingui generated files
 **/messages/**/*.json linguist-generated
+.cursor/rules/* linguist-generated

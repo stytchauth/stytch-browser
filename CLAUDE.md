@@ -1,8 +1,6 @@
----
-description: Project overview and structure
-globs: ['**/*']
-alwaysApply: true
----
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 # Stytch JavaScript SDK Monorepo
 
@@ -86,3 +84,116 @@ internal/         # Build config, mocks, test utils
 - Run `yarn typecheck` and `yarn test` for logic changes
 - Node version specified in `.nvmrc`
 - Uses Turborepo for build orchestration and Yarn Workspaces for dependency management
+
+# Commands
+
+All commands should be run from the repository root.
+
+## Build and Development
+
+```bash
+# Install dependencies
+yarn install
+
+# Build all packages
+yarn build
+
+# Build specific package and its dependencies
+yarn build:vanilla-js
+yarn build:react
+yarn build:packages  # All packages only
+
+# Run demo apps with auto-recompile
+yarn dev:react        # B2C React demo
+yarn dev:b2b:react    # B2B React demo
+yarn dev:next         # Next.js demo
+```
+
+## Testing
+
+```bash
+# Run all tests
+yarn test
+
+# Test specific package
+yarn workspace @stytch/vanilla-js test
+
+# Watch mode for specific package
+yarn workspace @stytch/vanilla-js test --watch
+
+# Storybook tests (for vanilla-js UI components)
+yarn test-storybook
+
+# Run Storybook locally
+yarn workspace @stytch/vanilla-js storybook  # http://localhost:6006
+```
+
+## Code Quality
+
+```bash
+# Check linting and formatting (no changes)
+yarn lint
+
+# Auto-fix linting and formatting issues
+yarn format
+
+# Type checking
+yarn typecheck
+
+# Build, lint, and test all at once
+yarn blt
+```
+
+## Dependencies
+
+```bash
+# Add dependency to specific package
+yarn workspace @stytch/vanilla-js add package-name@version -D
+
+# Remove dependency
+yarn workspace @stytch/vanilla-js remove package-name
+```
+
+# Code Standards
+
+## TypeScript
+
+- Avoid `any`, type casting, and `@ts-expect-error` annotations
+- All headless client methods must have JSDoc comments
+- Use `@rbac` tag for RBAC info: `@rbac action="create", resource="stytch.member"`
+
+## Documentation
+
+- **Required**: All headless client methods and exports must have JSDoc comments
+- **Source of Truth**: JSDoc comments are the primary source for API documentation
+- **Method Descriptions**: Based on JSDoc blocks corresponding to method signatures
+
+## Comments
+
+Only add comments when code is unintuitive, complex, or handles unusual business requirements. Avoid comments that repeat what code does or echo user prompts.
+
+## Internationalization
+
+Lingui is used for i18n. Run `yarn strings` to extract and compile message catalogs after modifying translatable strings.
+
+# Testing
+
+- Use existing fixtures in `testUtils.ts`, `internal/mocks`, and `__mock__` directories
+- Use `msw` to mock network calls instead of mocking entire client calls
+- Use `jest.spyOn` to mock specific functions rather than `jest.mock` for entire modules
+- Follow this pattern for StytchClient mocks:
+
+```ts
+const client = {
+  sso: {
+    start: jest.fn().mockResolvedValue({}),
+  },
+} satisfies MockClient;
+
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
+// Override for specific test
+client.sso.start.mockRejectedValue(new StytchAPIError({...}));
+```
