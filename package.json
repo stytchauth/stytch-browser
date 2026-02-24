@@ -37,7 +37,7 @@
     "release": "yarn build:packages && yarn workspaces foreach -W --no-private --from '@stytch/*' npm publish --tolerate-republish --access public && yarn changeset tag",
     "strings": "turbo run strings",
     "sizes": "size-limit",
-    "generate:cursor-rules": "node ai/generate-rules.mjs"
+    "generate:cursor-rules": "node ai/generate-rules.mjs && prettier --write \"**/*\""
   },
   "devDependencies": {
     "@changesets/cli": "2.29.7",

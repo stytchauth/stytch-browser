@@ -19,7 +19,7 @@ This is a monorepo for Stytch JavaScript SDKs. The codebase is split between B2C
 - `@stytch/vanilla-js` - Framework-agnostic bindings using custom elements. Re-exports from `@stytch/web`.
 - `@stytch/react` - React-specific bindings (client-side only). Re-exports from `@stytch/web` and adds React Context/hooks.
 - `@stytch/nextjs` - Next.js bindings with SSR support. Re-exports from `@stytch/web`.
-- `@stytch/react-native` - Standalone SDK for React Native with native Kotlin/Swift/Objective-C code. Shares some copied code with web, but code reuse should be done primarily by lifting them to `@stytch/core` 
+- `@stytch/react-native` - Standalone SDK for React Native with native Kotlin/Swift/Objective-C code. Shares some copied code with web, but code reuse should be done primarily by lifting them to `@stytch/core`
 
 **Helper Packages:**
 
