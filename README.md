@@ -44,8 +44,8 @@ These are great for trying things out or quickly making example calls to see the
 
 The following workbench apps are also available in Vercel:
 
-- React Consumer Demo App - https://js-sdk-turbo-react-demo.vercel.app/configure
-- React B2B Demo App - https://js-sdk-turbo-react-b2b-demo.vercel.app/configure
+- React Consumer Demo App - https://stytch-browser-react-demo.vercel.app/configure
+- React B2B Demo App - https://stytch-browser-react-b2b-demo.vercel.app/configure
 
 After building dependencies, you can also run demo apps from `/apps`.
 There are a few ways to run a demo app:
