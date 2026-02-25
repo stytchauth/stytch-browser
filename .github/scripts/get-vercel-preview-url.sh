@@ -22,22 +22,32 @@ while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
   ATTEMPT=$((ATTEMPT + 1))
   echo "Attempt $ATTEMPT/$MAX_ATTEMPTS: Querying Vercel API..." >&2
 
-  # Query Vercel API for deployments matching the commit SHA
+  # Query Vercel API for deployments matching the branch, sorted by creation time (newest first)
   RESPONSE=$(curl -s -H "Authorization: Bearer $VERCEL_TOKEN" \
-    "https://api.vercel.com/v6/deployments?projectId=$PROJECT_ID&branch=$BRANCH&limit=1")
+    "https://api.vercel.com/v6/deployments?projectId=$PROJECT_ID&branch=$BRANCH&limit=100")
 
-  # Use jq to extract state and URL in one pass
-  DEPLOYMENT_STATE=$(echo "$RESPONSE" | jq -r '.deployments[0].readyState // empty')
+  # Sort deployments by createdAt (descending) and extract the latest READY deployment
+  DEPLOYMENT_URL=$(echo "$RESPONSE" | jq -r '
+    .deployments
+    | sort_by(.created)
+    | reverse
+    | map(select(.readyState == "READY"))
+    | .[0].url // empty
+  ')
 
-  if [ -z "$DEPLOYMENT_STATE" ]; then
-    echo "No deployment found yet for this commit" >&2
-  elif [ "$DEPLOYMENT_STATE" = "READY" ]; then
-    DEPLOYMENT_URL="https://$(echo "$RESPONSE" | jq -r '.deployments[0].url')"
-    echo "Found READY deployment: $DEPLOYMENT_URL" >&2
-    echo "$DEPLOYMENT_URL"
-    exit 0
+  if [ -z "$DEPLOYMENT_URL" ]; then
+    # Check if there are any deployments at all
+    DEPLOYMENT_COUNT=$(echo "$RESPONSE" | jq -r '.deployments | length')
+    if [ "$DEPLOYMENT_COUNT" -eq 0 ]; then
+      echo "No deployment found yet for this branch" >&2
+    else
+      LATEST_STATE=$(echo "$RESPONSE" | jq -r '.deployments | sort_by(.created) | reverse | .[0].readyState // empty')
+      echo "Latest deployment found with state: $LATEST_STATE (waiting for READY)" >&2
+    fi
   else
-    echo "Deployment found with state: $DEPLOYMENT_STATE (waiting for READY)"
+    echo "Found READY deployment: https://$DEPLOYMENT_URL" >&2
+    echo "https://$DEPLOYMENT_URL"
+    exit 0
   fi
 
   if [ $ATTEMPT -lt $MAX_ATTEMPTS ]; then
