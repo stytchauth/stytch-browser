@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node build.js",
+    "build": "rm -r dist && node build.js",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit"
   },
