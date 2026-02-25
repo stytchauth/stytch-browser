@@ -5,6 +5,9 @@ import { SCIMNewConnectionConfigureScreen } from './SCIMNewConnectionConfigureSc
 
 const meta = {
   component: SCIMNewConnectionConfigureScreen,
+  parameters: {
+    adminPortal: true,
+  },
 } satisfies Meta;
 
 export default meta;

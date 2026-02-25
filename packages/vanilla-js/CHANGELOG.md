@@ -1,6 +1,12 @@
 # @stytch/vanilla-js
 
-## 6.0.0
+## 6.0.2
+
+### Patch Changes
+
+- 5f66066: Fix font size issue on some anchor buttons
+
+## 6.0.1
 
 This is a major release, containing a redesign of our frontend components and package structure.
 
@@ -24,6 +30,10 @@ This is a major release, containing a redesign of our frontend components and pa
 - Clientside validation for configs now only occur in development build to reduce bundle size from validation message strings
 - @stytch/vanilla-js now exports standard web components (custom element), allowing for easy integration with other frameworks like Vue.js and Svelte
 
+## 6.0.0
+
+This version was released with broken packaging. We recommend upgrading to 6.0.1 if you have this version.
+
 ## 5.45.0
 
 ### Minor Changes
@@ -40,9 +50,7 @@ This is a major release, containing a redesign of our frontend components and pa
 
 ### Patch Changes
 
-- 5a0ad5c: Add external_id to Member and User types and add organization_external_id to Organization type
-- Updated dependencies [5a0ad5c]
-  - @stytch/core@2.66.1
+- 5a0ad5c: Add `external_id` to Member and User types and add `organization_external_id` to Organization type
 
 ## 5.44.0
 
@@ -59,13 +67,13 @@ This is a major release, containing a redesign of our frontend components and pa
 
 ### Minor Changes
 
-- 2da1e4d: Add keepSessionAlive boolean flag to StytchClientOptions. When set, the client will automatically refresh the session as long as the client is active
+- 2da1e4d: Add `keepSessionAlive` boolean flag to `StytchClientOptions`. When set, the client will automatically refresh the session as long as the client is active
 - f181abf: Include custom org roles in local authorization checks
 - e4445f3: Add TypeScript typings for strings prop / param. The types is available as Strings and is opt in. We recommend using them like `const strings: Strings = { 'button.usePassword': 'Log in with password' }`. `Strings` is a partial since we recommend you only include strings that you need, but if you need every string mapped (such as in a full localization), you can use `Required<Strings>`.
 
 ### Patch Changes
 
-- 17e589c: B2B: Add support for 'ALL_ALLOWED' organization email_jit_provisioning setting
+- 17e589c: B2B: Add support for `ALL_ALLOWED` organization `email_jit_provisioning` setting
 - Updated dependencies [2da1e4d]
 - Updated dependencies [f181abf]
 - Updated dependencies [17e589c]
@@ -103,7 +111,7 @@ This is a major release, containing a redesign of our frontend components and pa
 
 ### Patch Changes
 
-- 9054b80: Guarantee response_type will always be present again
+- 9054b80: Guarantee `response_type` will always be present again
 - a640aa9: Fix missing breached password error message for zxcvbn password config in pre-built UI
 - 3d625ba: Fix error message when B2B discovery EML auth encounters an error in prebuilt UI
 - Updated dependencies [9a503d3]
@@ -182,7 +190,7 @@ This is a major release, containing a redesign of our frontend components and pa
 ### Minor Changes
 
 - 2f9917a: Add Reinvite user button to Admin Portal Member Management
-- 0c1a944: Update labels to use <label> element and improve accessibility
+- 0c1a944: Update labels to use `<label>` element and improve accessibility
   New `formField.phone.label` string for phone number input label and `formField.countryCode.label` for country code label
   `formField.password.ariaLabel` string has been folded into `formField.password.label` and can be removed
 
@@ -235,7 +243,7 @@ This is a major release, containing a redesign of our frontend components and pa
 
 ### Minor Changes
 
-- d850be0: Add organization_slug to MemberSession type
+- d850be0: Add `organization_slug` to MemberSession type
 
 ### Patch Changes
 
@@ -830,7 +838,7 @@ This is a major release, containing a redesign of our frontend components and pa
 
 ### Patch Changes
 
-- f5334f1: Added the option to change sso_jit_provisioning in Admin Portal's Organization Settings
+- f5334f1: Added the option to change `sso_jit_provisioning` in Admin Portal's Organization Settings
 - 59fbc0c: Add OAuth Tenant settings to Admin Portal's Organization Settings
 - 59fbc0c: Improve Admin Portal's Organization settings User onboarding UI
 - Updated dependencies [5f9a5bf]
@@ -907,7 +915,7 @@ This is a major release, containing a redesign of our frontend components and pa
 
 ### Patch Changes
 
-- 37b3dcd7: Improved error message for ad_blocker_detected
+- 37b3dcd7: Improved error message for `ad_blocker_detected`
 - fd5c8b0e: Remove workaround for setting cookies in older versions of Firefox
 - a8572550: Error messages in the StytchLogin component no longer overflows the container
 
@@ -1677,7 +1685,7 @@ This is a major release, containing a redesign of our frontend components and pa
 ### Patch Changes
 
 - 8c587e3: Update B2B Password Reset by Session to stay logged in
-- 70475b5: remove unnecessary organization_id param from passwords.resetBySession in B2B client
+- 70475b5: remove unnecessary `organization_id` param from passwords.resetBySession in B2B client
 - 5d13cfe: Minor copy change on the B2B Passwords UI component
 - Updated dependencies [70475b5]
 - Updated dependencies [311388d]

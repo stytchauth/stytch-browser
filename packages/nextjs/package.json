@@ -1,10 +1,15 @@
 {
   "name": "@stytch/nextjs",
-  "version": "22.0.0",
+  "version": "22.0.2",
   "description": "Stytch's official Next.js Library",
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
   "types": "./dist/types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/stytchauth/stytch-browser.git",
+    "directory": "packages/nextjs"
+  },
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -147,5 +152,8 @@
     "session",
     "jwt",
     "user"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

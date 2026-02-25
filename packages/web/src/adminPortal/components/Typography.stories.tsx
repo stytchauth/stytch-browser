@@ -5,6 +5,9 @@ import { Typography } from './Typography';
 const meta: Meta<typeof Typography> = {
   component: Typography,
   tags: ['autodocs'],
+  parameters: {
+    adminPortal: true,
+  },
 };
 
 export default meta;

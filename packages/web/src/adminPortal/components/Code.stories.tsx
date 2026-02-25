@@ -4,6 +4,9 @@ import { Code, CodeProps } from './Code';
 
 const meta = {
   component: Code,
+  parameters: {
+    adminPortal: true,
+  },
 } satisfies Meta<CodeProps>;
 
 export default meta;

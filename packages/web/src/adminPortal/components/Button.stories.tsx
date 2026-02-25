@@ -24,6 +24,9 @@ const meta = {
       </div>
     );
   },
+  parameters: {
+    adminPortal: true,
+  },
 } satisfies Meta<ButtonProps>;
 
 export default meta;

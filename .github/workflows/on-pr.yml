@@ -1,4 +1,6 @@
 name: On Pull Requests [PR]
+permissions:
+  contents: read
 on:
   merge_group:
   pull_request:
@@ -19,9 +21,35 @@ jobs:
       honeycomb_api_key: ${{ secrets.HONEYCOMB_CI_API_KEY }}
       CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 
+  e2e-tests-preview:
+    if: ${{ !startsWith(github.head_ref, 'changeset-release/') }}
+    needs: [pre-build, node-lint-build-test]
+    uses: ./.github/workflows/run-e2e-tests.yml
+    with:
+      env: 'preview'
+      vercel_b2c_project: 'stytch-browser-react-demo'
+      vercel_b2b_project: 'stytch-browser-react-b2b-demo'
+    secrets:
+      cypress_mailosaur_api_key: ${{ secrets.CYPRESS_MAILOSAUR_API_KEY }}
+      cypress_mailosaur_server_id: ${{ secrets.CYPRESS_MAILOSAUR_SERVER_ID }}
+      cypress_record_key: ${{ secrets.CYPRESS_RECORD_KEY }}
+      vercel_token: ${{ secrets.VERCEL_TOKEN }}
+
+  e2e-test-staging:
+    if: ${{ startsWith(github.head_ref, 'changeset-release/') }}
+    uses: ./.github/workflows/run-e2e-tests.yml
+    with:
+      env: 'staging'
+      cypress_base_url: 'https://demo-sdk-app.staging.stytch.com'
+      cypress_b2b_base_url: 'https://demo-sdk-b2b-app.staging.stytch.com'
+    secrets:
+      cypress_mailosaur_api_key: ${{ secrets.CYPRESS_MAILOSAUR_API_KEY }}
+      cypress_mailosaur_server_id: ${{ secrets.CYPRESS_MAILOSAUR_SERVER_ID }}
+      cypress_record_key: ${{ secrets.CYPRESS_RECORD_KEY }}
+
   post-build-fail:
     if: ${{ failure() }}
-    needs: [pre-build, node-lint-build-test]
+    needs: [pre-build, node-lint-build-test, e2e-tests-preview]
     runs-on: ubuntu-latest
     env:
       BUILDEVENT_APIKEY: ${{ secrets.HONEYCOMB_CI_API_KEY }}
@@ -43,7 +71,7 @@ jobs:
 
   post-build-success:
     if: ${{ success() }}
-    needs: [pre-build, node-lint-build-test]
+    needs: [pre-build, node-lint-build-test, e2e-tests-preview]
     runs-on: ubuntu-latest
     env:
       BUILDEVENT_APIKEY: ${{ secrets.HONEYCOMB_CI_API_KEY }}

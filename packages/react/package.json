@@ -1,10 +1,15 @@
 {
   "name": "@stytch/react",
-  "version": "20.0.0",
+  "version": "20.0.2",
   "description": "Stytch's official React Library",
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
   "types": "./dist/types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/stytchauth/stytch-browser.git",
+    "directory": "packages/react"
+  },
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -120,6 +125,9 @@
     "jwt",
     "user"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "sideEffects": [
     "*.module.css.mjs"
   ],
