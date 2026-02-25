@@ -16,6 +16,9 @@ const meta = {
       </div>
     );
   },
+  parameters: {
+    adminPortal: true,
+  },
 } satisfies Meta<SwitchProps>;
 
 export default meta;

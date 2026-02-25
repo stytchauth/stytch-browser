@@ -14,6 +14,7 @@ const meta = {
     children: 'Inner content placeholder',
   },
   parameters: {
+    adminPortal: true,
     layout: 'fullscreen',
     theme: {
       config: {

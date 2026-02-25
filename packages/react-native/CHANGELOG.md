@@ -46,7 +46,7 @@
 
 ### Patch Changes
 
-- 17e589c: B2B: Add support for 'ALL_ALLOWED' organization email_jit_provisioning setting
+- 17e589c: B2B: Add support for `ALL_ALLOWED` organization `email_jit_provisioning` setting
 
 ## 0.68.0
 
@@ -58,7 +58,7 @@
 
 ### Patch Changes
 
-- 25e43f0: Add types for Member.is_admin
+- 25e43f0: Add types for `Member.is_admin`
 
 ## 0.67.0
 
@@ -76,7 +76,7 @@
 
 ### Patch Changes
 
-- 6aed5ae: Fix export issue for Expo <54 with New Architecture enabled
+- 6aed5ae: Fix export issue for Expo earlier than 54 with New Architecture enabled
 
 ## 0.65.2
 
@@ -131,7 +131,7 @@
 
 ### Minor Changes
 
-- d850be0: Add organization_slug to MemberSession type
+- d850be0: Add `organization_slug` to MemberSession type
 
 ## 0.59.0
 
@@ -822,7 +822,7 @@
 
 ### Minor Changes
 
-- 06b47703: Deprecate some properties in RN UI OAuth options and provide a new type for specifying per-provider options; Correctly support provider_params in RN OAuth flows
+- 06b47703: Deprecate some properties in RN UI OAuth options and provide a new type for specifying per-provider options; Correctly support `provider_params` in RN OAuth flows
 
 ### Patch Changes
 
@@ -1518,7 +1518,7 @@ To use the redirect-based OAuth flows for Google and Apple, use the new `startWi
 
 ## 0.8.0
 
-### Migration guide
+**Migration guide**
 
 We have made significant changes to the Stytch React Native SDK to make installation and configuration easier for developers. This is a migration guide for all developers using the Stytch React Native and React Native Expo SDKs prior to v0.8.
 
@@ -1526,7 +1526,7 @@ We have made significant changes to the Stytch React Native SDK to make installa
 - If you are currently using Expo development builds, start at **Stytch React Native Expo SDK** below.
 - Otherwise, start at **Stytch React Native SDK** near the bottom of this section.
 
-#### Development builds
+**Development builds**
 
 The Stytch React Native SDK requires the use of custom native code for the best auth experience. [Expo Go does not allow custom native code](https://docs.expo.dev/workflow/customizing), and as a result, we no longer support apps using Expo Go.
 
@@ -1550,7 +1550,7 @@ We recommend moving to [development builds](https://docs.expo.dev/develop/develo
    eas build
    ```
 
-#### Stytch React Native Expo SDK
+**Stytch React Native Expo SDK**
 
 All React Native and Expo projects can now use `@stytch/react-native`. The `@stytch/react-native-expo` package will no longer be maintained but is still available for existing customers using this version.
 
@@ -1564,7 +1564,7 @@ npm uninstall @stytch/react-native-expo @stytch/react-native-modules react-nativ
 npm install @stytch/react-native @stytch/react-native-inappbrowser-reborn
 ```
 
-#### Stytch React Native SDK
+**Stytch React Native SDK**
 
 The `@stytch/react-native-modules` package is now included in `@stytch/react-native` by default.
 

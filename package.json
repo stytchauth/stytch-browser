@@ -33,8 +33,6 @@
     "lint": "eslint '*/**/*.{js,jsx,ts,tsx}' --max-warnings=0 && prettier -c \"**/*\"",
     "blt": "yarn lint && turbo run build test",
     "format": "eslint '*/**/*.{js,jsx,ts,tsx}' --fix --max-warnings=0 && prettier --write \"**/*\"",
-    "version": "changeset version && yarn && yarn build:packages",
-    "release": "yarn build:packages && yarn workspaces foreach -W --no-private --from '@stytch/*' npm publish --tolerate-republish --access public && yarn changeset tag",
     "strings": "turbo run strings",
     "sizes": "size-limit",
     "generate:cursor-rules": "node ai/generate-rules.mjs && prettier --write \"**/*\""
@@ -54,13 +52,13 @@
     "prettier-plugin-svelte": "3.4.1",
     "rollup": "4.52.5",
     "size-limit": "11.2.0",
-    "svelte": "5.48.4",
+    "svelte": "5.51.5",
     "ts-jest": "29.4.5",
     "turbo": "2.4.2"
   },
   "engines": {
-    "npm": ">=8.0.0",
-    "node": "22.x"
+    "npm": "11.10.0",
+    "node": "22.21.1"
   },
   "packageManager": "yarn@4.12.0",
   "resolutions": {

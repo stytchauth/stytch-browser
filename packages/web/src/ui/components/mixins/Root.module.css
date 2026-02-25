@@ -14,30 +14,36 @@
   padding: 0;
 }
 
-.root a {
-  text-decoration: none;
+/* Non-specific overrides (these will not override one class selectors) */
+:where(.root) {
+  :is(span, strong, em, p, a) {
+    font-size: inherit;
+    font-variant: inherit;
+    line-height: inherit;
+  }
+
+  :is(span, strong, em, p) {
+    color: inherit;
+  }
+
+  :is(span, em, p) {
+    font-weight: inherit;
+  }
+
+  :is(img, svg) {
+    display: block;
+  }
 }
 
-.root :is(span, strong, em, p, a) {
-  font-size: inherit;
-  font-variant: inherit;
-  line-height: inherit;
-}
+/* Specific overrides (these WILL override one class selectors) */
+.root {
+  a {
+    text-decoration: none;
+  }
 
-.root :is(span, strong, em, p) {
-  color: inherit;
-}
-
-.root :is(span, em, p) {
-  font-weight: inherit;
-}
-
-:where(.root) :is(b, strong) {
-  font-weight: var(--st-font-weight-bold);
-}
-
-:where(.root) :is(img, svg) {
-  display: block;
+  :is(b, strong) {
+    font-weight: var(--st-font-weight-bold);
+  }
 }
 
 /* Some unused variables are commented out to reduce output size */

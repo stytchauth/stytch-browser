@@ -19,6 +19,9 @@ const meta = {
     value: new Set(['item1']),
     onChange: action('onChange'),
   },
+  parameters: {
+    adminPortal: true,
+  },
 } satisfies Meta<FilterMenuProps>;
 
 export default meta;

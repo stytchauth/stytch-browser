@@ -16,6 +16,9 @@ const meta = {
     idPrefix: 'action-menu',
     item: {},
   },
+  parameters: {
+    adminPortal: true,
+  },
 } satisfies Meta<ActionMenuProps<unknown>>;
 
 export default meta;

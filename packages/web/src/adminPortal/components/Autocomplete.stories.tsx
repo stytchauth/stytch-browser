@@ -38,6 +38,9 @@ const meta = {
     value: [fakeItems[0]],
     getOptionLabel: (item) => item.label,
   },
+  parameters: {
+    adminPortal: true,
+  },
 } satisfies Meta<AutocompleteProps<FakeItem>>;
 
 export default meta;

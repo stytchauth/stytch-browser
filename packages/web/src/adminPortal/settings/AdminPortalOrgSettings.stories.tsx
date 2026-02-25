@@ -14,6 +14,7 @@ const meta = {
     </MainContainer>
   ),
   parameters: {
+    adminPortal: true,
     layout: 'fullscreen',
     msw: {
       handlers: {

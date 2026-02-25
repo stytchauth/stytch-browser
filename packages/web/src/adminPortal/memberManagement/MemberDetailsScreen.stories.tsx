@@ -13,6 +13,7 @@ const meta = {
     memberId: 'member-id-1',
   },
   parameters: {
+    adminPortal: true,
     msw: {
       handlers: {
         b2bSessionAuthenticate: makeB2BSessionAuthenticateHandler({
