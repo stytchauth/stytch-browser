@@ -13,6 +13,14 @@ on:
         required: false
         type: string
         default: ''
+      cypress_base_url:
+        required: false
+        type: string
+        default: ''
+      cypress_b2b_base_url:
+        required: false
+        type: string
+        default: ''
     secrets:
       cypress_mailosaur_api_key:
         required: true
@@ -25,6 +33,7 @@ on:
 
 jobs:
   get-vercel-deployment-url:
+    if: ${{ inputs.vercel_b2c_project != '' || inputs.vercel_b2b_project != '' }}
     runs-on: ubuntu-latest
     outputs:
       b2c_url: ${{ steps.vercel_b2c.outputs.url }}
@@ -80,8 +89,8 @@ jobs:
         uses: cypress-io/github-action@v6
         env:
           ENV: ${{ inputs.env }}
-          CYPRESS_BASE_URL: ${{ needs.get-vercel-deployment-url.outputs.b2c_url || '' }}
-          CYPRESS_B2B_BASE_URL: ${{ needs.get-vercel-deployment-url.outputs.b2b_url || '' }}
+          CYPRESS_BASE_URL: ${{ needs.get-vercel-deployment-url.outputs.b2c_url || inputs.cypress_base_url }}
+          CYPRESS_B2B_BASE_URL: ${{ needs.get-vercel-deployment-url.outputs.b2b_url || inputs.cypress_b2b_base_url }}
           CYPRESS_MAILOSAUR_API_KEY: ${{ secrets.cypress_mailosaur_api_key }}
           CYPRESS_MAILOSAUR_SERVER_ID: ${{ secrets.cypress_mailosaur_server_id }}
           CYPRESS_RECORD_KEY: ${{ secrets.cypress_record_key }}

@@ -56,6 +56,8 @@ jobs:
     uses: ./.github/workflows/run-e2e-tests.yml
     with:
       env: 'staging'
+      cypress_base_url: 'https://demo-sdk-app.staging.stytch.com'
+      cypress_b2b_base_url: 'https://demo-sdk-b2b-app.staging.stytch.com'
     secrets:
       cypress_mailosaur_api_key: ${{ secrets.CYPRESS_MAILOSAUR_API_KEY }}
       cypress_mailosaur_server_id: ${{ secrets.CYPRESS_MAILOSAUR_SERVER_ID }}
