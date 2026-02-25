@@ -125,7 +125,7 @@ describe('React B2B SDK UI Demo', () => {
     cy.get('input[type="password"]').should('have.length', 1);
     cy.get('input[type="password"]').type(password);
 
-    cy.get('button').contains('Continue').click();
+    cy.contains('button', 'Continue').closest('button').should('not.be.disabled').click();
 
     // Complete MFA via backup code
     cy.contains('Enter verification code').should('exist');
