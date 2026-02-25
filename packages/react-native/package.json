@@ -47,7 +47,7 @@
     "typecheck": "tsc --noEmit"
   },
   "license": "MIT",
-  "homepage": "https://stytch.com/docs/sdks/react-native-sdk",
+  "homepage": "https://stytch.com/docs/api-reference/b2b/mobile-sdks/react-native/overview",
   "author": {
     "name": "Stytch",
     "url": "https://github.com/stytchauth"
@@ -106,5 +106,13 @@
     "android": {
       "javaPackageName": "com.stytch.reactnativemodules"
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:stytchauth/stytch-browser.git",
+    "directory": "packages/react-native"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

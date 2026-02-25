@@ -19,6 +19,9 @@ const meta = {
       <Radio {...args} checked />
     </div>
   ),
+  parameters: {
+    adminPortal: true,
+  },
 } satisfies Meta<RenderProps>;
 
 export default meta;

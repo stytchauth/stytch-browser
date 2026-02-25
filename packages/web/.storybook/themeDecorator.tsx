@@ -184,21 +184,27 @@ export const themeDecorator: Decorator = (storyFn, context) => {
     },
   );
 
-  return (
-    <PresentationContext.Provider value={presentationValue}>
-      <style>{
-        // We disable the background add-on and use the theme's background instead
-        // since we already have our own background theme variable and there's no point in
-        // having two configs that do the same thing
-        `body, .docs-story { 
+  if (context.parameters.adminPortal) {
+    return (
+      <MetaThemeProvider adminTheme={merge({}, adminTheme, overrides)} displayLogo={displayLogo}>
+        {storyFn() as React.ReactNode}
+      </MetaThemeProvider>
+    );
+  } else {
+    return (
+      <PresentationContext.Provider value={presentationValue}>
+        <style>{
+          // We disable the background add-on and use the theme's background instead
+          // since we already have our own background theme variable and there's no point in
+          // having two configs that do the same thing
+          `body, .docs-story { 
            background-color: ${presentationValue.theme.background};
            ${rootWidth ? `--storybook-width: ${rootWidth};` : ''}
          }`
-      }</style>
+        }</style>
 
-      <MetaThemeProvider adminTheme={merge({}, adminTheme, overrides)} displayLogo={displayLogo}>
         <StorybookRoot theme={presentationValue.theme}>{storyFn() as React.ReactNode}</StorybookRoot>
-      </MetaThemeProvider>
-    </PresentationContext.Provider>
-  );
+      </PresentationContext.Provider>
+    );
+  }
 };

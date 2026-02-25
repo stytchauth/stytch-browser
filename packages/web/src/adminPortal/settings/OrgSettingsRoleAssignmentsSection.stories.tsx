@@ -31,6 +31,7 @@ const meta = {
     orgInfo: organizationMeResponse,
   },
   parameters: {
+    adminPortal: true,
     msw: {
       handlers: {
         b2bSessionAuthenticate: makeB2BSessionAuthenticateHandler({ roles: ['stytch_admin', 'stytch_member'] }),

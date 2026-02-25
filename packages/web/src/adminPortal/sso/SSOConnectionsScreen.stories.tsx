@@ -12,6 +12,7 @@ import { SSOConnectionsScreen } from './SSOConnectionsScreen';
 const meta = {
   component: SSOConnectionsScreen,
   parameters: {
+    adminPortal: true,
     msw: {
       handlers: {
         b2bSessionAuthenticate: makeB2BSessionAuthenticateHandler({ roles: ['stytch_admin', 'stytch_member'] }),

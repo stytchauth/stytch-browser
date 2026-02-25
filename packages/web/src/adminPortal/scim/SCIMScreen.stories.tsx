@@ -14,6 +14,7 @@ import { SCIMScreen } from './SCIMScreen';
 const meta = {
   component: SCIMScreen,
   parameters: {
+    adminPortal: true,
     msw: {
       handlers: {
         b2bSessionAuthenticate: makeB2BSessionAuthenticateHandler({ roles: ['stytch_member', 'stytch_admin'] }),

@@ -16,6 +16,7 @@ const meta = {
   },
   component: OrgSettingsScreen,
   parameters: {
+    adminPortal: true,
     msw: {
       handlers: {
         b2bSessionAuthenticate: makeB2BSessionAuthenticateHandler({ roles: ['stytch_member', 'stytch_admin'] }),

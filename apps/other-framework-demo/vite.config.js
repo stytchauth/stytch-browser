@@ -12,6 +12,7 @@ const __dirname = dirname(__filename);
 // Shared configuration factory
 export function createConfig(options = {}) {
   const {
+    root = resolve(__dirname, 'src'),
     outDir = resolve(__dirname, 'dist'),
     input = {
       main: resolve(__dirname, 'src/index.html'),
@@ -23,7 +24,7 @@ export function createConfig(options = {}) {
   } = options;
 
   return {
-    root: resolve(__dirname, 'src'),
+    root,
     plugins: [
       vue(),
       svelte(),

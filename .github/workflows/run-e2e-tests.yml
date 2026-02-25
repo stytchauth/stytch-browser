@@ -5,6 +5,22 @@ on:
       env:
         required: true
         type: string
+      vercel_b2c_project:
+        required: false
+        type: string
+        default: ''
+      vercel_b2b_project:
+        required: false
+        type: string
+        default: ''
+      cypress_base_url:
+        required: false
+        type: string
+        default: ''
+      cypress_b2b_base_url:
+        required: false
+        type: string
+        default: ''
     secrets:
       cypress_mailosaur_api_key:
         required: true
@@ -12,9 +28,47 @@ on:
         required: true
       cypress_record_key:
         required: true
+      vercel_token:
+        required: false
 
 jobs:
+  get-vercel-deployment-url:
+    if: ${{ inputs.vercel_b2c_project != '' || inputs.vercel_b2b_project != '' }}
+    runs-on: ubuntu-latest
+    outputs:
+      b2c_url: ${{ steps.vercel_b2c.outputs.url }}
+      b2b_url: ${{ steps.vercel_b2b.outputs.url }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Make script executable
+        run: chmod +x .github/scripts/get-vercel-preview-url.sh
+
+      # Get Vercel preview deployment URLs using Vercel API
+      - name: Get Vercel B2C deployment URL
+        if: ${{ inputs.vercel_b2c_project != '' }}
+        id: vercel_b2c
+        run: |
+          DEPLOYMENT_URL=$(.github/scripts/get-vercel-preview-url.sh \
+            "${{ secrets.vercel_token }}" \
+            "${{ inputs.vercel_b2c_project }}" \
+            "${{ github.head_ref || github.ref }}")
+
+          echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+
+      - name: Get Vercel B2B deployment URL
+        if: ${{ inputs.vercel_b2b_project != '' }}
+        id: vercel_b2b
+        run: |
+          DEPLOYMENT_URL=$(.github/scripts/get-vercel-preview-url.sh \
+            "${{ secrets.vercel_token }}" \
+            "${{ inputs.vercel_b2b_project }}" \
+            "${{ github.head_ref || github.ref }}")
+
+          echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+
   run-e2e-tests:
+    needs: get-vercel-deployment-url
     runs-on: ubuntu-latest-16-cores
     container:
       image: cypress/browsers:22.19.0
@@ -35,6 +89,8 @@ jobs:
         uses: cypress-io/github-action@v6
         env:
           ENV: ${{ inputs.env }}
+          CYPRESS_BASE_URL: ${{ needs.get-vercel-deployment-url.outputs.b2c_url || inputs.cypress_base_url }}
+          CYPRESS_B2B_BASE_URL: ${{ needs.get-vercel-deployment-url.outputs.b2b_url || inputs.cypress_b2b_base_url }}
           CYPRESS_MAILOSAUR_API_KEY: ${{ secrets.cypress_mailosaur_api_key }}
           CYPRESS_MAILOSAUR_SERVER_ID: ${{ secrets.cypress_mailosaur_server_id }}
           CYPRESS_RECORD_KEY: ${{ secrets.cypress_record_key }}

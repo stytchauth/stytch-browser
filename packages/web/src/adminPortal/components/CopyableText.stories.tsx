@@ -4,6 +4,9 @@ import { CopyableText, CopyableTextProps } from './CopyableText';
 
 const meta = {
   component: CopyableText,
+  parameters: {
+    adminPortal: true,
+  },
 } satisfies Meta<CopyableTextProps>;
 
 export default meta;

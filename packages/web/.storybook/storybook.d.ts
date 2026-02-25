@@ -33,6 +33,7 @@ declare module 'storybook/internal/types' {
 
   interface Parameters {
     stytch?: DeepPartial<StytchParameters>;
+    adminPortal?: boolean;
   }
 }
 

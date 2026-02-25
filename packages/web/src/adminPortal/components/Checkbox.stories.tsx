@@ -22,6 +22,9 @@ const Checkbox = (props: CheckboxProps): JSX.Element => {
 
 const meta: Meta<CheckboxProps> = {
   component: Checkbox,
+  parameters: {
+    adminPortal: true,
+  },
 };
 
 export default meta;

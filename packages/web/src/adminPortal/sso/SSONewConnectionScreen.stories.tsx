@@ -8,6 +8,9 @@ import { SSONewConnectionScreen } from './SSONewConnectionScreen';
 
 const meta = {
   component: SSONewConnectionScreen,
+  parameters: {
+    adminPortal: true,
+  },
 } satisfies Meta;
 
 export default meta;

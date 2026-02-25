@@ -1,6 +1,12 @@
 # @stytch/react
 
-## 6.0.0
+## 20.0.2
+
+### Patch Changes
+
+- 5f66066: Fix font size issue on some anchor buttons
+
+## 20.0.1
 
 This is a major release, containing a redesign of our frontend components and package structure.
 
@@ -22,11 +28,15 @@ This is a major release, containing a redesign of our frontend components and pa
 - Significantly smaller bundle sizes through modern transpilation targets and tree shaking
 - Clientside validation for configs now only occur in development build to reduce bundle size from validation message strings
 
+## 20.0.0
+
+This version was released with broken packaging. We recommend upgrading to 20.0.1 if you have this version.
+
 ## 19.18.1
 
 ### Patch Changes
 
-- 5a0ad5c: Add external_id to Member and User types and add organization_external_id to Organization type
+- 5a0ad5c: Add `external_id` to Member and User types and add `organization_external_id` to Organization type
 
 ## 19.18.0
 
@@ -38,12 +48,12 @@ This is a major release, containing a redesign of our frontend components and pa
 
 ### Minor Changes
 
-- 2da1e4d: Add keepSessionAlive boolean flag to StytchClientOptions. When set, the client will automatically refresh the session as long as the client is active
+- 2da1e4d: Add `keepSessionAlive` boolean flag to `StytchClientOptions`. When set, the client will automatically refresh the session as long as the client is active
 - e4445f3: Add TypeScript typings for strings prop / param. The types is available as Strings and is opt in. We recommend using them like `const strings: Strings = { 'button.usePassword': 'Log in with password' }`. `Strings` is a partial since we recommend you only include strings that you need, but if you need every string mapped (such as in a full localization), you can use `Required<Strings>`.
 
 ### Patch Changes
 
-- 17e589c: B2B: Add support for 'ALL_ALLOWED' organization email_jit_provisioning setting
+- 17e589c: B2B: Add support for `ALL_ALLOWED` organization `email_jit_provisioning` setting
 
 ## 19.16.0
 
@@ -56,8 +66,8 @@ This is a major release, containing a redesign of our frontend components and pa
 ### Patch Changes
 
 - 2fabc69: Fix endpoint options still being preferred for custom endpoint config
-- 4311e82: Fix last used Oauth method not updated when Google One Tap fallback button is clicked
-- 25e43f0: Add types for Member.is_admin
+- 4311e82: Fix last used OAuth method not updated when Google One Tap fallback button is clicked
+- 25e43f0: Add types for `Member.is_admin`
 
 ## 19.15.1
 
@@ -93,7 +103,7 @@ This is a major release, containing a redesign of our frontend components and pa
 
 ### Minor Changes
 
-- 0c1a944: Update labels to use <label> element and improve accessibility
+- 0c1a944: Update labels to use `<label>` element and improve accessibility
   New `formField.phone.label` string for phone number input label and `formField.countryCode.label` for country code label
   `formField.password.ariaLabel` string has been folded into `formField.password.label` and can be removed
 
@@ -106,13 +116,13 @@ This is a major release, containing a redesign of our frontend components and pa
 
 ### Patch Changes
 
-- 0af9049: bug fixes
+- 0af9049: Bug fixes
 
 ## 19.11.0
 
 ### Minor Changes
 
-- 21b1777: refactor trusted auth token attestation in IDPConsentScreen components
+- 21b1777: Refactor trusted auth token attestation in IDPConsentScreen components
 
 ## 19.10.0
 
@@ -244,7 +254,7 @@ This is a major release, containing a redesign of our frontend components and pa
 
 ### Minor Changes
 
-- d5ed50c: Added User Impersonation to Consumer
+- d5ed50c: Add User Impersonation to Consumer
 - 9eb8e8c: Add dfpCdnDomain endpoint configuration
 
 ## 19.2.0
@@ -261,7 +271,7 @@ This is a major release, containing a redesign of our frontend components and pa
 
 ### Patch Changes
 
-- 26a2e95: Fixed <StytchB2B /> error message
+- 26a2e95: Fixed `<StytchB2B />` error message
 
 ## 19.1.1
 
@@ -528,7 +538,7 @@ This is a major release, containing a redesign of our frontend components and pa
 
 ### Patch Changes
 
-- c924765: Include the b2b directory in package.json for the B2B SDK entrypoint
+- c924765: Include the B2B directory in package.json for the B2B SDK entrypoint
 - Updated dependencies [c924765]
   - @stytch/vanilla-js@0.11.2
 

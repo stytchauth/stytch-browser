@@ -1,8 +1,14 @@
 # @stytch/nextjs
 
-## 22.0.0
+## 22.0.2
 
-## 6.0.0
+### Patch Changes
+
+- 5f66066: Fix font size issue on some anchor buttons
+
+## 22.0.1
+
+### Patch Changes
 
 This is a major release, containing a redesign of our frontend components and package structure.
 
@@ -24,11 +30,15 @@ This is a major release, containing a redesign of our frontend components and pa
 - Significantly smaller bundle sizes through modern transpilation targets and tree shaking
 - Clientside validation for configs now only occur in development build to reduce bundle size from validation message strings
 
+## 22.0.0
+
+This version was released with broken packaging. We recommend upgrading to 22.0.1 if you have this version.
+
 ## 21.18.1
 
 ### Patch Changes
 
-- 5a0ad5c: Add external_id to Member and User types and add organization_external_id to Organization type
+- 5a0ad5c: Add `external_id` to Member and User types and add `organization_external_id` to Organization type
 
 ## 21.18.0
 
@@ -45,7 +55,7 @@ This is a major release, containing a redesign of our frontend components and pa
 
 ### Patch Changes
 
-- 17e589c: B2B: Add support for 'ALL_ALLOWED' organization email_jit_provisioning setting
+- 17e589c: B2B: Add support for `ALL_ALLOWED` organization `email_jit_provisioning` setting
 
 ## 21.16.0
 
@@ -59,7 +69,7 @@ This is a major release, containing a redesign of our frontend components and pa
 
 - 2fabc69: Fix endpoint options still being preferred for custom endpoint config
 - 4311e82: Fix last used Oauth method not updated when Google One Tap fallback button is clicked
-- 25e43f0: Add types for Member.is_admin
+- 25e43f0: Add types for `Member.is_admin`
 
 ## 21.15.1
 
@@ -95,7 +105,7 @@ This is a major release, containing a redesign of our frontend components and pa
 
 ### Minor Changes
 
-- 0c1a944: Update labels to use <label> element and improve accessibility
+- 0c1a944: Update labels to use `<label>` element and improve accessibility
   New `formField.phone.label` string for phone number input label and `formField.countryCode.label` for country code label
   `formField.password.ariaLabel` string has been folded into `formField.password.label` and can be removed
 
@@ -232,7 +242,7 @@ This is a major release, containing a redesign of our frontend components and pa
 
 ### Patch Changes
 
-- 26a2e95: Fixed <StytchB2B /> error message
+- 26a2e95: Fixed `<StytchB2B />` error message
 
 ## 21.1.0
 

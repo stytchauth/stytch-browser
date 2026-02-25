@@ -78,12 +78,12 @@ describe('React B2B SDK UI Demo', () => {
 
         cy.get('button').contains('Continue').click();
 
-        cy.get('input[type="text"]').type(totpAuth.generate());
+        cy.get('input[autocomplete="one-time-code"]').type(totpAuth.generate());
       });
 
     cy.contains('Save your backup codes!').should('exist');
 
-    cy.get('code')
+    cy.get('li')
       .then((elements) => elements.toArray().map((el) => el.textContent!))
       .as('backupCodes');
 
@@ -110,7 +110,7 @@ describe('React B2B SDK UI Demo', () => {
     cy.get('input[type="email"]').should('have.length', 1);
     cy.get('input[type="email"]').type(`${emailAddress}{enter}`);
 
-    cy.contains('Check your email!').should('exist');
+    cy.contains('Check your email').should('exist');
 
     cy.mailosaurGetMessage(MAILOSAUR_SERVER_ID, {
       sentTo: emailAddress,
@@ -125,7 +125,7 @@ describe('React B2B SDK UI Demo', () => {
     cy.get('input[type="password"]').should('have.length', 1);
     cy.get('input[type="password"]').type(password);
 
-    cy.get('button').contains('Continue').click();
+    cy.contains('button', 'Continue').closest('button').should('not.be.disabled').click();
 
     // Complete MFA via backup code
     cy.contains('Enter verification code').should('exist');

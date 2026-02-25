@@ -22,10 +22,9 @@ async function buildAll() {
     console.log(`Building ${framework}...`);
     try {
       const config = createConfig({
+        root: resolve(__dirname, `src/${framework}`),
         outDir: resolve(__dirname, `dist/${framework}`),
-        input: {
-          [framework]: resolve(__dirname, `src/${framework}/index.html`),
-        },
+        input: resolve(__dirname, `src/${framework}/index.html`),
       });
 
       await build(config);
