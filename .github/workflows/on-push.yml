@@ -1,4 +1,6 @@
 name: On Push [merge PR]
+permissions:
+  contents: read
 on:
   push:
     branches:

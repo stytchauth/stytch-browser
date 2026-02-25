@@ -1,4 +1,6 @@
 name: On Pull Requests [PR]
+permissions:
+  contents: read
 on:
   merge_group:
   pull_request:
