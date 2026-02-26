@@ -11,7 +11,7 @@ const Watermark = ({ poweredBy, label }: { poweredBy: string; label: string }) =
     target="_blank"
     rel="noreferrer"
   >
-    <span>{poweredBy} </span>
+    <span>{poweredBy}&nbsp;</span>
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 47 24" aria-label={label}>
       <path
         fillRule="evenodd"
