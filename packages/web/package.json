@@ -86,7 +86,7 @@
     "concurrently": "8.2.2",
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-storybook": "10.2.0",
-    "glob": "13.0.0",
+    "glob": "13.0.1",
     "http-server": "14.1.1",
     "identity-obj-proxy": "3.0.0",
     "immer": "10.1.1",

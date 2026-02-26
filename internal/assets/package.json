@@ -8,7 +8,7 @@
     "build": "node scripts/hash-assets.mjs"
   },
   "devDependencies": {
-    "glob": "13.0.0",
+    "glob": "13.0.1",
     "sharp": "0.34.5"
   }
 }
