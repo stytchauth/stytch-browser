@@ -1,7 +1,6 @@
 a.watermark {
   display: flex;
   align-items: center;
-  gap: var(--st-spacing);
   padding: var(--st-spacing-2) var(--st-spacing-3);
   border-radius: var(--st-rounded-md);
   color: var(--st-muted-foreground);
