@@ -5,8 +5,8 @@ set -e
 # Required ENV var: VERCEL_TOKEN
 # Usage: ./get-vercel-preview-url.sh <PROJECT_ID> <BRANCH>
 
-PROJECT_ID="$2"
-BRANCH="$3"
+PROJECT_ID="$1"
+BRANCH="$2"
 MAX_ATTEMPTS=30  # 10 minutes max (30 attempts * 20 seconds)
 ATTEMPT=0
 
