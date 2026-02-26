@@ -46,7 +46,13 @@ while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
     if [ "$DEPLOYMENT_COUNT" -eq 0 ]; then
       echo "No deployment found yet for this branch" >&2
     else
-      LATEST_STATE=$(echo "$RESPONSE" | jq -r '.deployments | sort_by(.created) | reverse | .[0].readyState // empty')
+      LATEST_STATE=$(echo "$RESPONSE" | jq -r '
+        .deployments
+        | sort_by(.created)
+        | reverse
+        | map(select(.readyState == "READY"))
+        | .[0].url // empty
+      ')
       echo "Latest deployment found with state: $LATEST_STATE (waiting for READY)" >&2
     fi
   else
