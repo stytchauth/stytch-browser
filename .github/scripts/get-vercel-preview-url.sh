@@ -2,17 +2,22 @@
 set -e
 
 # Script to get Vercel preview deployment URL
-# Usage: ./get-vercel-preview-url.sh <VERCEL_TOKEN> <PROJECT_ID> <BRANCH>
+# Required ENV var: VERCEL_TOKEN
+# Usage: ./get-vercel-preview-url.sh <PROJECT_ID> <BRANCH>
 
-VERCEL_TOKEN="$1"
 PROJECT_ID="$2"
 BRANCH="$3"
 MAX_ATTEMPTS=30  # 10 minutes max (30 attempts * 20 seconds)
 ATTEMPT=0
 
-if [ -z "$VERCEL_TOKEN" ] || [ -z "$PROJECT_ID" ] || [ -z "$BRANCH" ]; then
+if [ -z "$VERCEL_TOKEN" ]; then
+  echo "Error: Missing VERCEL_TOKEN env"
+  exit 1;
+fi
+
+if [ -z "$PROJECT_ID" ] || [ -z "$BRANCH" ]; then
   echo "Error: Missing required arguments" >&2
-  echo "Usage: $0 <VERCEL_TOKEN> <PROJECT_ID> <BRANCH>" >&2
+  echo "Usage: $0 <PROJECT_ID> <BRANCH>" >&2
   exit 1
 fi
 
