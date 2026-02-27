@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { PasswordStrengthCheckOptions, PasswordStrengthCheckResponse } from '@stytch/core/public';
 import { http, HttpResponse } from 'msw';
 import type { Canvas } from 'storybook/internal/csf';

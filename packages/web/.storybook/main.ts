@@ -3,9 +3,9 @@ import { fileURLToPath } from 'node:url';
 
 import { lingui } from '@lingui/vite-plugin';
 import type { StorybookConfig } from '@storybook/react-vite';
+import react from '@vitejs/plugin-react-swc';
 import { dirname, join } from 'path';
 import type { TransformPluginContext } from 'rollup';
-import react from '@vitejs/plugin-react-swc';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -43,7 +43,7 @@ const config: StorybookConfig = {
   viteFinal: async (config) => {
     const { mergeConfig } = await import('vite');
 
-    const result = mergeConfig(config, {
+    return mergeConfig(config, {
       optimizeDeps: {
         // This must be imported first, before any MUI components are imported
         // see: https://mui.com/material-ui/experimental-api/classname-generator/
@@ -88,11 +88,6 @@ const config: StorybookConfig = {
         },
       ],
     });
-
-    console.log(result);
-    console.log(result.plugins);
-
-    return result;
   },
 };
 export default config;

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { makeB2BSessionAuthenticateHandler } from '../../../.storybook/handlers';
 import { AdminPortalOrgUIConfig } from '../settings/AdminPortalOrgSettingsContainer';

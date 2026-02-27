@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { B2BAuthenticateResponseWithMFA, B2BOAuthProviders, Member, Organization } from '@stytch/core/public';
 import { MOCK_EMAIL, MOCK_MEMBER } from '@stytch/internal-mocks';
 import { expect, userEvent, waitFor, within } from 'storybook/test';

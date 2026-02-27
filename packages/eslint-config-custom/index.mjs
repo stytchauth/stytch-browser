@@ -24,15 +24,8 @@ export default defineConfig(
   tsEslint.configs.stylistic,
   pluginImport.flatConfigs.typescript,
   reactHooks.configs['recommended-latest'],
-  prettier,
-
-  // Storybook
   storybook.configs['flat/recommended'],
-  {
-    rules: {
-      'storybook/no-renderer-packages': OFF,
-    },
-  },
+  prettier,
 
   // React plugin and overrides
   react.configs.flat.recommended,

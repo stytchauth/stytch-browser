@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, within } from 'storybook/test';
 
 import { MOCK_QR_CODE_PNG_DATA, MOCK_TOTP_RECOVERY_CODES, MOCK_TOTP_SECRET } from '../../../testUtils';

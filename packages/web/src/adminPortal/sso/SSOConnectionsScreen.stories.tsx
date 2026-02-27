@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { B2BSSOGetConnectionsResponse } from '@stytch/core/public';
 import { http, HttpResponse } from 'msw';
 import { expect, getByRole, userEvent, waitFor, waitForElementToBeRemoved, within } from 'storybook/test';

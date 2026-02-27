@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { AuthFlowType, Member, Organization } from '@stytch/core/public';
 import { MOCK_EMAIL, MOCK_MEMBER } from '@stytch/internal-mocks';
 import { produce } from 'immer';
