@@ -1,7 +1,5 @@
 ---
-description: Code standards and formatting
-globs: ['**/*.{ts,tsx,js,jsx}']
-alwaysApply: true
+applyTo: '**/*.{ts,tsx,js,jsx}'
 ---
 
 # Code Standards

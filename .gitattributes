@@ -2,5 +2,10 @@
 *.mdc linguist-language=Markdown
 
 # Mark Lingui generated files
-**/messages/**/*.json linguist-generated
-.cursor/rules/* linguist-generated
+**/messages/**/*.json           linguist-generated
+
+# All of the coding agent rules are generated from ai/rules
+.cursor/rules/*                 linguist-generated
+CLAUDE.md                       linguist-generated
+.github/instructions/*          linguist-generated
+.github/copilot-instructions.md linguist-generated

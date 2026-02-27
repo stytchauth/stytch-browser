@@ -1,7 +1,5 @@
 ---
-description: Code standards for tests
-globs: ['**/*.{spec,test}.{ts,tsx,js,jsx}']
-alwaysApply: true
+applyTo: '**/*.{spec,test}.{ts,tsx,js,jsx}'
 ---
 
 # Testing
