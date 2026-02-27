@@ -72,7 +72,7 @@ export const AllColors = {
   render: ({ color, children, ...props }) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       {ALL_COLORS.map((color) => (
-        <Typography color={color} {...props}>
+        <Typography color={color} key={color} {...props}>
           {color} - Lorem ipsum dolor sit amet, consectetur adipiscing elit
         </Typography>
       ))}
@@ -84,7 +84,7 @@ export const AllWeights = {
   render: ({ color, children, ...props }) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       {ALL_WEIGHTS.map((weight) => (
-        <Typography weight={weight} {...props}>
+        <Typography weight={weight} key={weight} {...props}>
           {weight} - Lorem ipsum dolor sit amet, consectetur adipiscing elit
         </Typography>
       ))}
