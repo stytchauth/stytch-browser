@@ -22,20 +22,37 @@ export default defineConfig(
   tsEslint.configs.recommended,
   tsEslint.configs.stylistic,
   pluginImport.flatConfigs.typescript,
+  reactHooks.configs['recommended-latest'],
   prettier,
 
-  // React
-  reactHooks.configs['recommended-latest'],
-
+  // React plugin and overrides
+  react.configs.flat.recommended,
   {
-    plugins: {
-      react,
-      'simple-import-sort': simpleImportSort,
-    },
     settings: {
       react: {
         version: 'detect',
       },
+    },
+    rules: {
+      // We don't use prop types in demo apps, and everywhere else uses TS which has prop typing automatically
+      'react/prop-types': OFF,
+
+      // Don't really care about this
+      'react/display-name': OFF,
+
+      // We need to use these for backwards compat
+      'react/no-deprecated': OFF,
+
+      // Different packages using different runtimes confuses the plugin, so we don't use jsx-runtime config
+      // which causes typescript-eslint to complain about React imports in places where we use the old runtime
+      // AND we disable this rule so it doesn't complain about missing React import in places using the new runtime
+      'react/react-in-jsx-scope': OFF,
+    },
+  },
+
+  {
+    plugins: {
+      'simple-import-sort': simpleImportSort,
     },
   },
 

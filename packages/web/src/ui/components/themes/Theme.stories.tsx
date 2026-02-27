@@ -106,7 +106,9 @@ const meta = {
               style={{ padding: '4px 8px', width: '100px' }}
             >
               {Object.keys(themes).map((theme) => (
-                <option value={theme}>{theme}</option>
+                <option key={theme} value={theme}>
+                  {theme}
+                </option>
               ))}
             </select>
 

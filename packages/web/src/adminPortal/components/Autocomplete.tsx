@@ -176,6 +176,8 @@ export const Autocomplete = <TSelectItem,>({
           value.map((option, index) => {
             const { onDelete, ...tagProps } = getTagProps({ index });
             return (
+              // key is in tagProps
+              // eslint-disable-next-line react/jsx-key
               <AutocompleteTag {...tagProps} onDelete={getOptionDisabled?.(option) ? undefined : onDelete}>
                 {getOptionLabel(option)}
               </AutocompleteTag>

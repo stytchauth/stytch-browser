@@ -53,7 +53,7 @@ const IconPreview = ({
       }}
     >
       {iconComponents.map(([name, IconComponent]) => (
-        <div style={{ display: 'flex', gap: 'var(--st-spacing-2)', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: 'var(--st-spacing-2)', alignItems: 'center' }} key={name}>
           <IconComponent size={size} style={{ outline: showOutline ? '1px solid' : '0' }} />
           <span>{name}</span>
         </div>
