@@ -1,4 +1,5 @@
 ---
+description: Output and communication preferences for AI assistants
 alwaysApply: true
 ---
 
