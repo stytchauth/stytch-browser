@@ -1,6 +1,6 @@
 {
   "name": "@stytch/nextjs",
-  "version": "22.0.2",
+  "version": "22.0.3",
   "description": "Stytch's official Next.js Library",
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",

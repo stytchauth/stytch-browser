@@ -1,5 +1,12 @@
 # @stytch/vanilla-js
 
+## 6.0.3
+
+### Patch Changes
+
+- 330ce99: Tweak watermark spacing
+- b4bf9e3: Improve data fetching for TOTP enrollment
+
 ## 6.0.2
 
 ### Patch Changes
