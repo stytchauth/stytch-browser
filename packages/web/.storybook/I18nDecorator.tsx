@@ -1,7 +1,7 @@
 import { setupI18n } from '@lingui/core';
 import { compileMessage } from '@lingui/message-utils/compileMessage';
 import { I18nProvider } from '@lingui/react';
-import { Decorator } from '@storybook/preact-vite';
+import { Decorator } from '@storybook/react-vite';
 import React, { useEffect, useMemo } from 'react';
 
 import { messages as adminMessagesEn } from '../src/messages/adminPortal/en';

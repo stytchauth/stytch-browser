@@ -1,4 +1,4 @@
-import type { InputType, Preview } from '@storybook/preact-vite';
+import type { InputType, Preview } from '@storybook/react-vite';
 import { initialize, mswLoader } from 'msw-storybook-addon';
 
 import { handlers } from './handlers';
