@@ -28,15 +28,12 @@ type TotpAuthenticateAction = {
   type: 'totp/authenticate_success';
 };
 
-type TotpCreateAction =
-  | { type: 'totp/create' }
-  | {
-      type: 'totp/create_success';
-      response: B2BTOTPCreateResponse;
-      memberId: string;
-      organizationId: string;
-    }
-  | { type: 'totp/create_error'; error: unknown };
+type TotpCreateAction = {
+  type: 'totp/create_success';
+  response: B2BTOTPCreateResponse;
+  memberId: string;
+  organizationId: string;
+};
 
 type TotpShowCodeAction = {
   type: 'totp/show_code';
@@ -350,23 +347,6 @@ export const mfaReducer = (state: AppState, action: MfaAction): AppState => {
       });
     }
 
-    case 'totp/create':
-      if (state.mfa.totp.isCreating) {
-        return state;
-      }
-
-      return {
-        ...state,
-        mfa: {
-          ...state.mfa,
-          totp: {
-            ...state.mfa.totp,
-            isCreating: true,
-            createError: null,
-          },
-        },
-      };
-
     case 'totp/create_success':
       if (
         !state.mfa.isEnrolling ||
@@ -382,26 +362,12 @@ export const mfaReducer = (state: AppState, action: MfaAction): AppState => {
           ...state.mfa,
           totp: {
             ...state.mfa.totp,
-            createError: null,
-            isCreating: false,
             enrollment: {
               secret: action.response.secret,
               qrCode: action.response.qr_code,
               recoveryCodes: action.response.recovery_codes,
               method: state.mfa.totp.enrollment?.method ?? 'qr',
             },
-          },
-        },
-      };
-    case 'totp/create_error':
-      return {
-        ...state,
-        mfa: {
-          ...state.mfa,
-          totp: {
-            ...state.mfa.totp,
-            isCreating: false,
-            createError: action.error,
           },
         },
       };
