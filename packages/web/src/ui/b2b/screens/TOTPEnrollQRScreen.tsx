@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
-import { B2BTOTPCreateResponse, StytchAPIError } from '@stytch/core/public';
-import React, { useEffect } from 'react';
+import { StytchAPIError, StytchError, StytchEventType } from '@stytch/core/public';
+import React from 'react';
+import useSWR from 'swr';
 
 import { getTranslatedError } from '../../../utils/getTranslatedError';
 import Button from '../../components/atoms/Button';
@@ -9,38 +10,33 @@ import { errorToast } from '../../components/atoms/Toast';
 import Typography from '../../components/atoms/Typography';
 import ButtonColumn from '../../components/molecules/ButtonColumn';
 import { LoadingScreen } from '../../components/molecules/Loading';
-import { useGlobalReducer, useStytch } from '../GlobalContextProvider';
+import { useErrorCallback, useEventCallback, useGlobalReducer, useStytch } from '../GlobalContextProvider';
 import { AppScreens } from '../types/AppScreens';
-import { StytchMutationKey, useMutate } from '../utils';
 import styles from './TOTPEnrollQRScreen.module.css';
 
 export const TOTPEnrollQRScreen = () => {
   const stytchClient = useStytch();
   const [state, dispatch] = useGlobalReducer();
+  const onEvent = useEventCallback();
+  const onError = useErrorCallback();
+
   const { t } = useLingui();
-  const {
-    mfa: {
-      totp: { createError, enrollment, isCreating },
-    },
-  } = state;
 
   // This screen should only be shown if primary info and TOTP enrollment are
   // available
   const { memberId, organizationId } = state.mfa.primaryInfo!;
 
-  const { trigger: createTotp } = useMutate<
-    B2BTOTPCreateResponse,
-    unknown,
-    StytchMutationKey,
-    { memberId: string; organizationId: string }
-  >(
-    'stytch.totp.create',
-    (_: string, { arg: { memberId, organizationId } }: { arg: { memberId: string; organizationId: string } }) => {
-      dispatch({ type: 'totp/create' });
-      return stytchClient.totp.create({ member_id: memberId, organization_id: organizationId });
-    },
+  const { data } = useSWR(
+    ['stytch.totp.create', memberId, organizationId],
+    () => stytchClient.totp.create({ member_id: memberId, organization_id: organizationId }),
     {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      revalidateIfStale: false,
+
       onSuccess: (response) => {
+        onEvent({ type: StytchEventType.B2BTOTPCreate, data: response });
+        // Store the enrollment object so we can show recovery code after authenticating
         dispatch({ type: 'totp/create_success', response, memberId, organizationId });
       },
       onError: (error) => {
@@ -48,17 +44,10 @@ export const TOTPEnrollQRScreen = () => {
         if (message) {
           errorToast({ message });
         }
-        dispatch({ type: 'totp/create_error', error });
+        onError(error as StytchError);
       },
     },
   );
-
-  const shouldCreate = !enrollment && !isCreating && !createError;
-  useEffect(() => {
-    if (shouldCreate) {
-      createTotp({ memberId, organizationId });
-    }
-  }, [createTotp, memberId, organizationId, shouldCreate]);
 
   const handleShowManualCode = () => {
     dispatch({ type: 'totp/show_code', method: 'manual' });
@@ -82,11 +71,11 @@ export const TOTPEnrollQRScreen = () => {
         })}
       </Typography>
 
-      {enrollment ? (
+      {data ? (
         <>
           <img
             alt={t({ id: 'mfaTotpEnrollment.qrAltText', message: 'QR code for TOTP enrollment' })}
-            src={enrollment.qrCode}
+            src={data.qr_code}
             className={styles.qr}
           />
 

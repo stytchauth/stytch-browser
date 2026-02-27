@@ -286,6 +286,7 @@ export const Discovery = () => {
 
     return (
       <OrganizationRow
+        key={organization.organization_id}
         organization={organization}
         action={action}
         onClick={() => handleDiscoveryOrganizationStart(discoveredOrganization)}
