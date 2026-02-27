@@ -68,6 +68,9 @@ jobs:
           echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
 
   run-e2e-tests:
+    # Explicit always() needed since get-vercel-deployment-url is optional. Otherwise, this job will also be skipped if
+    # get-vercel-deployment-url is skipped
+    if: always()
     needs: get-vercel-deployment-url
     runs-on: ubuntu-latest-16-cores
     container:
