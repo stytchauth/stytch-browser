@@ -16,6 +16,8 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest-16-cores
+    outputs:
+      published: ${{ steps.changesets.outputs.published }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
@@ -38,7 +40,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache: 'yarn'
 
-      # This step is needed because npm only supported OIDC publishing with v11.15.1
+      # This step is needed because npm only supported OIDC publishing with v11.15.1 and setup-node
+      # installs an older version
       - name: Update npm
         run: |
           npm install -g npm@latest
@@ -61,8 +64,16 @@ jobs:
           NPM_TOKEN: ''
           NPM_CONFIG_PROVENANCE: false
 
+  update_old_docs:
+    name: Update old docs
+    needs: release
+    if: needs.release.outputs.published == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
       - name: Trigger old docs update
-        if: steps.changesets.outputs.published == 'true'
         run: |
           # Trigger the docs workflow to update documentation and changelogs
           gh workflow run js-sdk-docs.yml \
@@ -72,8 +83,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
+  update_mintlify_docs:
+    name: Update Mintlify docs
+    needs: release
+    if: needs.release.outputs.published == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
       - name: Trigger Mintlify docs update
-        if: steps.changesets.outputs.published == 'true'
         run: |
           # Trigger the mintlify-docs workflow to update changelogs
           gh workflow run js-sdk-docs.yml \
@@ -83,6 +102,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-      - name: Trigger canaries
-        if: steps.changesets.outputs.published == 'true'
-        uses: ./.github/workflows/run-canaries.yml
+  trigger_canaries:
+    name: Trigger canaries
+    needs: release
+    if: needs.release.outputs.published == 'true'
+    uses: ./.github/workflows/run-canaries.yml
