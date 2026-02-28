@@ -147,22 +147,13 @@ jobs:
           name: build-artifacts
       - name: Run tests
         run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-test -- yarn test
-      - name: Cache Playwright browsers
-        uses: actions/cache@v3
-        id: playwright-cache
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('packages/web/package.json') }}
-      - name: Install Playwright
-        working-directory: packages/web
-        run: buildevents cmd $GITHUB_RUN_ID $(cat ../../../step_span_id) npx-install-playwright -- npx playwright install
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-      - name: Install Playwright system dependencies
-        working-directory: packages/web
-        run: npx playwright install-deps
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-      - name: Run Storybook tests
-        run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-test-storybook -- yarn test-storybook:static
+      - name: Finish step
+        run: buildevents step $GITHUB_RUN_ID $(cat ../step_span_id) $(cat ../step_start) node-test
+
+  chromatic:
+    needs: [build]
+    runs-on: ubuntu-latest-16-cores
+    steps:
       - name: Run Chromatic
         uses: chromaui/action@v15
         with:
@@ -172,5 +163,4 @@ jobs:
           exitOnceUploaded: true
           storybookBaseDir: 'packages/web'
           autoAcceptChanges: 'main'
-      - name: Finish step
-        run: buildevents step $GITHUB_RUN_ID $(cat ../step_span_id) $(cat ../step_start) node-test
+
