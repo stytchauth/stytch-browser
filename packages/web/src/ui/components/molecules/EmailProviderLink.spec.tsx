@@ -1,12 +1,11 @@
-import { Messages } from '@lingui/core';
 import React, { ReactNode } from 'react';
 
 import { messages } from '../../../messages/en';
 import { render, screen } from '../../../testUtils';
-import { I18nProviderWrapper } from '../atoms/I18nProviderWrapper';
-import { EmailProviderInfo, emailProviderInfo, EmailProviderLink } from './EmailProviderLink';
-import { PresentationContext, usePresentationWithDefault } from '../PresentationConfig';
 import { emailMagicLinks } from '../../b2c/Products';
+import { I18nProviderWrapper } from '../atoms/I18nProviderWrapper';
+import { PresentationContext, usePresentationWithDefault } from '../PresentationConfig';
+import { EmailProviderInfo, emailProviderInfo, EmailProviderLink } from './EmailProviderLink';
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
   <I18nProviderWrapper messages={messages}>

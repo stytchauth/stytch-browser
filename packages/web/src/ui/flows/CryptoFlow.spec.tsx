@@ -1,18 +1,8 @@
 import { CryptoWalletAuthenticateResponse, CryptoWalletAuthenticateStartResponse } from '@stytch/core/public';
 import userEvent from '@testing-library/user-event';
 import { encode } from 'bs58';
-import React from 'react';
 
-import {
-  createResolvablePromise,
-  MockClient,
-  MockConfig,
-  MockGlobalContextProvider,
-  render,
-  screen,
-  waitFor,
-} from '../../testUtils';
-import Container from '../b2c/Container';
+import { createResolvablePromise, MockClient, MockConfig, screen, waitFor } from '../../testUtils';
 import * as Products from '../b2c/Products';
 import { renderFlow } from './helpers';
 

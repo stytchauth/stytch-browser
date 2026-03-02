@@ -5,11 +5,11 @@ import React from 'react';
 
 import { messages } from '../../messages/en';
 import { MockClient, MockConfig, MockGlobalContextProvider, render, screen, waitFor } from '../../testUtils';
+import { IconNames } from '../b2c/components/Icons';
 import Container from '../b2c/Container';
 import { I18nProviderWrapper } from '../components/atoms/I18nProviderWrapper';
-import { PresentationContext, usePresentationWithDefault } from '../components/PresentationConfig';
 import { IconRegistry } from '../components/IconRegistry';
-import { IconNames } from '../b2c/components/Icons';
+import { PresentationContext, usePresentationWithDefault } from '../components/PresentationConfig';
 
 type FlowDefinition = {
   config?: MockConfig;
