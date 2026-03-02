@@ -1,6 +1,6 @@
 ---
 description: Code standards and formatting
-globs: ['**/*.{ts,tsx,js,jsx,json}']
+globs: ['**/*.{ts,tsx,js,jsx}']
 alwaysApply: true
 ---
 
