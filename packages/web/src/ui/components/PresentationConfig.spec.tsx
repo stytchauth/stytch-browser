@@ -145,8 +145,7 @@ describe('usePresentationWithDefault', () => {
         },
       };
 
-      const products = [oauth];
-      const { result } = renderHook(() => usePresentationWithDefault(customConfig, false, { products }));
+      const { result } = renderHook(() => usePresentationWithDefault(customConfig, false, { products: [oauth] }));
 
       // Custom icons should override product icons
       expect(result.current.iconRegistry.google).toBe(customGoogleIcon);
@@ -181,7 +180,7 @@ describe('buttonId with PresentationContext', () => {
   const renderWithPresentation = (presentation: PresentationConfig | undefined) => {
     const Test = () => (
       <MockGlobalContextProvider config={{ products: [emailMagicLinks] }}>
-        <PresentationContext.Provider value={usePresentationWithDefault(presentation, false, { products: [] })}>
+        <PresentationContext.Provider value={usePresentationWithDefault(presentation, false, { products: [oauth] })}>
           <OAuthButton providerType={OAuthProviders.Google} />
         </PresentationContext.Provider>
       </MockGlobalContextProvider>
