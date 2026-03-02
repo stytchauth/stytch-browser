@@ -132,8 +132,6 @@ jobs:
           sudo curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
           sudo chmod 755 /usr/local/bin/buildevents
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
       - name: Use Node
         uses: actions/setup-node@v4
         with:
@@ -161,6 +159,8 @@ jobs:
           sudo curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
           sudo chmod 755 /usr/local/bin/buildevents
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Use Node
         uses: actions/setup-node@v4
         with:
@@ -177,4 +177,3 @@ jobs:
           exitOnceUploaded: true
           storybookBaseDir: 'packages/web'
           autoAcceptChanges: 'main'
-
