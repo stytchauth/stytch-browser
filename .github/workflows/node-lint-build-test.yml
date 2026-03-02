@@ -168,6 +168,13 @@ jobs:
           cache: 'yarn'
       - name: Install dependencies
         run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-install -- yarn install --immutable
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - name: Build Storybook
+        working-directory: packages/web
+        run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-build-storybook -- yarn build-storybook
       - name: Run Chromatic
         uses: chromaui/action@v15
         with:
