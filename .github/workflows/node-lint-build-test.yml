@@ -174,7 +174,7 @@ jobs:
           name: build-artifacts
       - name: Build Storybook
         working-directory: packages/web
-        run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-build-storybook -- yarn build-storybook
+        run: buildevents cmd $GITHUB_RUN_ID $(cat ../../../step_span_id) yarn-build-storybook -- yarn build-storybook
       - name: Run Chromatic
         uses: chromaui/action@v15
         with:
