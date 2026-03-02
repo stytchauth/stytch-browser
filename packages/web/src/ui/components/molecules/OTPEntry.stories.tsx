@@ -41,7 +41,7 @@ const InteractiveComponent = () => {
             setIsSubmitting(false);
             setErrorMessage('Invalid code. Please try again.');
           }
-        }, 100);
+        }, 200);
       }}
     />
   );
