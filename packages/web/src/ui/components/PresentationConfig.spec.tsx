@@ -1,3 +1,4 @@
+import { logger } from '@stytch/core';
 import { OAuthProviders } from '@stytch/core/public';
 import { renderHook } from '@testing-library/react';
 import React from 'react';
@@ -8,6 +9,7 @@ import { PresentationConfig } from '../../types';
 import { OAuthButton } from '../b2c/components/OAuthButton';
 import { crypto, oauth } from '../b2c/Products';
 import { emailMagicLinks } from '../b2c/Products';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 import { PresentationContext, usePresentationWithDefault } from './PresentationConfig';
 import { defaultTheme } from './themes/themes';
 
@@ -16,9 +18,6 @@ jest.mock('../hooks/useMediaQuery', () => ({
   useMediaQuery: jest.fn(() => false),
 }));
 
-import { logger } from '@stytch/core';
-
-import { useMediaQuery } from '../hooks/useMediaQuery';
 const mockMediaQuery = useMediaQuery as jest.Mock;
 
 describe('usePresentationWithDefault', () => {
@@ -94,23 +93,30 @@ describe('usePresentationWithDefault', () => {
     expect(result1.current.displayWatermark).toBe(true);
   });
 
-  it('should throw error for string products in development mode', () => {
-    const loggerError = jest.spyOn(logger, 'error').mockImplementation(() => {
-      // noop
-    });
+  describe('error handling', () => {
+    it('should throw error for string products in development mode', () => {
+      // Silence React uncaught exception error
+      jest.spyOn(console, 'error').mockImplementation(() => {
+        // noop
+      });
 
-    const stringProducts = ['emailMagicLinks', 'oauth'] as any;
+      const loggerError = jest.spyOn(logger, 'error').mockImplementation(() => {
+        // noop
+      });
 
-    expect(() => {
-      renderHook(() => usePresentationWithDefault(undefined, false, { products: stringProducts }, 'Products'));
-    }).toThrow("'config.products' should not include strings anymore");
+      const stringProducts = ['emailMagicLinks', 'oauth'] as any;
 
-    expect(loggerError.mock.calls[0]).toMatchInlineSnapshot(`
+      expect(() => {
+        renderHook(() => usePresentationWithDefault(undefined, false, { products: stringProducts }, 'Products'));
+      }).toThrow("'config.products' should not include strings anymore");
+
+      expect(loggerError.mock.calls[0]).toMatchInlineSnapshot(`
      [
        "Please add an import for Products and update config.products to
      products: [Products.emailMagicLinks, Products.oauth]",
      ]
     `);
+    });
   });
 
   describe('enableShadowDOM', () => {

@@ -32,7 +32,7 @@ const SSOButtons = ({ availableConnections }: { availableConnections: SSOActiveC
           />
         );
 
-        return foundLastUsed && index === 0 ? <LastUsed>{button}</LastUsed> : button;
+        return foundLastUsed && index === 0 ? <LastUsed key={provider.display_name}>{button}</LastUsed> : button;
       })}
     </Column>
   );
