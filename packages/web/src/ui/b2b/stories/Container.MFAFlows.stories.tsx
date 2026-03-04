@@ -59,7 +59,10 @@ const b2bPasswordsAuthenticateResponseMfaEnrollmentSmsOtpWithNumber = {
     mfa_phone_number: '+442071234567',
     mfa_phone_number_verified: false,
   },
-  mfa_required: { member_options: { mfa_phone_number: '+442071234567' }, secondary_auth_initiated: 'sms_otp' },
+  mfa_required: {
+    member_options: { mfa_phone_number: '+442071234567', totp_registration_id: '' },
+    secondary_auth_initiated: 'sms_otp',
+  },
 } satisfies B2BPasswordAuthenticateResponse;
 
 const b2bPasswordsAuthenticateResponseMfaEntryTotpRequired = {
@@ -88,7 +91,10 @@ const b2bPasswordsAuthenticateResponseMfaEntrySmsOtpRequired = {
     mfa_phone_number: '+15005550006',
     mfa_phone_number_verified: true,
   },
-  mfa_required: { member_options: { mfa_phone_number: '+15005550006' }, secondary_auth_initiated: 'sms_otp' },
+  mfa_required: {
+    member_options: { mfa_phone_number: '+15005550006', totp_registration_id: '' },
+    secondary_auth_initiated: 'sms_otp',
+  },
 } satisfies B2BPasswordAuthenticateResponse;
 
 const b2bPasswordsAuthenticateResponseMfaEntryTotpDefault = {
@@ -111,7 +117,10 @@ const b2bPasswordsAuthenticateResponseMfaEntrySmsOtpDefault = {
     ...b2bPasswordsAuthenticateResponseMfaEntryTotpDefault.member,
     default_mfa_method: 'sms_otp',
   },
-  mfa_required: { member_options: { mfa_phone_number: '+15005550006' }, secondary_auth_initiated: 'sms_otp' },
+  mfa_required: {
+    member_options: { mfa_phone_number: '+15005550006', totp_registration_id: '' },
+    secondary_auth_initiated: 'sms_otp',
+  },
 } satisfies B2BPasswordAuthenticateResponse;
 
 const b2bPasswordsAuthenticateResponseMfaEntrySmsOtpDeferred = {
