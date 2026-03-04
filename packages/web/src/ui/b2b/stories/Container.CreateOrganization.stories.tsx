@@ -1,4 +1,4 @@
-import type { Meta, Parameters, StoryObj } from '@storybook/react';
+import type { Meta, Parameters, StoryObj } from '@storybook/react-vite';
 import { B2BDiscoveryOrganizationsCreateOptions, B2BDiscoveryOrganizationsCreateResponse } from '@stytch/core/public';
 import { produce } from 'immer';
 import { delay, http, HttpResponse } from 'msw';

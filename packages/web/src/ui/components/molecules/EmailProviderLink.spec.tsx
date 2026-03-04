@@ -1,17 +1,22 @@
-import { Messages } from '@lingui/core';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import { messages } from '../../../messages/en';
 import { render, screen } from '../../../testUtils';
+import { emailMagicLinks } from '../../b2c/Products';
 import { I18nProviderWrapper } from '../atoms/I18nProviderWrapper';
+import { PresentationContext, usePresentationWithDefault } from '../PresentationConfig';
 import { EmailProviderInfo, emailProviderInfo, EmailProviderLink } from './EmailProviderLink';
 
+const Wrapper = ({ children }: { children: ReactNode }) => (
+  <I18nProviderWrapper messages={messages}>
+    <PresentationContext.Provider value={usePresentationWithDefault(undefined, false, { products: [emailMagicLinks] })}>
+      {children}
+    </PresentationContext.Provider>
+  </I18nProviderWrapper>
+);
+
 const renderEmailProviderLink = (providerInfo: EmailProviderInfo, emailDomain: string | null) =>
-  render(
-    <I18nProviderWrapper messages={messages as Messages}>
-      <EmailProviderLink providerInfo={providerInfo} emailDomain={emailDomain} />
-    </I18nProviderWrapper>,
-  );
+  render(<EmailProviderLink providerInfo={providerInfo} emailDomain={emailDomain} />, { wrapper: Wrapper });
 
 describe('EmailProviderLink', () => {
   describe('Gmail provider', () => {

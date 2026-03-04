@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { B2BSSOGetConnectionsResponse, Organization, ResponseCommon } from '@stytch/core/public';
 import { delay, http, HttpResponse } from 'msw';
 

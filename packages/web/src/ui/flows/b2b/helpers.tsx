@@ -6,8 +6,8 @@ import React, { useMemo, useReducer } from 'react';
 
 import { HandledTokenType, StytchB2BClient } from '../../../b2b/StytchB2BClient';
 import { messages } from '../../../messages/b2b/en';
-import { MOCK_BOOTSTRAP_DATA, render, screen, waitFor } from '../../../testUtils';
-import { StytchB2BExtendedLoginConfig } from '../../../types';
+import { act, MOCK_BOOTSTRAP_DATA, render, screen, waitFor } from '../../../testUtils';
+import { IconRegistry, StytchB2BExtendedLoginConfig } from '../../../types';
 import { createAuthUrlHandler } from '../../../utils/createAuthUrlHandler';
 import { B2BInternals, writeB2BInternals } from '../../../utils/internal';
 import * as B2BProducts from '../../b2b/B2BProducts';
@@ -16,7 +16,9 @@ import { DEFAULT_STATE, GlobalContext } from '../../b2b/GlobalContextProvider';
 import { reducer } from '../../b2b/reducer';
 import { AppScreens } from '../../b2b/types/AppScreens';
 import { AppState } from '../../b2b/types/AppState';
+import { IconNames } from '../../b2c/components/Icons';
 import { I18nProviderWrapper } from '../../components/atoms/I18nProviderWrapper';
+import { PresentationContext, usePresentationWithDefault } from '../../components/PresentationConfig';
 
 export const DEFAULT_CONFIG: StytchB2BExtendedLoginConfig = {
   products: [B2BProducts.emailMagicLinks],
@@ -111,6 +113,11 @@ export const MockGlobalContextProvider = ({
     return cli;
   }, [client, bootstrap, internals]);
 
+  const presentationValue = usePresentationWithDefault(undefined, false, {
+    products: (finalConfig?.products as { id: string; icons?: Partial<IconRegistry<IconNames>> }[]) ?? [],
+    enableShadowDOM: false,
+  });
+
   const initialState: AppState = {
     ...DEFAULT_STATE,
     screen: config?.authFlowType === AuthFlowType.PasswordReset ? AppScreens.PasswordResetForm : AppScreens.Main,
@@ -127,7 +134,11 @@ export const MockGlobalContextProvider = ({
     callbacks,
   };
 
-  return <GlobalContext.Provider value={AppContext}>{children}</GlobalContext.Provider>;
+  return (
+    <GlobalContext.Provider value={AppContext}>
+      <PresentationContext.Provider value={presentationValue}>{children}</PresentationContext.Provider>
+    </GlobalContext.Provider>
+  );
 };
 
 export const renderWithConfig = (
@@ -142,19 +153,9 @@ export const renderWithConfig = (
   );
 };
 
-const renderAppWithConfig = ({
-  config,
-  client,
-  callbacks,
-  bootstrap,
-  internals,
-}: FlowDefinition): ReturnType<typeof render> => {
-  return renderWithConfig(<Container />, { config, client, callbacks, bootstrap, internals });
-};
-
-export const renderFlow = async (definition: FlowDefinition) => {
-  renderAppWithConfig(definition);
-  await new Promise(process.nextTick);
+export const renderFlow = async ({ config, client, callbacks, bootstrap, internals }: FlowDefinition) => {
+  renderWithConfig(<Container />, { config, client, callbacks, bootstrap, internals });
+  await act(() => new Promise(process.nextTick));
 };
 
 export const changeEmail = async (email: string) => {
@@ -221,14 +222,14 @@ export const clickGetHelpButton = async () => {
 };
 
 export const waitForEmailPasswordLoginScreen = async () => {
-  await new Promise(process.nextTick);
+  await act(() => new Promise(process.nextTick));
   await waitFor(() => {
     screen.getByText('Log in with email and password');
   });
 };
 
 export const waitForMfaEnrollmentScreen = async () => {
-  await new Promise(process.nextTick);
+  await act(() => new Promise(process.nextTick));
   await waitFor(() => {
     screen.getByText('Set up Multi-Factor Authentication');
   });

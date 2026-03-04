@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { OAuthLogoutStartResponse } from '@stytch/core';
 import { http, HttpResponse } from 'msw';
 import React from 'react';

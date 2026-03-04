@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { CountryCode, ParsedPhoneNumberResponse } from '@stytch/core';
 import React from 'react';
 import { useArgs } from 'storybook/preview-api';

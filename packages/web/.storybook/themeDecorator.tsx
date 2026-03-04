@@ -1,5 +1,5 @@
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
-import { Decorator } from '@storybook/preact-vite';
+import { Decorator } from '@storybook/react-vite';
 import { PartialDeep } from '@stytch/core';
 import { StyleConfig } from '@stytch/core/public';
 import merge from 'lodash.merge';

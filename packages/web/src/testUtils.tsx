@@ -1,4 +1,3 @@
-import { Messages } from '@lingui/core';
 import { BootstrapData, ISyncPKCEManager } from '@stytch/core';
 import { Callbacks, OrganizationBySlugMatch } from '@stytch/core/public';
 import {
@@ -6,7 +5,17 @@ import {
   IConsumerSubscriptionServiceMock,
   INetworkClientMock,
 } from '@stytch/core/testUtils';
-import { render, RenderOptions } from '@testing-library/preact';
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  renderHook,
+  RenderOptions,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import merge from 'lodash.merge';
 import React, { useMemo, useReducer } from 'react';
 
@@ -238,19 +247,16 @@ const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <PresentationContext.Provider value={presentationValue}>
-      <I18nProviderWrapper messages={messages as unknown as Messages}>{children}</I18nProviderWrapper>
+      <I18nProviderWrapper messages={messages}>{children}</I18nProviderWrapper>
     </PresentationContext.Provider>
   );
 };
 
-// Re-export functions from @testing-library/preact typed as @testing-library/react when necessary
-// TODO: If we use this consistently maybe we can avoid the @testing-library/react alias in jest.config.js?
-import { act, cleanup, fireEvent, renderHook, screen, waitFor, within } from '@testing-library/preact';
-import type * as TestingLibReact from '@testing-library/react';
+const customRender = (ui: React.ReactNode, options: RenderOptions = {}): ReturnType<typeof render> =>
+  render(ui, { wrapper: AllTheProviders, ...options });
 
-const customRender = ((ui: React.ReactNode, options: RenderOptions = {}): ReturnType<typeof render> =>
-  render(ui, { wrapper: AllTheProviders, ...options })) as typeof TestingLibReact.render;
-const customRenderHook = renderHook as typeof TestingLibReact.renderHook;
+// No customization here yet, but this is a useful placeholder for the future
+const customRenderHook = renderHook;
 
 export { customRender as render, customRenderHook as renderHook };
 export { act, cleanup, fireEvent, screen, waitFor, within };

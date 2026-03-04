@@ -1,4 +1,4 @@
-import type { Decorator, StoryFn } from '@storybook/preact-vite';
+import type { Decorator, StoryFn } from '@storybook/react-vite';
 import React, { useEffect } from 'react';
 
 const WindowLocationMock = ({ children }: { children: ReturnType<StoryFn> }) => {

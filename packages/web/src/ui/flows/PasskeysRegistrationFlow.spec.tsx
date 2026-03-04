@@ -1,4 +1,4 @@
-import { DEFAULT_SESSION_DURATION_MINUTES } from '@stytch/core';
+import { DEFAULT_SESSION_DURATION_MINUTES, logger } from '@stytch/core';
 import { Callbacks, WebAuthnRegistration } from '@stytch/core/public';
 import userEvent from '@testing-library/user-event';
 import { http, HttpResponse } from 'msw';
@@ -281,6 +281,10 @@ describe('Passkey Registration Flow', () => {
     });
 
     it('Handles failure correctly', async () => {
+      jest.spyOn(logger, 'error').mockImplementation(() => {
+        // noop
+      });
+
       server.use(...updateFailureHandler);
       const registrationToEdit = await editAndSave();
 

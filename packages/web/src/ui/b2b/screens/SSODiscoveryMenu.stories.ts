@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { AuthFlowType } from '@stytch/core/public';
 import { MOCK_SSO_CONNECTIONS } from '@stytch/internal-mocks';
 

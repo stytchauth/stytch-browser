@@ -59,7 +59,9 @@ describe('useDisplayPagination', () => {
 
     expect(result.current.currentPage).toBe(0);
 
-    result.current.setCurrentPage(1);
+    act(() => {
+      result.current.setCurrentPage(1);
+    });
     expect(result.current.currentPage).toBe(0);
   });
 

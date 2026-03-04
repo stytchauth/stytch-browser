@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { B2BSSOCreateExternalConnectionOptions, B2BSSOSAMLCreateConnectionOptions } from '@stytch/core/public';
 import { delay, http } from 'msw';
 import { expect, screen, userEvent, waitFor } from 'storybook/test';

@@ -1,29 +1,12 @@
 import { CryptoWalletAuthenticateResponse, CryptoWalletAuthenticateStartResponse } from '@stytch/core/public';
 import userEvent from '@testing-library/user-event';
 import { encode } from 'bs58';
-import React from 'react';
 
-import {
-  createResolvablePromise,
-  MockClient,
-  MockConfig,
-  MockGlobalContextProvider,
-  render,
-  screen,
-  waitFor,
-} from '../../testUtils';
-import Container from '../b2c/Container';
+import { createResolvablePromise, MockClient, MockConfig, screen, waitFor } from '../../testUtils';
 import * as Products from '../b2c/Products';
+import { renderFlow } from './helpers';
 
 describe('Crypto Wallet Flow', () => {
-  const renderAppWithConfig = (config?: MockConfig, client?: MockClient) => {
-    return render(
-      <MockGlobalContextProvider config={config} client={client}>
-        <Container />
-      </MockGlobalContextProvider>,
-    );
-  };
-
   afterEach(() => {
     // @ts-expect-error -- ethereum is typed as required, but should be optional
     delete window.ethereum;
@@ -65,7 +48,7 @@ describe('Crypto Wallet Flow', () => {
       },
     };
 
-    renderAppWithConfig(config, client);
+    renderFlow({ config, client });
 
     const metamaskButton = await screen.findByText('Continue with Metamask');
     await userEvent.click(metamaskButton);
@@ -141,7 +124,7 @@ describe('Crypto Wallet Flow', () => {
       },
     };
 
-    renderAppWithConfig(config, client);
+    renderFlow({ config, client });
 
     const phantomButton = await screen.findByText('Continue with Phantom');
     await userEvent.click(phantomButton);
@@ -207,7 +190,7 @@ describe('Crypto Wallet Flow', () => {
       },
     };
 
-    renderAppWithConfig(config, client);
+    renderFlow({ config, client });
 
     const metamaskButton = await screen.findByText('Continue with Metamask');
     await userEvent.click(metamaskButton);
@@ -232,7 +215,7 @@ describe('Crypto Wallet Flow', () => {
       products: [Products.crypto],
     };
 
-    renderAppWithConfig(config);
+    renderFlow({ config });
     await userEvent.click(screen.getByRole('button', { name: 'Set up a new crypto wallet' }));
 
     const foundSetUpScreen = screen.getByText('Set up a new crypto wallet');

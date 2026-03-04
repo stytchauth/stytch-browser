@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { AuthFlowType, B2BOTPsEmailLoginOrSignupOptions, B2BOTPsEmailLoginOrSignupResponse } from '@stytch/core/public';
 import { MOCK_REQUEST_ID } from '@stytch/internal-mocks';
 import isChromatic from 'chromatic/isChromatic';

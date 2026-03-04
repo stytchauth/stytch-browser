@@ -78,7 +78,6 @@ describe('ErrorText', () => {
          <div
            class="typography helper destructive"
          >
-           
            <a
              href="https://stytch.com/dashboard#this-is-a-hash"
              rel="noreferrer"
