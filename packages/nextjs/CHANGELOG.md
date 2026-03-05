@@ -1,5 +1,11 @@
 # @stytch/nextjs
 
+## 22.0.4
+
+### Patch Changes
+
+- 0c5334c: Fix DiscoveredOrganization.mfa_required.member_options types
+
 ## 22.0.3
 
 ### Patch Changes
