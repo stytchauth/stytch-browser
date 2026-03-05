@@ -22,7 +22,7 @@ jobs:
       CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 
   e2e-tests-preview:
-    if: ${{ !startsWith(github.head_ref, 'changeset-release/') }}
+    if: ${{ !startsWith(github.head_ref, 'changeset-release/') && !startsWith(github.head_ref, 'refs/heads/gh-readonly-queue/') }}
     needs: [pre-build, node-lint-build-test]
     uses: ./.github/workflows/run-e2e-tests.yml
     with:
