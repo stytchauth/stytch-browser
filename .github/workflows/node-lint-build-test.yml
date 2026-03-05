@@ -132,8 +132,6 @@ jobs:
           sudo curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
           sudo chmod 755 /usr/local/bin/buildevents
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
       - name: Use Node
         uses: actions/setup-node@v4
         with:
@@ -147,22 +145,36 @@ jobs:
           name: build-artifacts
       - name: Run tests
         run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-test -- yarn test
-      - name: Cache Playwright browsers
-        uses: actions/cache@v3
-        id: playwright-cache
+      - name: Finish step
+        run: buildevents step $GITHUB_RUN_ID $(cat ../step_span_id) $(cat ../step_start) node-test
+
+  chromatic:
+    needs: [build]
+    runs-on: ubuntu-latest-16-cores
+    steps:
+      - name: install honeycomb buildevents tool
+        run: |
+          echo $(date +%s) > ../step_start
+          echo $(echo node-typecheck | sum | cut -f 1 -d \ ) > ../step_span_id
+          sudo curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
+          sudo chmod 755 /usr/local/bin/buildevents
+      - uses: actions/checkout@v3
         with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('packages/web/package.json') }}
-      - name: Install Playwright
+          fetch-depth: 0
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: 'yarn'
+      - name: Install dependencies
+        run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-install -- yarn install --immutable
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - name: Build Storybook
         working-directory: packages/web
-        run: buildevents cmd $GITHUB_RUN_ID $(cat ../../../step_span_id) npx-install-playwright -- npx playwright install
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-      - name: Install Playwright system dependencies
-        working-directory: packages/web
-        run: npx playwright install-deps
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-      - name: Run Storybook tests
-        run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-test-storybook -- yarn test-storybook:static
+        run: buildevents cmd $GITHUB_RUN_ID $(cat ../../../step_span_id) yarn-build-storybook -- yarn build-storybook
       - name: Run Chromatic
         uses: chromaui/action@v15
         with:
@@ -172,5 +184,3 @@ jobs:
           exitOnceUploaded: true
           storybookBaseDir: 'packages/web'
           autoAcceptChanges: 'main'
-      - name: Finish step
-        run: buildevents step $GITHUB_RUN_ID $(cat ../step_span_id) $(cat ../step_start) node-test

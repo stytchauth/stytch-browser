@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React, { useState } from 'react';
 import { expect, userEvent, waitFor } from 'storybook/test';
 
@@ -41,7 +41,7 @@ const InteractiveComponent = () => {
             setIsSubmitting(false);
             setErrorMessage('Invalid code. Please try again.');
           }
-        }, 100);
+        }, 200);
       }}
     />
   );

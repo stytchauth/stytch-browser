@@ -1,4 +1,4 @@
-import type { Decorator } from '@storybook/preact-vite';
+import type { Decorator } from '@storybook/react-vite';
 import React from 'react';
 import { SWRConfig } from 'swr';
 

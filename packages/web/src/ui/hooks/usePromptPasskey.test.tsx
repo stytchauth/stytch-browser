@@ -83,9 +83,9 @@ describe('usePromptPasskey', () => {
 
       const { result } = renderHookWithProviders({ canAutofill: false });
 
-      await act(() => {
+      await act(async () => {
         const [prompt] = result.current;
-        prompt();
+        await prompt();
       });
 
       expect(client.webauthn.authenticate).toHaveBeenCalledWith({

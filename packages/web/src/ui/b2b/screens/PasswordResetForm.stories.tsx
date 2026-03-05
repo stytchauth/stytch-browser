@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { B2BPasswordStrengthCheckResponse, MemberResponseCommon } from '@stytch/core/public';
 import { MOCK_MEMBER_COMMON_RESPONSE, MOCK_REQUEST_ID } from '@stytch/internal-mocks';
 import { http, HttpResponse } from 'msw';

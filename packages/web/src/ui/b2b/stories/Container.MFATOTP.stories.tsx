@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { AuthFlowType, B2BMFAProducts, B2BTOTPCreateOptions } from '@stytch/core/public';
 import { delay, http } from 'msw';
 import { expect, userEvent, waitFor, within } from 'storybook/test';

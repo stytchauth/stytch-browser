@@ -721,6 +721,7 @@ export interface PrimaryRequired {
 
 export interface MemberOptions {
   mfa_phone_number: string;
+  totp_registration_id: string;
 }
 
 export interface X509Certificate {

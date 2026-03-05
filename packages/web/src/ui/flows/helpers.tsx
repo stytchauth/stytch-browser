@@ -1,13 +1,15 @@
 import { BootstrapData } from '@stytch/core';
 import { Callbacks } from '@stytch/core/public';
-import type { RenderResult } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import { messages } from '../../messages/en';
 import { MockClient, MockConfig, MockGlobalContextProvider, render, screen, waitFor } from '../../testUtils';
+import { IconNames } from '../b2c/components/Icons';
 import Container from '../b2c/Container';
 import { I18nProviderWrapper } from '../components/atoms/I18nProviderWrapper';
+import { IconRegistry } from '../components/IconRegistry';
+import { PresentationContext, usePresentationWithDefault } from '../components/PresentationConfig';
 
 type FlowDefinition = {
   config?: MockConfig;
@@ -15,17 +17,26 @@ type FlowDefinition = {
   callbacks?: Callbacks;
   bootstrap?: BootstrapData;
 };
-const renderAppWithConfig = ({ config, client, callbacks, bootstrap }: FlowDefinition): RenderResult =>
-  render(
+
+const ContainerWithProviders = ({ config, client, callbacks, bootstrap }: FlowDefinition) => {
+  const presentationValue = usePresentationWithDefault(undefined, false, {
+    products: (config?.products as { id: string; icons?: Partial<IconRegistry<IconNames>> }[]) ?? [],
+    enableShadowDOM: false,
+  });
+
+  return (
     <MockGlobalContextProvider config={config} client={client} callbacks={callbacks} bootstrap={bootstrap}>
       <I18nProviderWrapper messages={messages}>
-        <Container />
+        <PresentationContext.Provider value={presentationValue}>
+          <Container />
+        </PresentationContext.Provider>
       </I18nProviderWrapper>
-    </MockGlobalContextProvider>,
+    </MockGlobalContextProvider>
   );
+};
 
-export const renderFlow = (definition: FlowDefinition) => {
-  return renderAppWithConfig(definition);
+export const renderFlow = ({ config, client, callbacks, bootstrap }: FlowDefinition) => {
+  return render(<ContainerWithProviders config={config} client={client} callbacks={callbacks} bootstrap={bootstrap} />);
 };
 
 export const changeEmail = async (email: string) => {

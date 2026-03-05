@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React, { useState } from 'react';
 import { InputType } from 'storybook/internal/csf';
 import { useArgs, useGlobals } from 'storybook/preview-api';

@@ -3,7 +3,16 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import { messages } from '../../messages/en';
-import { MockClient, MockConfig, MockGlobalContextProvider, MockState, render, screen, waitFor } from '../../testUtils';
+import {
+  act,
+  MockClient,
+  MockConfig,
+  MockGlobalContextProvider,
+  MockState,
+  render,
+  screen,
+  waitFor,
+} from '../../testUtils';
 import * as internals from '../../utils/internal';
 import { B2CInternals } from '../../utils/internal';
 import Container from '../b2c/Container';
@@ -325,7 +334,7 @@ describe('OTP Flow', () => {
     const currentTime = screen.getByText('Your code expires in 10:00.');
     expect(currentTime).toBeDefined();
 
-    await new Promise((res) => setTimeout(res, 3500));
+    await act(() => new Promise((res) => setTimeout(res, 3500)));
 
     await waitFor(async () => {
       screen.getByText('Your code expires in 9:57.');

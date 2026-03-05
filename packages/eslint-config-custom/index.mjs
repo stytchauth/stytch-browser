@@ -11,6 +11,7 @@ import pluginChaiFriendly from 'eslint-plugin-chai-friendly';
 import pluginJest from 'eslint-plugin-jest';
 import pluginImport from 'eslint-plugin-import';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import storybook from 'eslint-plugin-storybook';
 
 const OFF = 0;
 const WARNING = 1;
@@ -23,6 +24,7 @@ export default defineConfig(
   tsEslint.configs.stylistic,
   pluginImport.flatConfigs.typescript,
   reactHooks.configs['recommended-latest'],
+  storybook.configs['flat/recommended'],
   prettier,
 
   // React plugin and overrides

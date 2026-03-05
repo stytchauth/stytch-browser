@@ -1,3 +1,4 @@
+import { logger } from '@stytch/core';
 import { Callbacks, IDPOAuthFlowMissingParamError, StytchAPIError } from '@stytch/core/public';
 import { MOCK_USER } from '@stytch/internal-mocks';
 import { waitFor } from '@testing-library/react';
@@ -71,6 +72,10 @@ describe('IDP SLO Flow', () => {
   });
 
   it('Error on missing required fields', async () => {
+    jest.spyOn(logger, 'warn').mockImplementation(() => {
+      // noop
+    });
+
     renderIDPApp('?');
 
     await screen.findByText('Required parameter is missing: client_id. Please reach out to the application developer.');

@@ -1,4 +1,4 @@
-import type { Decorator } from '@storybook/preact-vite';
+import type { Decorator } from '@storybook/react-vite';
 import { InternalStytchClientOptions } from '@stytch/core';
 import { AuthFlowType, Callbacks } from '@stytch/core/public';
 import merge from 'lodash.merge';

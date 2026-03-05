@@ -135,7 +135,10 @@ export const MOCK_MEMBER_NEEDS_MFA_SMS_IMPLICITLY_SENT: B2BAuthenticateResponseW
   ...MOCK_MEMBER_NEEDS_MFA_WITH_SMS_PRIMARY,
   primary_required: null,
   mfa_required: {
-    member_options: { mfa_phone_number: '' },
+    member_options: {
+      mfa_phone_number: '',
+      totp_registration_id: '',
+    },
     secondary_auth_initiated: 'sms_otp',
   },
 };

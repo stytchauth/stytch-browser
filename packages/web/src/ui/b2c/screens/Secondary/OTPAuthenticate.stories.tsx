@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { DeepPartial } from '../../../../testUtils';
 import { AppState } from '../../GlobalContextProvider';
