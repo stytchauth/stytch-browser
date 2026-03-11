@@ -52,7 +52,7 @@
     "prettier-plugin-svelte": "3.4.1",
     "rollup": "4.52.5",
     "size-limit": "11.2.0",
-    "svelte": "5.51.5",
+    "svelte": "5.53.10",
     "ts-jest": "29.4.5",
     "turbo": "2.4.2"
   },
