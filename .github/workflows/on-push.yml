@@ -135,8 +135,10 @@ jobs:
           buildevents step $GITHUB_RUN_ID $(cat ../step_span_id) $(cat ../step-start) post-build
 
       - name: finalize and send failed buildevents build
+        env:
+          BUILD_START_TIME: ${{ needs.pre-build.outputs.starttime }}
         run: |
-          traceURL=$(buildevents build $GITHUB_RUN_ID ${{ needs.pre-build.outputs.starttime }} failure)
+          traceURL=$(buildevents build $GITHUB_RUN_ID "$BUILD_START_TIME" failure)
           echo "build failed: $traceURL"
 
   post-build-success:
@@ -157,6 +159,8 @@ jobs:
           buildevents step $GITHUB_RUN_ID $(cat ../step_span_id) $(cat ../step-start) post-build
 
       - name: finalize and send success buildevents build
+        env:
+          BUILD_START_TIME: ${{ needs.pre-build.outputs.starttime }}
         run: |
-          traceURL=$(buildevents build $GITHUB_RUN_ID ${{ needs.pre-build.outputs.starttime }} success)
+          traceURL=$(buildevents build $GITHUB_RUN_ID "$BUILD_START_TIME" success)
           echo "build success: $traceURL"

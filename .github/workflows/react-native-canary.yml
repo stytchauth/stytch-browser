@@ -102,5 +102,7 @@ jobs:
 
       - name: Build App
         working-directory: canaries/react-native-canary
+        env:
+          PLATFORM: ${{ matrix.platform }}
         run: |
-          EXPO_TOKEN=$EXPO_TOKEN eas build -e production -p ${{ matrix.platform }} --local --non-interactive
+          EXPO_TOKEN=$EXPO_TOKEN eas build -e production -p "$PLATFORM" --local --non-interactive
