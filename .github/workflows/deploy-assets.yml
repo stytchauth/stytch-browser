@@ -21,6 +21,8 @@ on:
         required: true
       ci_aws_secret_access_key:
         required: true
+permissions:
+  contents: read
 env:
   BUILDEVENT_APIKEY: ${{ secrets.honeycomb_api_key }}
   BUILDEVENT_DATASET: 'stytch-ci'

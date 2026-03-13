@@ -5,6 +5,8 @@ on:
     secrets:
       EXPO_TOKEN:
         required: true
+permissions:
+  contents: read
 jobs:
   configure:
     name: Configure Canary

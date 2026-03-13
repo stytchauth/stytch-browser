@@ -5,6 +5,8 @@ on:
       sha:
         description: 'Sha to Deploy'
         required: true
+permissions:
+  contents: read
 jobs:
   deploy-clientside-services-prod:
     uses: ./.github/workflows/deploy-clientside-services.yml
