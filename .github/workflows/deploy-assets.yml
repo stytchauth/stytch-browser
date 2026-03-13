@@ -35,12 +35,12 @@ jobs:
     env:
       S3_BUCKET: ${{ inputs.s3_bucket }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
         with:
           ref: ${{ inputs.sha_to_deploy }}
 
       - name: Use Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version-file: .nvmrc
           cache: 'yarn'
@@ -54,7 +54,7 @@ jobs:
           yarn build
 
       - name: Configure AWS credentials from account
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@5fd3084fc36e372ff1fff382a39b10d03659f355 # v2.2.0
         with:
           aws-access-key-id: ${{ secrets.ci_aws_access_key_id }}
           aws-secret-access-key: ${{ secrets.ci_aws_secret_access_key }}
