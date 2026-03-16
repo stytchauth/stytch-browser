@@ -130,13 +130,15 @@ jobs:
         run: |
           echo $(date +%s) > ../step-start
           echo $(echo post-build | sum | cut -f 1 -d \ ) > ../step_span_id
-          sudo curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
-          sudo chmod 755 /usr/local/bin/buildevents
+          curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
+          chmod 755 /usr/local/bin/buildevents
           buildevents step $GITHUB_RUN_ID $(cat ../step_span_id) $(cat ../step-start) post-build
 
       - name: finalize and send failed buildevents build
+        env:
+          BUILD_START_TIME: ${{ needs.pre-build.outputs.starttime }}
         run: |
-          traceURL=$(buildevents build $GITHUB_RUN_ID ${{ needs.pre-build.outputs.starttime }} failure)
+          traceURL=$(buildevents build $GITHUB_RUN_ID "$BUILD_START_TIME" failure)
           echo "build failed: $traceURL"
 
   post-build-success:
@@ -152,11 +154,13 @@ jobs:
         run: |
           echo $(date +%s) > ../step-start
           echo $(echo post-build | sum | cut -f 1 -d \ ) > ../step_span_id
-          sudo curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
-          sudo chmod 755 /usr/local/bin/buildevents
+          curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
+          chmod 755 /usr/local/bin/buildevents
           buildevents step $GITHUB_RUN_ID $(cat ../step_span_id) $(cat ../step-start) post-build
 
       - name: finalize and send success buildevents build
+        env:
+          BUILD_START_TIME: ${{ needs.pre-build.outputs.starttime }}
         run: |
-          traceURL=$(buildevents build $GITHUB_RUN_ID ${{ needs.pre-build.outputs.starttime }} success)
+          traceURL=$(buildevents build $GITHUB_RUN_ID "$BUILD_START_TIME" success)
           echo "build success: $traceURL"

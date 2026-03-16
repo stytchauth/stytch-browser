@@ -39,7 +39,7 @@ jobs:
       b2c_url: ${{ steps.vercel_b2c.outputs.url }}
       b2b_url: ${{ steps.vercel_b2b.outputs.url }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
       - name: Make script executable
         run: chmod +x .github/scripts/get-vercel-preview-url.sh
@@ -50,10 +50,12 @@ jobs:
         id: vercel_b2c
         env:
           VERCEL_TOKEN: ${{ secrets.vercel_token }}
+          VERCEL_PROJECT: ${{ inputs.vercel_b2c_project }}
+          GIT_REF: ${{ github.head_ref || github.ref }}
         run: |
           DEPLOYMENT_URL=$(.github/scripts/get-vercel-preview-url.sh \
-            "${{ inputs.vercel_b2c_project }}" \
-            "${{ github.head_ref || github.ref }}")
+            "$VERCEL_PROJECT" \
+            "$GIT_REF")
           echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
 
       - name: Get Vercel B2B deployment URL
@@ -61,10 +63,12 @@ jobs:
         id: vercel_b2b
         env:
           VERCEL_TOKEN: ${{ secrets.vercel_token }}
+          VERCEL_PROJECT: ${{ inputs.vercel_b2b_project }}
+          GIT_REF: ${{ github.head_ref || github.ref }}
         run: |
           DEPLOYMENT_URL=$(.github/scripts/get-vercel-preview-url.sh \
-            "${{ inputs.vercel_b2b_project }}" \
-            "${{ github.head_ref || github.ref }}")
+            "$VERCEL_PROJECT" \
+            "$GIT_REF")
           echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
 
   run-e2e-tests:
@@ -76,9 +80,9 @@ jobs:
     container:
       image: cypress/browsers:22.19.0
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - name: Use Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version-file: .nvmrc
           cache: 'yarn'
@@ -89,7 +93,7 @@ jobs:
         run: yarn workspaces focus e2e-tests
 
       - name: Cypress run
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@f790eee7a50d9505912f50c2095510be7de06aa7 # v6.10.9
         env:
           ENV: ${{ inputs.env }}
           CYPRESS_BASE_URL: ${{ needs.get-vercel-deployment-url.outputs.b2c_url || inputs.cypress_base_url }}
