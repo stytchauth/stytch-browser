@@ -23,13 +23,14 @@ Thank you for your interest in contributing! We welcome contributions from the c
 - Write clear, maintainable, and well-documented code.
 - Use descriptive variable and function names.
 - Add comments where necessary.
+- Add unit tests and/or Storybook stories where reasonable.
 
 ## Running Locally
 
 - Install dependencies: `yarn install`
 - Build all packages: `yarn build`
 - Run tests: `yarn test`
-- Lint code: `yarn lint`
+- Format code: `yarn format`
 
 ## Code of Conduct
 
