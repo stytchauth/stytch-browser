@@ -6,8 +6,8 @@ To update logos, follow these steps
 2. From this folder, run these commands
 3. Move the logos into separate folders
 
-   mv _-black.svg logo-black
-   mv _-white.svg logo-white
-   mv \*.svg logo-color
+       mv *-black.svg logo-black
+       mv *-white.svg logo-white
+       mv *.svg logo-color
 
 4. Run SVGR: `yarn svgr --config-file .svgrrc.mjs --out-dir .. .`
