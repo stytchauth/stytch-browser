@@ -1,6 +1,6 @@
 # Stytch JavaScript SDK monorepo
 
-This repo contains Stytch JavaScript SDKs.
+This repo contains Stytch frontend JavaScript SDKs. For Node.js SDK, see [stytch-node](https://github.com/stytchauth/stytch-node/).
 
 We welcome contributions from the community!
 
