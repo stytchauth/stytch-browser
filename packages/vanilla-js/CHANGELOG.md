@@ -1,5 +1,11 @@
 # @stytch/vanilla-js
 
+## 6.0.5
+
+### Patch Changes
+
+- e7a8be7: Remove token from URL as authenticate() call is made rather than after success. This prevents rare double calling if the user reloads the page while the call was being made.
+
 ## 6.0.4
 
 ### Patch Changes
