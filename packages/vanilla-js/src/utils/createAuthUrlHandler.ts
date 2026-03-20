@@ -91,18 +91,19 @@ export const createAuthUrlHandler = <HandledTokenType extends string = string>(
 
     const { token, tokenType } = parsed;
     const handler = handlers[tokenType as HandledTokenType];
-    try {
-      const data = await handler(token, options);
-      return {
-        handled: true,
-        tokenType: tokenType as HandledTokenType,
-        data,
-      };
-    } finally {
-      if (shouldClearParams) {
-        clearStytchTokenParams();
-      }
+
+    // Clear token immediately when it is "consumed" by the authenticate call to prevent reloads
+    // from repeating the call
+    if (shouldClearParams) {
+      clearStytchTokenParams();
     }
+
+    const data = await handler(token, options);
+    return {
+      handled: true,
+      tokenType: tokenType as HandledTokenType,
+      data,
+    };
   };
 
   return {
