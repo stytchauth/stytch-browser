@@ -1,6 +1,6 @@
 {
   "name": "@stytch/vanilla-js",
-  "version": "5.45.0",
+  "version": "5.45.1",
   "description": "Stytch's official Javascript Client Library",
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
