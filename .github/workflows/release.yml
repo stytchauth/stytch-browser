@@ -101,9 +101,3 @@ jobs:
             --field js_sdk_ref=main
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-
-  trigger_canaries:
-    name: Trigger canaries
-    needs: release
-    if: needs.release.outputs.published == 'true'
-    uses: ./.github/workflows/run-canaries.yml
