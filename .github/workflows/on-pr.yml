@@ -2,7 +2,7 @@ name: On Pull Requests [PR]
 on:
   merge_group:
   pull_request:
-    branches: [main, feature/**]
+    branches: [main, v5, feature/**]
 jobs:
   pre-build:
     runs-on: ubuntu-latest
