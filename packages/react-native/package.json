@@ -90,7 +90,7 @@
     "react-native": "0.81.4",
     "react-native-country-codes-picker": "patch:react-native-country-codes-picker@npm%3A2.3.5#~/.yarn/patches/react-native-country-codes-picker-npm-2.3.5-3de615b7fb.patch",
     "react-test-renderer": "19.1.0",
-    "rollup": "4.59.0",
+    "rollup": "4.60.0",
     "ts-jest": "29.4.5",
     "typescript": "5.9.2"
   },
