@@ -63,25 +63,6 @@ jobs:
           NPM_TOKEN: ''
           NPM_CONFIG_PROVENANCE: false
 
-  update_old_docs:
-    name: Update old docs
-    needs: release
-    if: needs.release.outputs.published == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
-
-      - name: Trigger old docs update
-        run: |
-          # Trigger the docs workflow to update documentation and changelogs
-          gh workflow run js-sdk-docs.yml \
-            --repo stytchauth/docs \
-            --ref main \
-            --field js_sdk_ref=main
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-
   update_mintlify_docs:
     name: Update Mintlify docs
     needs: release
