@@ -76,7 +76,7 @@ jobs:
     # get-vercel-deployment-url is skipped
     if: always()
     needs: get-vercel-deployment-url
-    runs-on: ubuntu-latest-16-cores
+    runs-on: ubuntu-latest
     container:
       image: cypress/browsers:22.19.0
     steps:
