@@ -15,7 +15,7 @@ permissions:
 jobs:
   release:
     name: Release
-    runs-on: ubuntu-latest-16-cores
+    runs-on: ubuntu-latest
     outputs:
       published: ${{ steps.changesets.outputs.published }}
     steps:
