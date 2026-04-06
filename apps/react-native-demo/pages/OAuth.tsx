@@ -47,7 +47,7 @@ export const OAuth = ({ navigation }: Props) => {
   };
 
   const loginWithFacebook = () => {
-    stytch.oauth.facebook.start({ login_redirect_url: rootLink, signup_redirect_url: rootLink });
+    stytch.oauth.facebook.start({ login_redirect_url: rootLink, signup_redirect_url: rootLink, show_in_recents: true });
   };
 
   const loginWithGithub = () => {
