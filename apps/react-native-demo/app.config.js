@@ -37,7 +37,7 @@ export default ({ config }) => {
     },
     scheme: ['rndemo', `stytch-ui-${process.env.STYTCH_PUBLIC_TOKEN}`],
     owner: 'stytch',
-    plugins: ['expo-apple-authentication', ['expo-build-properties', {}]],
+    plugins: ['expo-apple-authentication', ['expo-build-properties', {}], "expo-font", "expo-image"],
     extra: {
       eas: {
         projectId: '0c10860c-9a1a-4cb9-a3ed-74283b219f54',

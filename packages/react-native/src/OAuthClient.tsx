@@ -11,13 +11,13 @@ import {
 } from '@stytch/core';
 import {
   errorToStytchError,
-  IHeadlessOAuthClient,
+  IRNHeadlessOAuthClient,
   MissingGoogleClientIDError,
   MissingPKCEError,
   OAuthAttachResponse,
   OAuthAuthenticateOptions,
   OAuthAuthenticateResponse,
-  OAuthGetURLOptions,
+  RNOAuthGetURLOptions,
   OAuthProviders,
   OAuthStartResponse,
   StytchAPIError,
@@ -47,7 +47,7 @@ export type NativeOAuthAuthenticateResponse<
 };
 
 export interface INativeOAuthClient<TProjectConfiguration extends StytchProjectConfigurationInput>
-  extends IHeadlessOAuthClient<TProjectConfiguration> {
+  extends IRNHeadlessOAuthClient<TProjectConfiguration> {
   googleOneTap(options?: NativeOAuthOptions<TProjectConfiguration>): Promise<OAuthStartResponse>;
   signInWithApple(options?: NativeOAuthOptions<TProjectConfiguration>): Promise<OAuthStartResponse>;
   google: INativeOAuthProvider<TProjectConfiguration>;
@@ -55,8 +55,8 @@ export interface INativeOAuthClient<TProjectConfiguration extends StytchProjectC
 }
 
 interface INativeOAuthProvider<TProjectConfiguration extends StytchProjectConfigurationInput> {
-  start(options?: NativeOAuthOptions<TProjectConfiguration> & OAuthGetURLOptions): Promise<OAuthStartResponse>;
-  startWithRedirect(options?: OAuthGetURLOptions): Promise<OAuthStartResponse>;
+  start(options?: NativeOAuthOptions<TProjectConfiguration> & RNOAuthGetURLOptions): Promise<OAuthStartResponse>;
+  startWithRedirect(options?: RNOAuthGetURLOptions): Promise<OAuthStartResponse>;
 }
 
 /**
@@ -250,7 +250,7 @@ export class HeadlessOAuthClient<TProjectConfiguration extends StytchProjectConf
   }
 
   private startOAuthFlow(providerType: OAuthProviders) {
-    return async (options: OAuthGetURLOptions = {}): Promise<OAuthStartResponse> => {
+    return async (options: RNOAuthGetURLOptions = {}): Promise<OAuthStartResponse> => {
       const { cnameDomain } = await this._dynamicConfig;
 
       this._networkClient.logEvent({
@@ -268,10 +268,10 @@ export class HeadlessOAuthClient<TProjectConfiguration extends StytchProjectConf
         let resp;
         try {
           InAppBrowser.closeAuth();
-          resp = await InAppBrowser.openAuth(oauthUrl, '');
+          resp = await InAppBrowser.openAuth(oauthUrl, '', { showInRecents: options.keep_in_history === true });
         } catch {
           InAppBrowser.closeAuth();
-          resp = await InAppBrowser.openAuth(oauthUrl, '');
+          resp = await InAppBrowser.openAuth(oauthUrl, '', { showInRecents: options.keep_in_history === true });
         }
         if (resp.type === 'success') {
           Linking.openURL(resp.url);
@@ -288,7 +288,7 @@ export class HeadlessOAuthClient<TProjectConfiguration extends StytchProjectConf
 
   private async createOAuthURL(
     providerType: OAuthProviders,
-    { login_redirect_url, signup_redirect_url, custom_scopes, provider_params, oauth_attach_token }: OAuthGetURLOptions,
+    { login_redirect_url, signup_redirect_url, custom_scopes, provider_params, oauth_attach_token }: RNOAuthGetURLOptions,
   ) {
     const baseURL = await this.getBaseApiUrl();
 
@@ -449,7 +449,7 @@ export class HeadlessOAuthClient<TProjectConfiguration extends StytchProjectConf
 
   private startGoogleOAuthFlowWithFallback() {
     return async (
-      options: NativeOAuthOptions<TProjectConfiguration> & OAuthGetURLOptions = {},
+      options: NativeOAuthOptions<TProjectConfiguration> & RNOAuthGetURLOptions = {},
     ): Promise<OAuthStartResponse> => {
       const resp = await this.startNativeGoogleOAuthFlow(
         options.session_duration_minutes,
@@ -465,7 +465,7 @@ export class HeadlessOAuthClient<TProjectConfiguration extends StytchProjectConf
 
   private startAppleOAuthFlowWithFallback() {
     return async (
-      options: NativeOAuthOptions<TProjectConfiguration> & OAuthGetURLOptions = {},
+      options: NativeOAuthOptions<TProjectConfiguration> & RNOAuthGetURLOptions = {},
     ): Promise<OAuthStartResponse> => {
       const resp = await this.startNativeAppleOAuthFlow(
         options.session_duration_minutes,

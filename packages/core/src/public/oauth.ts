@@ -37,6 +37,10 @@ export type OAuthGetURLOptions = {
   oauth_attach_token?: string;
 };
 
+export type RNOAuthGetURLOptions = OAuthGetURLOptions & {
+  keep_in_history?: boolean;
+};
+
 export type OAuthAuthenticateOptions = SessionDurationOptions;
 export type OAuthAuthenticateResponse<
   TProjectConfiguration extends StytchProjectConfigurationInput = Stytch.DefaultProjectConfiguration,
@@ -125,6 +129,10 @@ export interface IOAuthProvider {
   start(options?: OAuthGetURLOptions): Promise<OAuthStartResponse>;
 }
 
+export interface IRNOAuthProvider extends IOAuthProvider {
+  start(options?: RNOAuthGetURLOptions): Promise<OAuthStartResponse>;
+}
+
 export type OAuthAttachResponse = ResponseCommon & { oauth_attach_token: string };
 
 export interface IHeadlessOAuthClient<TProjectConfiguration extends StytchProjectConfigurationInput> {
@@ -183,4 +191,26 @@ export interface IHeadlessOAuthClient<TProjectConfiguration extends StytchProjec
    * @returns A {@link OAuthAttachResponse} containing a single-use token for connecting the Stytch User selection from this request to the corresponding OAuth Start request.
    */
   attach(provider: string): Promise<OAuthAttachResponse>;
+}
+
+export interface IRNHeadlessOAuthClient<TProjectConfiguration extends StytchProjectConfigurationInput> extends IHeadlessOAuthClient<TProjectConfiguration> {
+  google: IRNOAuthProvider;
+  microsoft: IRNOAuthProvider;
+  apple: IRNOAuthProvider;
+  github: IRNOAuthProvider;
+  gitlab: IRNOAuthProvider;
+  facebook: IRNOAuthProvider;
+  discord: IRNOAuthProvider;
+  salesforce: IRNOAuthProvider;
+  slack: IRNOAuthProvider;
+  amazon: IRNOAuthProvider;
+  bitbucket: IRNOAuthProvider;
+  linkedin: IRNOAuthProvider;
+  coinbase: IRNOAuthProvider;
+  twitch: IRNOAuthProvider;
+  twitter: IRNOAuthProvider;
+  tiktok: IRNOAuthProvider;
+  snapchat: IRNOAuthProvider;
+  figma: IRNOAuthProvider;
+  yahoo: IRNOAuthProvider;
 }
