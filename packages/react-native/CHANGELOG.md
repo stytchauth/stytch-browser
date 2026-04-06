@@ -1,5 +1,11 @@
 # @stytch/react-native
 
+## 0.72.0
+
+### Minor Changes
+
+- ce2c56e: Add a flag to allow keeping OAuth windows on the back stack on Android
+
 ## 0.71.0
 
 ### Minor Changes

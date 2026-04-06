@@ -1,6 +1,6 @@
 {
   "name": "@stytch/react-native",
-  "version": "0.71.0",
+  "version": "0.72.0",
   "description": "Stytch's official React Native Library",
   "summary": "Stytch's official React Native Library",
   "type": "commonjs",
