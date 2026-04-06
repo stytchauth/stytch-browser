@@ -38,7 +38,7 @@ export type OAuthGetURLOptions = {
 };
 
 export type RNOAuthGetURLOptions = OAuthGetURLOptions & {
-  keep_in_history?: boolean;
+  show_in_recents?: boolean;
 };
 
 export type OAuthAuthenticateOptions = SessionDurationOptions;

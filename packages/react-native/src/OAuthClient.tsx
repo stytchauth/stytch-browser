@@ -268,10 +268,10 @@ export class HeadlessOAuthClient<TProjectConfiguration extends StytchProjectConf
         let resp;
         try {
           InAppBrowser.closeAuth();
-          resp = await InAppBrowser.openAuth(oauthUrl, '', { showInRecents: options.keep_in_history === true });
+          resp = await InAppBrowser.openAuth(oauthUrl, '', { showInRecents: options.show_in_recents === true });
         } catch {
           InAppBrowser.closeAuth();
-          resp = await InAppBrowser.openAuth(oauthUrl, '', { showInRecents: options.keep_in_history === true });
+          resp = await InAppBrowser.openAuth(oauthUrl, '', { showInRecents: options.show_in_recents === true });
         }
         if (resp.type === 'success') {
           Linking.openURL(resp.url);
