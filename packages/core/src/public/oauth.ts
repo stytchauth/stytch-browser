@@ -193,7 +193,8 @@ export interface IHeadlessOAuthClient<TProjectConfiguration extends StytchProjec
   attach(provider: string): Promise<OAuthAttachResponse>;
 }
 
-export interface IRNHeadlessOAuthClient<TProjectConfiguration extends StytchProjectConfigurationInput> extends IHeadlessOAuthClient<TProjectConfiguration> {
+export interface IRNHeadlessOAuthClient<TProjectConfiguration extends StytchProjectConfigurationInput>
+  extends IHeadlessOAuthClient<TProjectConfiguration> {
   google: IRNOAuthProvider;
   microsoft: IRNOAuthProvider;
   apple: IRNOAuthProvider;

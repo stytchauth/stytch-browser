@@ -17,9 +17,9 @@ import {
   OAuthAttachResponse,
   OAuthAuthenticateOptions,
   OAuthAuthenticateResponse,
-  RNOAuthGetURLOptions,
   OAuthProviders,
   OAuthStartResponse,
+  RNOAuthGetURLOptions,
   StytchAPIError,
   StytchProjectConfigurationInput,
   UserCancellationError,
@@ -288,7 +288,13 @@ export class HeadlessOAuthClient<TProjectConfiguration extends StytchProjectConf
 
   private async createOAuthURL(
     providerType: OAuthProviders,
-    { login_redirect_url, signup_redirect_url, custom_scopes, provider_params, oauth_attach_token }: RNOAuthGetURLOptions,
+    {
+      login_redirect_url,
+      signup_redirect_url,
+      custom_scopes,
+      provider_params,
+      oauth_attach_token,
+    }: RNOAuthGetURLOptions,
   ) {
     const baseURL = await this.getBaseApiUrl();
 
