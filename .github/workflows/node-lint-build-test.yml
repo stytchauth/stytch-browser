@@ -23,6 +23,8 @@ jobs:
           curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
           chmod 755 /usr/local/bin/buildevents
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        with:
+          persist-credentials: false
       - name: Use Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
@@ -78,6 +80,8 @@ jobs:
           curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
           chmod 755 /usr/local/bin/buildevents
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        with:
+          persist-credentials: false
       - name: Use Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
@@ -105,6 +109,8 @@ jobs:
           curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
           chmod 755 /usr/local/bin/buildevents
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        with:
+          persist-credentials: false
       - name: Use Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
@@ -132,6 +138,8 @@ jobs:
           curl -L -o /usr/local/bin/buildevents https://github.com/honeycombio/buildevents/releases/download/v0.7.1/buildevents-linux-amd64
           chmod 755 /usr/local/bin/buildevents
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        with:
+          persist-credentials: false
       - name: Use Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
@@ -161,6 +169,7 @@ jobs:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
         with:
           fetch-depth: 0
+          persist-credentials: false
       - name: Use Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:

@@ -40,6 +40,8 @@ jobs:
       b2b_url: ${{ steps.vercel_b2b.outputs.url }}
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        with:
+          persist-credentials: false
 
       - name: Make script executable
         run: chmod +x .github/scripts/get-vercel-preview-url.sh
@@ -81,6 +83,8 @@ jobs:
       image: cypress/browsers:22.19.0
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        with:
+          persist-credentials: false
       - name: Use Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
