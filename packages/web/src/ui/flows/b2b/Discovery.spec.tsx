@@ -22,6 +22,7 @@ import {
   waitForNoOrganizationCreateDisabled,
   waitForNoOrganizationCreateEnabled,
 } from './helpers';
+import { MOCK_DISCOVERED_ORGANIZATION } from '@stytch/internal-mocks';
 
 const MOCK_EMAIL = 'example@email.com';
 const MOCK_PASSWORD = 'lIzE9onk56$*';
@@ -274,6 +275,59 @@ describe('Discovery Flow', () => {
     });
 
     await waitForLoggedInPage();
+  });
+
+  it('automatically create organization when directCreateOrganizationForNoMembership is enabled and no orgs', async () => {
+    const istToken = 'ist_token';
+
+    client.magicLinks.discovery.authenticate.mockResolvedValue({
+      intermediate_session_token: istToken,
+      email: MOCK_EMAIL,
+      discovered_organizations: [],
+    });
+    client.discovery.organizations.create.mockResolvedValue({ member_session: {} });
+
+    const stytchToken = 'token';
+    setWindowLocation(`http://localhost/authenticate?stytch_token_type=discovery&token=${stytchToken}`);
+
+    await renderFlow({
+      config: { ...config, directCreateOrganizationForNoMembership: true },
+      client,
+      bootstrap: bootstrapCreateEnabled,
+    });
+
+    await waitForLoggedInPage();
+
+    expect(client.discovery.organizations.create).toHaveBeenCalledTimes(1);
+    expect(client.discovery.organizations.create).toHaveBeenCalledWith({
+      session_duration_minutes: 10,
+    });
+  });
+
+  it('should not automatically create organization when directCreateOrganizationForNoMembership is enabled and there are orgs', async () => {
+    const istToken = 'ist_token';
+
+    client.magicLinks.discovery.authenticate.mockResolvedValue({
+      intermediate_session_token: istToken,
+      email: MOCK_EMAIL,
+      discovered_organizations: [MOCK_DISCOVERED_ORGANIZATION],
+    });
+
+    const stytchToken = 'token';
+    setWindowLocation(`http://localhost/authenticate?stytch_token_type=discovery&token=${stytchToken}`);
+
+    await renderFlow({
+      config: { ...config, directCreateOrganizationForNoMembership: true },
+      client,
+      bootstrap: bootstrapCreateEnabled,
+    });
+
+    // Wait for the organization selection screen
+    await waitFor(() => {
+      screen.getByText('Select an organization to continue');
+    });
+
+    expect(client.discovery.organizations.create).not.toHaveBeenCalled();
   });
 
   it('handles SSO-only organization click', async () => {
