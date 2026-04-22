@@ -140,12 +140,12 @@ export const PasswordResetForm = () => {
         .then((data) => {
           setIsSubmitting(false);
           onEvent({ type: StytchEventType.B2BDiscoveryPasswordReset, data });
-          dispatch({ type: 'transition', screen: AppScreens.Discovery });
           dispatch({
             type: 'set_discovery_state',
             email: data.email_address,
             discoveredOrganizations: data.discovered_organizations,
           });
+          dispatch({ type: 'transition', screen: AppScreens.Discovery });
         })
         .catch((e: StytchAPIError) => {
           onError(e);

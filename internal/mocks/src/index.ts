@@ -26,6 +26,7 @@ export const MOCK_MEMBER_SESSION = {
 };
 
 export const MOCK_ORGANIZATION = {
+  organization_name: 'Mock Inc.',
   organization_id: MOCK_ORG_ID,
 };
 
