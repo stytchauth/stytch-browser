@@ -44,6 +44,12 @@ const config: StorybookConfig = {
     const { mergeConfig } = await import('vite');
 
     return mergeConfig(config, {
+      define: {
+        // Arbitrary values for Storybook, for production values see defineRollupConfig
+        STYTCH_PACKAGE_NAME: JSON.stringify('Storybook'),
+        STYTCH_PACKAGE_VERSION: JSON.stringify('0.0.0'),
+      },
+
       optimizeDeps: {
         // This must be imported first, before any MUI components are imported
         // see: https://mui.com/material-ui/experimental-api/classname-generator/
