@@ -17,7 +17,6 @@ import {
 } from '@stytch/core';
 import { ResponseCommon } from '@stytch/core/public';
 
-import { version as PACKAGE_VERSION } from '../package.json';
 import { B2BSubscriptionDataLayer, ConsumerSubscriptionDataLayer } from './SubscriptionService';
 
 export class NetworkClient implements INetworkClient {
@@ -101,7 +100,7 @@ export class NetworkClient implements INetworkClient {
         // TODO: Pull these from package.json when there is a package
         // eslint-disable-next-line lingui/no-unlocalized-strings
         identifier: 'Stytch.js Javascript SDK',
-        version: PACKAGE_VERSION,
+        version: STYTCH_PACKAGE_VERSION,
       },
     };
   }
