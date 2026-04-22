@@ -1,6 +1,7 @@
 import { AuthFlowType, Callbacks, StytchEventType } from '@stytch/core/public';
 import { waitFor } from '@testing-library/react';
 
+import { screen } from '../../../testUtils';
 import { emailMagicLinks, passwords } from '../../b2b/B2BProducts';
 import {
   changeEmail,
@@ -8,6 +9,7 @@ import {
   clickContinue,
   clickGetHelpButton,
   clickUsePasswordInstead,
+  MockBootstrap,
   MockClient,
   MockConfig,
   renderFlow,
@@ -16,6 +18,7 @@ import {
   waitForLoggedInPage,
   waitForMfaEnrollmentScreen,
 } from './helpers';
+import { MOCK_DISCOVERED_ORGANIZATION } from '@stytch/internal-mocks';
 
 describe('B2B Password Flow', () => {
   const MOCK_EMAIL = 'example@email.com';
@@ -355,5 +358,61 @@ describe('B2B Password Flow', () => {
       session_duration_minutes: 60,
       password_reset_token: 'bR6xBruZ4rULG-k81hy5hASuJErQ2B8a_fFzqSh8ci3V',
     });
+  });
+
+  it('should not automatically create organization when directCreateOrganizationForNoMembership is enabled and there are orgs', async () => {
+    const istToken = 'ist_token';
+
+    const discoveryClient = {
+      magicLinks: {
+        discovery: {
+          authenticate: jest.fn().mockResolvedValue({
+            intermediate_session_token: istToken,
+            email: MOCK_EMAIL,
+            discovered_organizations: [MOCK_DISCOVERED_ORGANIZATION],
+          }),
+        },
+      },
+      passwords: {
+        authenticate: jest.fn(),
+      },
+      discovery: {
+        intermediateSessions: {
+          exchange: jest.fn(),
+        },
+        organizations: {
+          create: jest.fn(),
+        },
+      },
+    } satisfies MockClient;
+
+    const discoveryConfig: MockConfig = {
+      products: [passwords],
+      authFlowType: AuthFlowType.Discovery,
+      passwordOptions: {
+        loginRedirectURL: 'https://example.com/authenticate',
+        resetPasswordRedirectURL: 'https://example.com/reset-password',
+      },
+      directCreateOrganizationForNoMembership: true,
+    };
+
+    const bootstrapCreateEnabled = {
+      createOrganizationEnabled: true,
+    } satisfies MockBootstrap;
+
+    const stytchToken = 'token';
+    setWindowLocation(`http://localhost/authenticate?stytch_token_type=discovery&token=${stytchToken}`);
+
+    await renderFlow({
+      config: discoveryConfig,
+      client: discoveryClient,
+      bootstrap: bootstrapCreateEnabled,
+    });
+
+    await waitFor(() => {
+      screen.getByText('Select an organization to continue');
+    });
+
+    expect(discoveryClient.discovery.organizations.create).not.toHaveBeenCalled();
   });
 });
