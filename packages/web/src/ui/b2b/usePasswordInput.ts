@@ -59,12 +59,12 @@ export const usePasswordInput = () => {
       .then((data) => {
         setIsSubmitting(false);
         onEvent({ type: StytchEventType.B2BPasswordDiscoveryAuthenticate, data });
-        dispatch({ type: 'transition', screen: AppScreens.Discovery });
         dispatch({
           type: 'set_discovery_state',
           email: data.email_address,
           discoveredOrganizations: data.discovered_organizations,
         });
+        dispatch({ type: 'transition', screen: AppScreens.Discovery });
       })
       .catch((err: StytchAPIError) => {
         setIsSubmitting(false);
