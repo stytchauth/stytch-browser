@@ -1,5 +1,11 @@
 # @stytch/vanilla-js
 
+## 6.0.6
+
+### Patch Changes
+
+- 04ecaa9: Tweak code for password to fix issue with directCreateOrganizationForNoMembership
+
 ## 5.45.1
 
 ### Patch Changes
