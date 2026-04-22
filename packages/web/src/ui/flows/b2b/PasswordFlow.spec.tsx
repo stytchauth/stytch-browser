@@ -1,4 +1,5 @@
 import { AuthFlowType, Callbacks, StytchEventType } from '@stytch/core/public';
+import { MOCK_DISCOVERED_ORGANIZATION } from '@stytch/internal-mocks';
 import { waitFor } from '@testing-library/react';
 
 import { screen } from '../../../testUtils';
@@ -18,7 +19,6 @@ import {
   waitForLoggedInPage,
   waitForMfaEnrollmentScreen,
 } from './helpers';
-import { MOCK_DISCOVERED_ORGANIZATION } from '@stytch/internal-mocks';
 
 describe('B2B Password Flow', () => {
   const MOCK_EMAIL = 'example@email.com';

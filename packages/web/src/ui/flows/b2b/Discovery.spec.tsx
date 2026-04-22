@@ -1,4 +1,5 @@
 import { AuthFlowType, StytchEventType } from '@stytch/core/public';
+import { MOCK_DISCOVERED_ORGANIZATION } from '@stytch/internal-mocks';
 import userEvent from '@testing-library/user-event';
 
 import { screen, waitFor } from '../../../testUtils';
@@ -22,7 +23,6 @@ import {
   waitForNoOrganizationCreateDisabled,
   waitForNoOrganizationCreateEnabled,
 } from './helpers';
-import { MOCK_DISCOVERED_ORGANIZATION } from '@stytch/internal-mocks';
 
 const MOCK_EMAIL = 'example@email.com';
 const MOCK_PASSWORD = 'lIzE9onk56$*';
