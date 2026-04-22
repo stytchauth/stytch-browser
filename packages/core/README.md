@@ -9,7 +9,7 @@ Let us build the infrastructure, so you can focus on your product.
 
 ## Overview
 
-This package provides core implementations for the Javascript SDKs - `@stytch/vanilla-js`, `@stytch/react-native`.
+This package provides core implementations for the Javascript SDKs - `@stytch/vanilla-js`.
 Application code should never refer to this package directly.
 
 ### Internals

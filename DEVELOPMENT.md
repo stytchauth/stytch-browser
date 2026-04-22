@@ -215,7 +215,6 @@ Our SDK packages are published to npm and are consumed by external developers (i
 - [`vanilla-js`](./packages/vanilla-js): an SDK for frontend JavaScript projects. It includes a stateful headless client that integrates with browser features (such as cookies and local storage). It also includes prebuilt UI built using Preact and a framework-agnostic interface for integrating with arbitrary frontend frameworks.
 - [`react`](./packages/react): React-specific bindings for `vanilla-js`. This package only supports client-side rendering.
 - [`nextjs`](./packages/nextjs): Next.js specific bindings for `vanilla-js`. This package is compatible with server-side rendering, including React-based, non-Next.js frameworks.
-- [`react-native`](./packages/react-native): an SDK for React Native projects. It includes a stateful headless client and prebuilt UI.
 
 ### Helper packages
 
@@ -223,7 +222,7 @@ We use some helper packages to better organize code. Some of these packages are 
 
 - [`core`](./packages/core): a package containing constants, types, and most of the business logic around our different product offerings
   (EML, OTP, etc) as well as the logic for managing sessions (token refresh, etc), PKCE, and the Subscription Service which coordinates
-  sharing User and Session data across services. This package is consumed directly by `vanilla-js` and `react-native`.
+  sharing User and Session data across services. This package is consumed directly by `vanilla-js`.
 
   It declares a template for the `StytchClient` (the main export of Stytch SDKs),
   and includes all the logic that is SDK target agnostic. The components that are specific to individual SDKs
@@ -231,7 +230,7 @@ We use some helper packages to better organize code. Some of these packages are 
   by individual SDK packages and used to create and export a `StytchClient` object,
   which is the export to be used by external developers leveraging Stytch SDKs for their own projects.
 
-  This package is published to npm as a dependency of other packages (including `vanilla-js` and `react-native`), but it is not intended to be used directly by external developers.
+  This package is published to npm as a dependency of other packages (including `vanilla-js`), but it is not intended to be used directly by external developers.
 
 - [`js-utils`](./packages/js-utils): a package containing utility functions used by other packages, including `vanilla-js`, `react`, and `nextjs`. This package is not published to npm; its contents are bundled into other packages as part of the build process.
 
