@@ -1,5 +1,11 @@
 # @stytch/react
 
+## 20.0.6
+
+### Patch Changes
+
+- 04ecaa9: Tweak code for password to fix issue with directCreateOrganizationForNoMembership
+
 ## 20.0.5
 
 ### Patch Changes
