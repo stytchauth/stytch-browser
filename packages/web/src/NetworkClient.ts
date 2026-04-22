@@ -97,10 +97,9 @@ export class NetworkClient implements INetworkClient {
         identifier: window.location.hostname,
       },
       sdk: {
-        // TODO: Pull these from package.json when there is a package
         // eslint-disable-next-line lingui/no-unlocalized-strings
         identifier: 'Stytch.js Javascript SDK',
-        version: STYTCH_PACKAGE_VERSION,
+        version: STYTCH_PACKAGE_NAME + '@' + STYTCH_PACKAGE_VERSION,
       },
     };
   }
