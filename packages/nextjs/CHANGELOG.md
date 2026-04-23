@@ -1,5 +1,11 @@
 # @stytch/nextjs
 
+## 22.0.7
+
+### Patch Changes
+
+- b594988: Fix version number in SDK identifier in requests
+
 ## 22.0.6
 
 ### Patch Changes
