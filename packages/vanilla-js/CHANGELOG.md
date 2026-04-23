@@ -1,5 +1,11 @@
 # @stytch/vanilla-js
 
+## 6.0.7
+
+### Patch Changes
+
+- b594988: Fix version number in SDK identifier in requests
+
 ## 6.0.6
 
 ### Patch Changes
