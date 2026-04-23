@@ -6,6 +6,9 @@ const noop = () => {
   // noop
 };
 
+globalThis.STYTCH_PACKAGE_NAME = 'MockPackageName';
+globalThis.STYTCH_PACKAGE_VERSION = '0.0.0';
+
 /**
  * TextEncoder and crypto are used for PKCE - so the PKCEClient
  * and all tests that depend on it (Today: OAuth, Magic Links. Tomorrow: ?)
