@@ -53,7 +53,7 @@ export const PasswordsForgotForm = () => {
             .resetByEmailStart({
               email_address: email,
               organization_id: organization.organization_id,
-              login_redirect_url: config.emailMagicLinksOptions?.loginRedirectURL,
+              login_redirect_url: config.passwordOptions?.loginRedirectURL,
               reset_password_redirect_url: config.passwordOptions?.resetPasswordRedirectURL,
               reset_password_expiration_minutes: config.passwordOptions?.resetPasswordExpirationMinutes,
               reset_password_template_id: config.passwordOptions?.resetPasswordTemplateId,
