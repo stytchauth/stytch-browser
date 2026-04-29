@@ -1,7 +1,6 @@
 ---
 '@stytch/nextjs': patch
 '@stytch/react': patch
-'@stytch/react-native': patch
 '@stytch/vanilla-js': patch
 ---
 
