@@ -1,5 +1,11 @@
 # @stytch/nextjs
 
+## 22.0.8
+
+### Patch Changes
+
+- b2d7758: Fixes an issue where the login redirect URL is not set properly in the B2B pre-built password reset UI
+
 ## 22.0.7
 
 ### Patch Changes

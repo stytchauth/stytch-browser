@@ -1,6 +1,6 @@
 {
   "name": "@stytch/vanilla-js",
-  "version": "6.0.7",
+  "version": "6.0.8",
   "description": "Stytch's official Javascript Client Library",
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
