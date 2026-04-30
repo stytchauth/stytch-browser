@@ -25,7 +25,10 @@ export function usePasswordlessAuthenticate() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const email = state.formState.passwordState.email;
+  const email =
+    state.formState.magicLinkState.email !== ''
+      ? state.formState.magicLinkState.email
+      : state.formState.passwordState.email;
 
   const sendLink = async () => {
     setIsSubmitting(true);
