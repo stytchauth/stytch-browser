@@ -307,15 +307,6 @@ export default defineConfig(
     },
   },
 
-  // React Native configuration
-  {
-    files: ['**/react-native/src/**/*.{ts,tsx}'],
-    rules: {
-      // RN uses require for assets
-      '@typescript-eslint/no-require-imports': OFF,
-    },
-  },
-
   // Jest and other configs
   {
     files: ['**/jest-config/**/*.js', '**/jest.setup.js', '**/*.config.js'],
