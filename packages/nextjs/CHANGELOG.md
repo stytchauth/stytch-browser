@@ -1,5 +1,11 @@
 # @stytch/nextjs
 
+## 22.0.9
+
+### Patch Changes
+
+- bd4651c: Fixes an issue where the email was empty when resending an email magic link for the Consumer StytchLogin component
+
 ## 22.0.8
 
 ### Patch Changes
