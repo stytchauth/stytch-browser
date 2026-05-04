@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { OTPMethods } from '@stytch/core/public';
-import { expect } from 'storybook/test';
+import { expect, userEvent, waitFor } from 'storybook/test';
 
 import Container from '../../Container';
 import { AppScreens } from '../../GlobalContextProvider';
@@ -259,5 +259,107 @@ export const PasswordlessUserWithOTP = {
   play: async ({ canvas }) => {
     await expect(await canvas.findByText('Enter passcode')).toBeInTheDocument();
     await expect(await canvas.findByText('Create a password instead')).toBeInTheDocument();
+  },
+} satisfies Story;
+
+export const PasswordlessUserWithEMLFromMagicLinkState = {
+  parameters: {
+    stytch: {
+      b2c: {
+        initialState: {
+          screen: AppScreens.PasswordCreateOrLogin,
+          formState: {
+            magicLinkState: {
+              email: 'magiclink-user@example.com',
+            },
+            passwordState: {
+              email: '',
+              type: 'passwordless',
+            },
+          },
+        },
+        config: {
+          products: [Products.emailMagicLinks, Products.passwords],
+          emailMagicLinksOptions: {
+            loginRedirectURL: 'https://example.com/login',
+            signupRedirectURL: 'https://example.com/signup',
+          },
+        },
+      },
+    },
+  },
+  play: async ({ canvas }) => {
+    await expect(await canvas.findByText(/An email was sent to/)).toBeInTheDocument();
+    await expect(await canvas.findByText('magiclink-user@example.com')).toBeInTheDocument();
+    await expect(await canvas.findByText('Create a password instead')).toBeInTheDocument();
+  },
+} satisfies Story;
+
+export const PasswordlessUserWithOTPFromMagicLinkState = {
+  parameters: {
+    stytch: {
+      b2c: {
+        initialState: {
+          screen: AppScreens.PasswordCreateOrLogin,
+          formState: {
+            magicLinkState: {
+              email: 'magiclink-user@example.com',
+            },
+            passwordState: {
+              email: '',
+              type: 'passwordless',
+            },
+          },
+        },
+        config: {
+          products: [Products.otp, Products.passwords],
+          otpOptions: {
+            methods: [OTPMethods.Email],
+            expirationMinutes: 10,
+          },
+        },
+      },
+    },
+  },
+  play: async ({ canvas }) => {
+    await expect(await canvas.getByText('Enter passcode')).toBeInTheDocument();
+    await expect(await canvas.findByText('magiclink-user@example.com')).toBeInTheDocument();
+    await expect(await canvas.findByText('Create a password instead')).toBeInTheDocument();
+  },
+} satisfies Story;
+
+export const ResendEmailFromMagicLinkState = {
+  parameters: {
+    stytch: {
+      b2c: {
+        initialState: {
+          screen: AppScreens.PasswordCreateOrLogin,
+          formState: {
+            magicLinkState: {
+              email: 'magiclink-user@example.com',
+            },
+            passwordState: {
+              email: '',
+              type: 'passwordless',
+            },
+          },
+        },
+        config: {
+          products: [Products.emailMagicLinks, Products.passwords],
+          emailMagicLinksOptions: {
+            loginRedirectURL: 'https://example.com/login',
+            signupRedirectURL: 'https://example.com/signup',
+          },
+        },
+      },
+    },
+  },
+  play: async ({ canvas }) => {
+    await expect(await canvas.findByText('magiclink-user@example.com')).toBeInTheDocument();
+
+    const resendButton = await canvas.findByRole('button', { name: 'Resend email' });
+    await userEvent.click(resendButton);
+
+    await waitFor(() => expect(canvas.getByText('magiclink-user@example.com')).toBeInTheDocument());
   },
 } satisfies Story;

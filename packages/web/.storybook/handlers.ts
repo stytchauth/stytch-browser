@@ -615,6 +615,33 @@ export const handlers = ({ networkDelay = 300 }: { networkDelay?: number } = {})
       });
     }),
 
+    magicLinksEmailLoginOrCreate: http.post(
+      'https://api.stytch.com/sdk/v1/magic_links/email/login_or_create',
+      async () => {
+        await delay(networkDelay);
+        return HttpResponse.json({
+          data: {
+            request_id: MOCK_REQUEST_ID,
+            status_code: 200,
+          },
+        });
+      },
+    ),
+
+    otpsEmailLoginOrCreate: http.post(
+      'https://api.stytch.com/sdk/v1/otps/email/login_or_create',
+      async () => {
+        await delay(networkDelay);
+        return HttpResponse.json({
+          data: {
+            request_id: MOCK_REQUEST_ID,
+            method_id: 'email-method-id-fake',
+            status_code: 200,
+          },
+        });
+      },
+    ),
+
     sessionAuthenticate: http.post('https://api.stytch.com/sdk/v1/sessions/authenticate', async () => {
       await delay(networkDelay);
       return HttpResponse.json({ data: authenticateResponseSuccess });
