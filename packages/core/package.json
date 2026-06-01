@@ -30,6 +30,6 @@
     "typescript": "5.9.3"
   },
   "dependencies": {
-    "uuid": "8.3.2"
+    "uuid": "14.0.0"
   }
 }
