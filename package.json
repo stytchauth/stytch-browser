@@ -60,7 +60,18 @@
     "npm": "11.10.0",
     "node": "22.21.1"
   },
-  "packageManager": "yarn@4.13.0",
+  "packageManager": "yarn@4.15.0",
+  "dependenciesMeta": {
+    "@swc/core": {
+      "built": true
+    },
+    "cypress": {
+      "built": true
+    },
+    "esbuild": {
+      "built": true
+    }
+  },
   "resolutions": {
     "@types/react@npm:*": "npm:18.3.26",
     "browserslist": "4.28.1",

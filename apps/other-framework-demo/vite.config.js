@@ -37,6 +37,8 @@ export function createConfig(options = {}) {
         outputDir: outDir,
       }),
     ],
+    // Assets should be loaded relative to index, not absolute since each build is deployed as a folder
+    base: '',
     build: {
       sourcemap: true,
       outDir,
