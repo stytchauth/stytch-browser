@@ -24215,6 +24215,13 @@ __metadata:
     svelte: "npm:5.53.10"
     ts-jest: "npm:29.4.5"
     turbo: "npm:2.4.2"
+  dependenciesMeta:
+    "@swc/core":
+      built: true
+    cypress:
+      built: true
+    esbuild:
+      built: true
   languageName: unknown
   linkType: soft
 
