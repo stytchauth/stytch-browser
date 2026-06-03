@@ -186,6 +186,7 @@ export type StytchAPIErrorType =
   | 'invalid_create_user_request'
   | 'invalid_crypto_wallet_address'
   | 'invalid_crypto_wallet_id'
+  | 'invalid_custom_domain_cname_target'
   | 'invalid_default_url'
   | 'invalid_discovery_redirect_url'
   | 'invalid_display_name'
