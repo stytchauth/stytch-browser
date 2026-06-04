@@ -54,7 +54,7 @@
     "size-limit": "11.2.0",
     "svelte": "5.56.1",
     "ts-jest": "29.4.5",
-    "turbo": "2.4.2"
+    "turbo": "2.9.16"
   },
   "engines": {
     "npm": "11.10.0",
