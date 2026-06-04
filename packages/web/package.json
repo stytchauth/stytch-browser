@@ -88,7 +88,7 @@
     "immer": "10.1.1",
     "input-otp": "1.4.2",
     "jest": "30.2.0",
-    "js-cookie": "3.0.1",
+    "js-cookie": "3.0.8",
     "lodash.merge": "4.6.2",
     "nanoid": "3.3.11",
     "radix-ui": "1.4.3",
