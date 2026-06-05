@@ -307,8 +307,7 @@ export const defineRollupConfig = ({
       },
     ],
     plugins: [
-      // Needed to resolve @stytch/core in react-native,
-      // and fix strange external namespace resolution errors in vanilla-js
+      // Needed to resolve @stytch/core and fix strange external namespace resolution errors in vanilla-js
       resolve(),
       dts({
         // This should be true, since we bundle (not reference via dependencies) some packages

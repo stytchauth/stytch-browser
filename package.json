@@ -16,7 +16,6 @@
     "build:react": "NODE_OPTIONS=--max_old_space_size=10000 turbo run build --filter=react-demo...",
     "build:b2b:react": "NODE_OPTIONS=--max_old_space_size=10000 turbo run build --filter=react-b2b-demo...",
     "build:next": "NODE_OPTIONS=--max_old_space_size=10000 turbo run build --filter=next-demo...",
-    "build:react-native": "NODE_OPTIONS=--max_old_space_size=10000 turbo run build --filter=react-native-demo...",
     "build:vanilla-js": "NODE_OPTIONS=--max_old_space_size=10000 turbo run build --filter=@stytch/vanilla-js...",
     "build:packages": "NODE_OPTIONS=--max_old_space_size=10000 turbo run build --filter='./packages/*'",
     "build-storybook": "turbo run build-storybook",

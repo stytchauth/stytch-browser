@@ -11,7 +11,6 @@ This monorepo contains the following published npm packages:
 - **[@stytch/vanilla-js](https://www.npmjs.com/package/@stytch/vanilla-js)** - Core JavaScript SDK for frontend projects
 - **[@stytch/react](https://www.npmjs.com/package/@stytch/react)** - React-specific bindings for the JavaScript SDK
 - **[@stytch/nextjs](https://www.npmjs.com/package/@stytch/nextjs)** - Next.js specific bindings with SSR support
-- **[@stytch/react-native](https://www.npmjs.com/package/@stytch/react-native)** - React Native SDK
 
 ### Installation
 

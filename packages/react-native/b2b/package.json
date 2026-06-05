@@ -1,5 +1,0 @@
-{
-  "internal": true,
-  "main": "../dist/cjs-legacy/b2b/index.js",
-  "types": "../dist/types/b2b/index.d.ts"
-}

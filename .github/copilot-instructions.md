@@ -17,13 +17,12 @@ This is a monorepo for Stytch JavaScript SDKs. The codebase is split between B2C
 - `@stytch/vanilla-js` - Framework-agnostic bindings using custom elements. Re-exports from `@stytch/web`.
 - `@stytch/react` - React-specific bindings (client-side only). Re-exports from `@stytch/web` and adds React Context/hooks.
 - `@stytch/nextjs` - Next.js bindings with SSR support. Re-exports from `@stytch/web`.
-- `@stytch/react-native` - Standalone SDK for React Native with native Kotlin/Swift/Objective-C code. Shares some copied code with web, but code reuse should be done primarily by lifting them to `@stytch/core`
 
 **Helper Packages:**
 
 - `@stytch/core` - Business logic, session management, PKCE, Subscription Service. Exports:
   - `@stytch/core/public` - Public API (types, constants)
-  - `@stytch/core` - Internal implementation consumed by web and react-native
+  - `@stytch/core` - Internal implementation consumed by web
   - Defines the `StytchClient` template with platform-agnostic logic
 - `@stytch/js-utils` - Utility functions bundled into other packages (not published)
 
@@ -60,7 +59,6 @@ packages/          # Published and internal packages
   vanilla-js/     # Framework-agnostic SDK
   react/          # React bindings
   nextjs/         # Next.js bindings
-  react-native/   # React Native SDK
   core/           # Business logic and session management
   js-utils/       # Utility functions (bundled, not published)
 apps/             # Demo applications
@@ -68,7 +66,6 @@ apps/             # Demo applications
   react-b2b-demo/
   next-demo/
   passkey-demo/
-  react-native-demo/
   other-framework-demo/
 services/
   clientside-services/  # Static files loaded from Stytch servers

@@ -1,6 +1,0 @@
-{
-  "extends": ["@stytch/internal-tsconfigs/tsconfig.base.json", "@stytch/internal-tsconfigs/tsconfig.react-native.json"],
-  "compilerOptions": {
-    "skipLibCheck": true
-  }
-}
