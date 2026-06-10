@@ -6,8 +6,8 @@
     "start": "cypress run"
   },
   "devDependencies": {
-    "cypress": "15.15.0",
-    "cypress-mailosaur": "2.17.0",
+    "cypress": "15.16.0",
+    "cypress-mailosaur": "5.0.0",
     "dotenv": "16.0.1",
     "typescript": "5.9.3"
   },
