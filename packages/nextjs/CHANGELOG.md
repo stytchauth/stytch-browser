@@ -1,5 +1,12 @@
 # @stytch/nextjs
 
+## 22.0.10
+
+### Patch Changes
+
+- f18b888: Update bundled js-cookie version.
+  Update error code types.
+
 ## 22.0.9
 
 ### Patch Changes

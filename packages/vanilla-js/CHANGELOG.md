@@ -1,5 +1,12 @@
 # @stytch/vanilla-js
 
+## 6.0.10
+
+### Patch Changes
+
+- f18b888: Update bundled js-cookie version.
+  Update error code types.
+
 ## 6.0.9
 
 ### Patch Changes
