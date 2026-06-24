@@ -32,10 +32,10 @@
     "react-native": "0.83.4",
     "react-native-safe-area-context": "~5.6.2",
     "react-native-screens": "~4.23.0",
-    "uuid": "3.4.0"
+    "uuid": "14.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.27.1",
+    "@babel/core": "7.29.6",
     "@stytch/internal-tsconfigs": "workspace:*",
     "typescript": "5.9.3"
   },

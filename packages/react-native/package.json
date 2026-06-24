@@ -64,7 +64,7 @@
     "utf8": "3.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.28.5",
+    "@babel/core": "7.29.6",
     "@jest/globals": "30.2.0",
     "@react-native/babel-preset": "0.81.1",
     "@react-native/codegen": "0.81.1",
@@ -90,7 +90,7 @@
     "react-native": "0.81.4",
     "react-native-country-codes-picker": "patch:react-native-country-codes-picker@npm%3A2.3.5#~/.yarn/patches/react-native-country-codes-picker-npm-2.3.5-3de615b7fb.patch",
     "react-test-renderer": "19.1.0",
-    "rollup": "4.60.1",
+    "rollup": "4.62.2",
     "ts-jest": "29.4.5",
     "typescript": "5.9.2"
   },
