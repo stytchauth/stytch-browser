@@ -34,7 +34,7 @@ jobs:
   deploy:
     environment: ${{ inputs.env }}
     name: Deploy Demo App (${{ inputs.app_dir }})
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-public
     env:
       S3_BUCKET: ${{ inputs.s3_bucket }}
       APP_DIR: ${{ inputs.app_dir }}

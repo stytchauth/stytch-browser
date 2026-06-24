@@ -31,7 +31,7 @@ jobs:
   deploy:
     environment: ${{ inputs.env }}
     name: Deploy Assets
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-public
     env:
       S3_BUCKET: ${{ inputs.s3_bucket }}
     steps:

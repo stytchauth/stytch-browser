@@ -34,7 +34,7 @@ on:
 jobs:
   get-vercel-deployment-url:
     if: ${{ inputs.vercel_b2c_project != '' || inputs.vercel_b2b_project != '' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-public
     outputs:
       b2c_url: ${{ steps.vercel_b2c.outputs.url }}
       b2b_url: ${{ steps.vercel_b2b.outputs.url }}
@@ -78,7 +78,7 @@ jobs:
     # get-vercel-deployment-url is skipped
     if: always()
     needs: get-vercel-deployment-url
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-public
     container:
       image: cypress/browsers:22.19.0
     steps:

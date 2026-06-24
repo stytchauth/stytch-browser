@@ -9,7 +9,7 @@ env:
   IMAGE_NAMESPACE: 928657068455.dkr.ecr.us-west-2.amazonaws.com
 jobs:
   pre-build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-public
     outputs:
       starttime: ${{ steps.settime.outputs.time }}
     steps:
@@ -120,7 +120,7 @@ jobs:
   post-build-fail:
     if: ${{ failure() }}
     needs: [pre-build, deploy-clientside-services-prod, e2e-react-demo-app-staging]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-public
     env:
       BUILDEVENT_APIKEY: ${{ secrets.HONEYCOMB_CI_API_KEY }}
       BUILDEVENT_DATASET: 'stytch-ci'
@@ -144,7 +144,7 @@ jobs:
   post-build-success:
     if: ${{ success() }}
     needs: [pre-build, deploy-clientside-services-prod, deploy-react-demo-app-staging, e2e-react-demo-app-staging]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-public
     env:
       BUILDEVENT_APIKEY: ${{ secrets.HONEYCOMB_CI_API_KEY }}
       BUILDEVENT_DATASET: 'stytch-ci'
