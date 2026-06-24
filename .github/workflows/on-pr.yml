@@ -7,7 +7,7 @@ on:
     branches: [main, feature/**]
 jobs:
   pre-build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-public
     outputs:
       starttime: ${{ steps.settime.outputs.time }}
     steps:
@@ -50,7 +50,7 @@ jobs:
   post-build-fail:
     if: ${{ failure() }}
     needs: [pre-build, node-lint-build-test, e2e-tests-preview]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-public
     env:
       BUILDEVENT_APIKEY: ${{ secrets.HONEYCOMB_CI_API_KEY }}
       BUILDEVENT_DATASET: 'stytch-ci'
@@ -74,7 +74,7 @@ jobs:
   post-build-success:
     if: ${{ success() }}
     needs: [pre-build, node-lint-build-test, e2e-tests-preview]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-public
     env:
       BUILDEVENT_APIKEY: ${{ secrets.HONEYCOMB_CI_API_KEY }}
       BUILDEVENT_DATASET: 'stytch-ci'
