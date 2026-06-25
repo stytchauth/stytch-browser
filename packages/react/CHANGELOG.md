@@ -1,5 +1,12 @@
 # @stytch/react
 
+## 20.0.10
+
+### Patch Changes
+
+- f18b888: Update bundled js-cookie version.
+  Update error code types.
+
 ## 20.0.9
 
 ### Patch Changes
