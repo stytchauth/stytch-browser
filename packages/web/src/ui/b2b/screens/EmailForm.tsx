@@ -1,5 +1,4 @@
 import { useLingui } from '@lingui/react/macro';
-import { StytchAPIError } from '@stytch/core/public';
 import React, { useState } from 'react';
 
 import { getTranslatedError } from '../../../utils/getTranslatedError';
@@ -15,21 +14,7 @@ import { useEmlDiscoverySend } from '../hooks/useEmlDiscoverySend';
 import { useEmlLoginOrSignup } from '../hooks/useEmlLoginOrSignup';
 import { AppScreens } from '../types/AppScreens';
 import { hasProduct } from '../utils';
-
-const JIT_PROVISIONING_ERRORS = ['email_jit_provisioning_not_allowed', 'invalid_email_for_jit_provisioning'];
-
-const useParseErrorMessage = () => {
-  const { t } = useLingui();
-  return (error: StytchAPIError, { email, org: organizationName }: { email: string; org: string }) => {
-    if (JIT_PROVISIONING_ERRORS.includes(error.error_type)) {
-      return t({
-        id: 'error.jitIneligible',
-        message: `${email} does not have access to ${organizationName}. If you think this is a mistake, contact your admin`,
-      });
-    }
-    return getTranslatedError(error, t);
-  };
-};
+import { useParseErrorMessage } from './useParseErrorMessage';
 
 export const EmailForm = ({ showPasswordButton }: { showPasswordButton: boolean }) => {
   const [state, dispatch] = useGlobalReducer();
