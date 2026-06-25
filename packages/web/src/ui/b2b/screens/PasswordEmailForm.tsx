@@ -83,7 +83,7 @@ export const PasswordsEmailForm = () => {
 
   return (
     <Column as="form" onSubmit={handleSubmit} gap={2}>
-      <EmailInput email={email} setEmail={setEmail} />
+      <EmailInput email={email} setEmail={setEmail} error={hideInput ? errorMessage : undefined} />
 
       {!hideInput && (
         <PasswordInput password={password} setPassword={setPassword} type="current" error={errorMessage} />
