@@ -3,7 +3,6 @@ import { StytchAPIError } from '@stytch/core/public';
 import React, { useState } from 'react';
 
 import { EMAIL_REGEX } from '../../../utils';
-import { getTranslatedError } from '../../../utils/getTranslatedError';
 import { readB2BInternals } from '../../../utils/internal';
 import Button from '../../components/atoms/Button';
 import Column from '../../components/atoms/Column';
@@ -12,10 +11,13 @@ import { PasswordInput } from '../../components/molecules/PasswordInput';
 import { useGlobalReducer } from '../GlobalContextProvider';
 import { AppScreens } from '../types/AppScreens';
 import { usePasswordInput } from '../usePasswordInput';
+import { useParseErrorMessage } from './useParseErrorMessage';
 
 export const PasswordsEmailForm = () => {
   const [, dispatch] = useGlobalReducer();
   const { t } = useLingui();
+
+  const parseErrorMessages = useParseErrorMessage();
 
   const {
     stytch,
@@ -37,43 +39,44 @@ export const PasswordsEmailForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (organization) {
-      const organization_id = organization.organization_id;
-
-      // If we have processed the email, submit the password field
-      if (!hideInput) {
-        submitPassword(organization_id);
-        return;
-      }
-
-      // Validate we have a member with a password. Otherwise, check if we can jit
-      // provision and kickoff verification and session reset
-      if (!email.match(EMAIL_REGEX)) {
-        setErrorMessage(t({ id: 'error.invalidEmailAddress', message: 'Invalid email address' }));
-        return;
-      }
-      setErrorMessage('');
-      setIsSubmitting(true);
-      readB2BInternals(stytch)
-        .searchManager.searchMember(email, organization.organization_id)
-        .then(({ member }) => {
-          if (member) {
-            setHideInput(false);
-            setIsSubmitting(false);
-            dispatch({ type: 'set_password_state', email });
-            return;
-          }
-          // No member password flow: verify email and use reset by session
-          handleNonMemberReset();
-        })
-        .catch((err: StytchAPIError) => {
-          setIsSubmitting(false);
-          setErrorMessage(getTranslatedError(err, t));
-        });
-    } else {
+    if (!organization) {
       // Discovery flow
       submitDiscoveryPassword();
+      return;
     }
+
+    const organization_id = organization.organization_id;
+
+    // If we have processed the email, submit the password field
+    if (!hideInput) {
+      submitPassword(organization_id);
+      return;
+    }
+
+    // Validate we have a member with a password. Otherwise, check if we can jit
+    // provision and kickoff verification and session reset
+    if (!email.match(EMAIL_REGEX)) {
+      setErrorMessage(t({ id: 'error.invalidEmailAddress', message: 'Invalid email address' }));
+      return;
+    }
+    setErrorMessage('');
+    setIsSubmitting(true);
+    readB2BInternals(stytch)
+      .searchManager.searchMember(email, organization.organization_id)
+      .then(({ member }) => {
+        if (member) {
+          setHideInput(false);
+          setIsSubmitting(false);
+          dispatch({ type: 'set_password_state', email });
+          return;
+        }
+        // No member password flow: verify email and use reset by session
+        handleNonMemberReset();
+      })
+      .catch((err: StytchAPIError) => {
+        setIsSubmitting(false);
+        setErrorMessage(parseErrorMessages(err, { email, org: organization_id }));
+      });
   };
 
   const onGetHelp = () => {
@@ -83,7 +86,7 @@ export const PasswordsEmailForm = () => {
 
   return (
     <Column as="form" onSubmit={handleSubmit} gap={2}>
-      <EmailInput email={email} setEmail={setEmail} />
+      <EmailInput email={email} setEmail={setEmail} error={hideInput ? errorMessage : undefined} />
 
       {!hideInput && (
         <PasswordInput password={password} setPassword={setPassword} type="current" error={errorMessage} />
