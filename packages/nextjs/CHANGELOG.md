@@ -1,5 +1,11 @@
 # @stytch/nextjs
 
+## 22.0.11
+
+### Patch Changes
+
+- 825977a: Fix error handling for B2B password email form
+
 ## 22.0.10
 
 ### Patch Changes
