@@ -17,7 +17,7 @@ The vanilla Stytch JavaScript SDK is built on open web standards and is compatib
 The Stytch UI elements provides prebuilt components such as our login form.
 
 ```js
-import { createStytchClient } from '@stytch/vanilla-js/b2b';
+import { createStytchClient } from '@stytch/vanilla-js';
 
 const stytch = createStytchClient('public-token-test-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
 
