@@ -1,5 +1,11 @@
 # @stytch/react-native
 
+## 0.73.0
+
+### Minor Changes
+
+- 4f02f27: Upgrade react-native SDK to include latest android DFP v1.2.0
+
 ## 0.72.0
 
 ### Minor Changes
