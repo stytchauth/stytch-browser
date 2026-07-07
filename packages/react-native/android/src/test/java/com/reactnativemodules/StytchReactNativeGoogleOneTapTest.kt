@@ -1,6 +1,8 @@
 package com.reactnativemodules
 
 import android.app.Activity
+import androidx.credentials.exceptions.GetCredentialCancellationException
+import androidx.credentials.exceptions.NoCredentialException
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.JavaOnlyMap
 import com.facebook.react.bridge.ReactApplicationContext
@@ -14,6 +16,7 @@ import com.stytch.reactnativemodules.InvalidAuthorizationCredential
 import com.stytch.reactnativemodules.MissingAuthorizationCredentialIDToken
 import com.stytch.reactnativemodules.NoCredentialsPresent
 import com.stytch.reactnativemodules.StytchReactNativeGoogleOneTap
+import com.stytch.reactnativemodules.UserCancellation
 import com.stytch.reactnativemodules.toWritableMap
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -102,6 +105,32 @@ class StytchReactNativeGoogleOneTapTest {
         every { mockGoogleOneTapProvider.createTokenCredential(any()) } returns mockk {
             every { idToken } throws ApiException(Status.RESULT_INTERNAL_ERROR)
         }
+        val result = oneTap.start("client-id", true)
+        require(result is HandleIntentResult.Error)
+        assert(result.exception is NoCredentialsPresent)
+    }
+
+    @Test
+    fun `start returns UserCancellation if the user dismisses the credential prompt`() = runTest {
+        val mockActivity: Activity = mockk()
+        every { mockReactApplicationContext.currentActivity } returns mockActivity
+        every { oneTap.generateNonce() } returns "a-generated-nonce"
+        coEvery {
+            mockGoogleOneTapProvider.getSignInWithGoogleCredential(any(), any(), any(), any())
+        } throws GetCredentialCancellationException()
+        val result = oneTap.start("client-id", true)
+        require(result is HandleIntentResult.Error)
+        assert(result.exception is UserCancellation)
+    }
+
+    @Test
+    fun `start returns NoCredentialsPresent if no credential is available`() = runTest {
+        val mockActivity: Activity = mockk()
+        every { mockReactApplicationContext.currentActivity } returns mockActivity
+        every { oneTap.generateNonce() } returns "a-generated-nonce"
+        coEvery {
+            mockGoogleOneTapProvider.getSignInWithGoogleCredential(any(), any(), any(), any())
+        } throws NoCredentialException()
         val result = oneTap.start("client-id", true)
         require(result is HandleIntentResult.Error)
         assert(result.exception is NoCredentialsPresent)

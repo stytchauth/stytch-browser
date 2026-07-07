@@ -2,10 +2,12 @@ import { logger } from '@stytch/core';
 import {
   MissingGoogleClientIDError,
   MissingPKCEError,
+  NoCredentialsPresentError,
   OAuthGetURLOptions,
   OAuthProviders,
   StytchAPIError,
   StytchProjectConfigurationInput,
+  UserCancellationError,
 } from '@stytch/core/public';
 import { InAppBrowser } from '@stytch/react-native-inappbrowser-reborn';
 import { Linking } from 'react-native';
@@ -471,6 +473,42 @@ describe('OAuthClient', () => {
           await (client as any)['startNativeGoogleOAuthFlow'](30, onComplete);
           expect(onComplete).not.toHaveBeenCalled();
           expect(loggerSpy).toHaveBeenCalledWith('Google OneTap is unavailable', expect.anything());
+          fetchGoogleClientIdSpy.mockRestore();
+          googleOneTapStartSpy.mockRestore();
+          loggerSpy.mockRestore();
+        });
+        it('returns User Canceled with a UserCancellationError when the user dismisses the prompt', async () => {
+          const fetchGoogleClientIdSpy = jest
+            .spyOn(client as any, 'fetchGoogleClientId')
+            .mockReturnValueOnce({ googleClientId: 'test' });
+          const googleOneTapStartSpy = jest
+            .spyOn((client as any)['nativeModule']['OAuth'], 'googleOneTapStart')
+            .mockRejectedValueOnce(new Error('user_cancellation'));
+          const loggerSpy = jest.spyOn(logger, 'warn').mockImplementation(jest.fn());
+          const resp = await (client as any)['startNativeGoogleOAuthFlow'](30);
+          expect(resp).toEqual({
+            success: false,
+            reason: 'User Canceled',
+            error: expect.any(UserCancellationError),
+          });
+          fetchGoogleClientIdSpy.mockRestore();
+          googleOneTapStartSpy.mockRestore();
+          loggerSpy.mockRestore();
+        });
+        it('returns No Credentials Available with a NoCredentialsPresentError when no credential exists', async () => {
+          const fetchGoogleClientIdSpy = jest
+            .spyOn(client as any, 'fetchGoogleClientId')
+            .mockReturnValueOnce({ googleClientId: 'test' });
+          const googleOneTapStartSpy = jest
+            .spyOn((client as any)['nativeModule']['OAuth'], 'googleOneTapStart')
+            .mockRejectedValueOnce(new Error('no_credentials_present'));
+          const loggerSpy = jest.spyOn(logger, 'warn').mockImplementation(jest.fn());
+          const resp = await (client as any)['startNativeGoogleOAuthFlow'](30);
+          expect(resp).toEqual({
+            success: false,
+            reason: 'No Credentials Available',
+            error: expect.any(NoCredentialsPresentError),
+          });
           fetchGoogleClientIdSpy.mockRestore();
           googleOneTapStartSpy.mockRestore();
           loggerSpy.mockRestore();
