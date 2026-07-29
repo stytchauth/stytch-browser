@@ -49,15 +49,18 @@ export type B2BEmailMagicLinksOptions = {
   domainHint?: string;
   locale?: string;
   /**
-   * The number of minutes a login Magic Link is valid for. Defaults to 60. Min: 5, Max: 10080.
+   * The number of minutes a login Magic Link is valid for. Min: 5, Max: 10080.
+   * @default 60
    */
   loginExpirationMinutes?: number;
   /**
-   * The number of minutes a signup Magic Link is valid for. Defaults to 60. Min: 5, Max: 10080.
+   * The number of minutes a signup Magic Link is valid for. Min: 5, Max: 10080.
+   * @default 60
    */
   signupExpirationMinutes?: number;
   /**
-   * The number of minutes a Discovery Magic Link is valid for. Defaults to 60. Min: 5, Max: 10080.
+   * The number of minutes a Discovery Magic Link is valid for. Min: 5, Max: 10080.
+   * @default 60
    */
   discoveryExpirationMinutes?: number;
 };
