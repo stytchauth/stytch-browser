@@ -21,6 +21,8 @@ export const useEmlLoginOrSignup = () => {
         login_template_id: config.emailMagicLinksOptions?.loginTemplateId,
         signup_template_id: config.emailMagicLinksOptions?.signupTemplateId,
         locale: config.emailMagicLinksOptions?.locale,
+        login_expiration_minutes: config.emailMagicLinksOptions?.loginExpirationMinutes,
+        signup_expiration_minutes: config.emailMagicLinksOptions?.signupExpirationMinutes,
       }),
     {
       onSuccess: () => {

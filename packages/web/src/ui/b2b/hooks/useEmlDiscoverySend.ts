@@ -17,6 +17,7 @@ export const useEmlDiscoverySend = () => {
         discovery_redirect_url: config.emailMagicLinksOptions?.discoveryRedirectURL,
         login_template_id: config.emailMagicLinksOptions?.loginTemplateId,
         locale: config.emailMagicLinksOptions?.locale,
+        discovery_expiration_minutes: config.emailMagicLinksOptions?.discoveryExpirationMinutes,
       }),
     {
       onSuccess: () => {
