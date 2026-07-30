@@ -1,20 +1,20 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
+  - package-ecosystem: 'npm'
     directories:
-      - "/"
-      - "/apps/*"
-      - "/packages/*"
-      - "/services/*"
+      - '/'
+      - '/apps/*'
+      - '/packages/*'
+      - '/services/*'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     cooldown:
       default-days: 3
     ignore:
       # later uuid versions move to ESM which breaks build. The security alerts are not for
       # uuidv4 which is the only one we use
-      - dependency-name: "uuid"
-        versions: ["<11.1.1"]
+      - dependency-name: 'uuid'
+        versions: ['<11.1.1']
     groups:
       production-dependencies:
         dependency-type: production
