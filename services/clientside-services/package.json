@@ -5,7 +5,7 @@
     "hoistingLimits": "workspaces"
   },
   "scripts": {
-    "build": "npm run clean && npm run compile",
+    "build": "yarn clean && yarn compile",
     "clean": "rm -rf ./dist",
     "compile": "webpack",
     "dev": "webpack serve --config webpack.dev.config.js",
