@@ -13,15 +13,15 @@
     "hoistingLimits": "workspaces"
   },
   "dependencies": {
-    "@next/bundle-analyzer": "16.1.6",
+    "@next/bundle-analyzer": "16.2.12",
     "@stytch/nextjs": "workspace:*",
-    "next": "16.2.6",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "next": "16.2.12",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "eslint": "9.36.0",
+    "eslint": "10.8.0",
     "eslint-config-next": "16.1.6",
-    "typescript": "5.9.3"
+    "typescript": "7.0.2"
   }
 }

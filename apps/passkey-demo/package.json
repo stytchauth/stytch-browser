@@ -16,24 +16,24 @@
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
-    "@mui/icons-material": "^5.8.4",
-    "@mui/material": "^5.8.7",
-    "@next/bundle-analyzer": "16.1.6",
+    "@mui/icons-material": "^9.2.0",
+    "@mui/material": "^9.2.0",
+    "@next/bundle-analyzer": "16.2.12",
     "@stytch/nextjs": "workspace:*",
-    "cookies": "^0.8.0",
-    "next": "16.2.6",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "react-router-dom": "6.30.3",
-    "stytch": "13.1.0"
+    "cookies": "^0.9.1",
+    "next": "16.2.12",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-router-dom": "7.18.1",
+    "stytch": "14.2.0"
   },
   "devDependencies": {
     "@types/cookies": "^0.7.7",
     "@types/node": "20.19.24",
-    "@types/react": "19.2.10",
+    "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
-    "eslint": "9.36.0",
+    "eslint": "10.8.0",
     "eslint-config-next": "16.1.6",
-    "typescript": "5.9.3"
+    "typescript": "7.0.2"
   }
 }

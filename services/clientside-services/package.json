@@ -13,7 +13,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "awesome-phonenumber": "3.2.0",
+    "awesome-phonenumber": "7.8.0",
     "js-cookie": "3.0.8"
   },
   "devDependencies": {
@@ -22,10 +22,10 @@
     "clean-webpack-plugin": "4.0.0",
     "dotenv": "16.0.1",
     "html-webpack-plugin": "5.6.4",
-    "jest": "30.2.0",
-    "ts-jest": "29.4.5",
+    "jest": "30.4.2",
+    "ts-jest": "29.4.12",
     "ts-loader": "9.3.1",
-    "typescript": "5.9.3",
+    "typescript": "7.0.2",
     "webpack": "5.105.0",
     "webpack-cli": "6.0.1",
     "webpack-dev-server": "5.2.4"
