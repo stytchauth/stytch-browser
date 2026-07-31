@@ -5,14 +5,11 @@
     "hoistingLimits": "workspaces"
   },
   "scripts": {
-    "build": "npm run clean && npm run compile",
+    "build": "yarn clean && yarn compile",
     "clean": "rm -rf ./dist",
     "compile": "webpack",
     "dev": "webpack serve --config webpack.dev.config.js",
     "test": "jest"
-  },
-  "engines": {
-    "node": "22.x"
   },
   "license": "MIT",
   "dependencies": {

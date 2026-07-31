@@ -56,9 +56,15 @@
     "ts-jest": "29.4.5",
     "turbo": "2.9.16"
   },
-  "engines": {
-    "npm": "11.10.0",
-    "node": "22.21.1"
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "24.18.0"
+    },
+    "packageManager": {
+      "name": "yarn",
+      "version": "4.15.0"
+    }
   },
   "packageManager": "yarn@4.15.0",
   "dependenciesMeta": {

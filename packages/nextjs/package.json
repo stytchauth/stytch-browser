@@ -105,7 +105,7 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "build": "npm run clean && npm run compile",
+    "build": "yarn clean && yarn compile",
     "clean": "rm -rf ./dist",
     "compile": "NODE_OPTIONS='--max-old-space-size=10000' rollup -c",
     "dev": "NODE_OPTIONS='--max-old-space-size=10000' rollup -c -w",

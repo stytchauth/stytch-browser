@@ -41,7 +41,7 @@
   },
   "scripts": {
     "test": "TZ=UTC jest",
-    "build": "npm run clean && npm run compile",
+    "build": "yarn clean && yarn compile",
     "clean": "rm -rf ./dist",
     "compile": "rollup -c",
     "typecheck": "tsc --noEmit"
