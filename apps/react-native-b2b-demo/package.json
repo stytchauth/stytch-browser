@@ -32,7 +32,7 @@
     "uuid": "3.4.0"
   },
   "devDependencies": {
-    "@babel/core": "7.27.1",
+    "@babel/core": "7.29.6",
     "@stytch/internal-tsconfigs": "workspace:*",
     "typescript": "5.9.3"
   },
