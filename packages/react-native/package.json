@@ -64,7 +64,7 @@
     "utf8": "3.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.28.5",
+    "@babel/core": "7.29.6",
     "@jest/globals": "30.2.0",
     "@react-native/babel-preset": "0.81.1",
     "@react-native/codegen": "0.81.1",
