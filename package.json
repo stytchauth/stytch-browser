@@ -38,23 +38,23 @@
     "generate:ai-rules": "node ai/generate-rules.mjs && prettier --write \"**/*\""
   },
   "devDependencies": {
-    "@changesets/cli": "2.29.7",
-    "@eslint/compat": "1.4.0",
-    "@size-limit/preset-small-lib": "11.2.0",
+    "@changesets/cli": "2.31.1",
+    "@eslint/compat": "2.1.0",
+    "@size-limit/preset-small-lib": "13.0.1",
     "@types/jest": "30.0.0",
-    "@types/node": "20.19.24",
+    "@types/node": "26.1.2",
     "eslint": "9.36.0",
     "eslint-config-custom": "workspace:*",
     "jest": "30.2.0",
-    "msw": "2.12.7",
-    "msw-storybook-addon": "2.0.6",
+    "msw": "2.15.0",
+    "msw-storybook-addon": "3.0.0",
     "prettier": "3.5.1",
-    "prettier-plugin-svelte": "3.4.1",
+    "prettier-plugin-svelte": "4.1.1",
     "rollup": "4.60.1",
-    "size-limit": "11.2.0",
+    "size-limit": "13.0.1",
     "svelte": "5.56.1",
     "ts-jest": "29.4.5",
-    "turbo": "2.9.16"
+    "turbo": "2.10.7"
   },
   "devEngines": {
     "runtime": {

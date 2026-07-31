@@ -127,7 +127,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@preact/compat": "17.1.2",
+    "@preact/compat": "18.3.2",
     "@rollup/plugin-alias": "6.0.0",
     "@stytch/internal-build-config": "workspace:*",
     "@stytch/internal-jest-config": "workspace:*",
@@ -136,19 +136,19 @@
     "@stytch/js-utils": "workspace:*",
     "@stytch/web": "workspace:*",
     "@testing-library/dom": "10.4.1",
-    "@testing-library/react": "16.3.0",
+    "@testing-library/react": "16.3.2",
     "@types/jest": "30.0.0",
-    "@types/react": "18.3.26",
-    "@types/react-dom": "18.0.5",
-    "concurrently": "8.2.2",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "concurrently": "10.0.4",
     "eslint-config-custom": "workspace:*",
     "identity-obj-proxy": "3.0.0",
     "jest": "30.2.0",
-    "preact": "10.19.2",
+    "preact": "10.29.7",
     "react": "npm:@preact/compat@17.1.2",
     "react-dom": "npm:@preact/compat@17.1.2",
     "tslib": "2.8.1",
-    "tsx": "4.21.0",
+    "tsx": "4.23.1",
     "typescript": "5.9.3"
   }
 }

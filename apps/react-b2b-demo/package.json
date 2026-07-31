@@ -34,12 +34,12 @@
   "devDependencies": {
     "@stytch/internal-demo-utils": "workspace:*",
     "@testing-library/dom": "10.4.1",
-    "@testing-library/react": "16.3.0",
-    "@vitejs/plugin-react": "5.1.2",
+    "@testing-library/react": "16.3.2",
+    "@vitejs/plugin-react": "6.0.4",
     "eslint-config-custom": "workspace:*",
-    "sonda": "0.9.0",
+    "sonda": "0.14.0",
     "typescript": "5.9.3",
-    "vite": "7.3.5",
-    "vitest": "4.1.8"
+    "vite": "8.1.5",
+    "vitest": "4.1.10"
   }
 }
