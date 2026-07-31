@@ -1,7 +1,7 @@
 export default IDP;
 import { Nav } from '@stytch/internal-demo-utils';
 import React from 'react';
-import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router';
 
 import Configure from './Configure';
 import IDP from './idp';

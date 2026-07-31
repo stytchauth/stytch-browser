@@ -1,6 +1,6 @@
 import { AuthFlowType, B2BOAuthProviders, B2BProducts, StytchB2B } from '@stytch/react/b2b';
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 
 import { presentation } from './configuration.js';
 import { useB2BStrings } from './useStrings';

@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 const customStrings = {
   'buttonPrimary.sms': 'Login via SMS',
