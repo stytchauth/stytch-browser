@@ -38,7 +38,7 @@
     "type-fest": "4.15.0"
   },
   "devDependencies": {
-    "@babel/core": "7.27.1",
+    "@babel/core": "7.29.6",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.0",
     "@lingui/cli": "5.9.0",
