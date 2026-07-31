@@ -3,11 +3,11 @@ updates:
   - package-ecosystem: 'npm'
     directories:
       - '/'
-      - '/apps/*'
-      - '/packages/*'
-      - '/services/*'
     schedule:
       interval: 'weekly'
+    # Suppress routine version-update PRs. Security update PRs are exempt from this
+    # limit, so vulnerability fixes still open on the schedule below.
+    open-pull-requests-limit: 0
     cooldown:
       default-days: 3
     ignore:
@@ -16,7 +16,7 @@ updates:
       - dependency-name: 'uuid'
         versions: ['<11.1.1']
     groups:
-      production-dependencies:
-        dependency-type: production
-      development-dependencies:
-        dependency-type: development
+      security-updates:
+        applies-to: security-updates
+        patterns:
+          - '*'
