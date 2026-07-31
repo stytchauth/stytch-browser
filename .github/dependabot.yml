@@ -3,9 +3,6 @@ updates:
   - package-ecosystem: 'npm'
     directories:
       - '/'
-      - '/apps/*'
-      - '/packages/*'
-      - '/services/*'
     schedule:
       interval: 'weekly'
     cooldown:
