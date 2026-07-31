@@ -1,5 +1,11 @@
 # @stytch/nextjs
 
+## 22.1.0
+
+### Minor Changes
+
+- e44c5f5: Adds support for Email Magic Links expiration minutes parameters to the B2B pre-built UI config
+
 ## 22.0.11
 
 ### Patch Changes
