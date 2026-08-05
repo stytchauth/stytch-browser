@@ -22,6 +22,7 @@ export function useSendInviteEmail({ onSuccess }: { onSuccess?: () => unknown })
         email_address: trimmedEmail,
         invite_template_id: uiConfig?.inviteTemplateId,
         invite_redirect_url: uiConfig?.inviteRedirectURL,
+        invite_expiration_minutes: uiConfig?.inviteExpirationMinutes,
       });
 
       openToast({
@@ -31,6 +32,6 @@ export function useSendInviteEmail({ onSuccess }: { onSuccess?: () => unknown })
 
       await onSuccess?.();
     },
-    [client, uiConfig?.inviteTemplateId, uiConfig?.inviteRedirectURL, openToast, onSuccess],
+    [client, uiConfig?.inviteTemplateId, uiConfig?.inviteRedirectURL, uiConfig?.inviteExpirationMinutes, openToast, onSuccess],
   );
 }
