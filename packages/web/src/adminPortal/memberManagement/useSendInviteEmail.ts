@@ -32,6 +32,13 @@ export function useSendInviteEmail({ onSuccess }: { onSuccess?: () => unknown })
 
       await onSuccess?.();
     },
-    [client, uiConfig?.inviteTemplateId, uiConfig?.inviteRedirectURL, uiConfig?.inviteExpirationMinutes, openToast, onSuccess],
+    [
+      client,
+      uiConfig?.inviteTemplateId,
+      uiConfig?.inviteRedirectURL,
+      uiConfig?.inviteExpirationMinutes,
+      openToast,
+      onSuccess,
+    ],
   );
 }
