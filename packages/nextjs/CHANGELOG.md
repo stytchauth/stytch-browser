@@ -1,5 +1,11 @@
 # @stytch/nextjs
 
+## 22.2.0
+
+### Minor Changes
+
+- da61a9e: Add an inviteExpirationMinutes parameter to the AdminPortalMemberManagement component
+
 ## 22.1.0
 
 ### Minor Changes
