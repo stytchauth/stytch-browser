@@ -28,6 +28,12 @@ export interface AdminPortalMemberManagementUIConfig extends AdminPortalUIConfig
    * If this value is not passed, the default `invite_redirect_url` that you set in your Dashboard is used.
    */
   inviteRedirectURL?: string;
+
+  /**
+   * The expiration time for the Magic Link in the invite email, in minutes.
+   * Defaults to 10080 (1 week), minimum 5, maximum 10080.
+   */
+  inviteExpirationMinutes?: number;
 }
 
 export interface AdminPortalMemberManagementMountOptions<
