@@ -1,5 +1,11 @@
 # @stytch/react
 
+## 20.2.0
+
+### Minor Changes
+
+- da61a9e: Add an inviteExpirationMinutes parameter to the AdminPortalMemberManagement component
+
 ## 20.1.0
 
 ### Minor Changes
