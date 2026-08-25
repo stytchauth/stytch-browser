@@ -5,12 +5,20 @@ on:
     branches:
       - main
       - v5
+  # Allows re-running just the Mintlify docs update without cutting a release
+  workflow_dispatch:
+    inputs:
+      js_sdk_ref:
+        description: 'Ref of this repo that the docs should be generated from'
+        required: false
+        default: 'main'
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   release:
     name: Release
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest-public
     permissions:
       id-token: write # Required for OIDC
@@ -66,7 +74,9 @@ jobs:
   update_mintlify_docs:
     name: Update Mintlify docs
     needs: release
-    if: needs.release.outputs.published == 'true'
+    if: |
+      !cancelled() &&
+      (github.event_name == 'workflow_dispatch' || needs.release.outputs.published == 'true')
     runs-on: ubuntu-latest-public
     steps:
       - name: Checkout Repo
@@ -80,6 +90,7 @@ jobs:
           gh workflow run js-sdk-docs.yml \
             --repo stytchauth/mintlify-docs \
             --ref main \
-            --field js_sdk_ref=main
+            --field js_sdk_ref="${JS_SDK_REF}"
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          JS_SDK_REF: ${{ inputs.js_sdk_ref || 'main' }}
