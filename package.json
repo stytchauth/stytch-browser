@@ -38,7 +38,7 @@
     "generate:ai-rules": "node ai/generate-rules.mjs && prettier --write \"**/*\""
   },
   "devDependencies": {
-    "@changesets/cli": "2.29.7",
+    "@changesets/cli": "2.31.1",
     "@eslint/compat": "1.4.0",
     "@size-limit/preset-small-lib": "11.2.0",
     "@types/jest": "30.0.0",
