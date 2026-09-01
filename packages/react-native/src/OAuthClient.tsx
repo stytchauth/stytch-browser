@@ -14,6 +14,7 @@ import {
   IRNHeadlessOAuthClient,
   MissingGoogleClientIDError,
   MissingPKCEError,
+  NoCredentialsPresentError,
   OAuthAttachResponse,
   OAuthAuthenticateOptions,
   OAuthAuthenticateResponse,
@@ -449,7 +450,10 @@ export class HeadlessOAuthClient<TProjectConfiguration extends StytchProjectConf
       })
       .catch((err: Error): OAuthStartResponse => {
         logger.warn('Google OneTap is unavailable', err);
-        return { success: false, reason: 'User Canceled', error: new UserCancellationError() };
+        const stytchError = errorToStytchError(err);
+        const reason =
+          stytchError instanceof NoCredentialsPresentError ? 'No Credentials Available' : 'User Canceled';
+        return { success: false, reason, error: stytchError };
       });
   }
 
