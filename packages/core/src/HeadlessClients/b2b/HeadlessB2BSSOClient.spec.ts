@@ -253,6 +253,20 @@ describe('HeadlessB2BSSOClient', () => {
           '&signup_redirect_url=https%3A%2F%2Fexample.com%2Ffoo%3Fcallback_params%3D456',
       );
     });
+    it('Adds provider parameters when passed in', async () => {
+      await client.start({
+        connection_id,
+        provider_params: { prompt: 'select_account', login_hint: 'example@stytch.com' },
+      });
+      expectLocation(
+        'https://test.stytch.com/v1/public/sso/start?' +
+          'public_token=public-token-test-123' +
+          `&connection_id=${connection_id}` +
+          '&provider_prompt=select_account' +
+          '&provider_login_hint=example%40stytch.com' +
+          `&pkce_code_challenge=${MOCK_CHALLENGE}`,
+      );
+    });
     it('Uses the expected base URL for a live public token', async () => {
       const liveClient = new HeadlessB2BSSOClient(
         networkClient,
