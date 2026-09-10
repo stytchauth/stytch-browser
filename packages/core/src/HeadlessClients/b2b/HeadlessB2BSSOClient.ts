@@ -113,7 +113,7 @@ export class HeadlessB2BSSOClient<TProjectConfiguration extends StytchProjectCon
     startUrl.searchParams.set('connection_id', connection_id);
 
     if (provider_params) {
-      validateInDev('sso.start', { provider_params }, { provider_params: 'optionalObject' });
+      validateInDev('stytch.sso.start', { provider_params }, { provider_params: 'optionalObject' });
       for (const key in provider_params) {
         startUrl.searchParams.set('provider_' + key, provider_params[key]);
       }
