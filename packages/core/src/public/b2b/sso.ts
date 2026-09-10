@@ -30,9 +30,10 @@ export type SSOStartOptions = {
    */
   signup_redirect_url?: string;
   /**
-   * An optional mapping of provider specific values to pass through as query params to the SSO provider
-   * @example Okta authorization parameters
-   * {"prompt": "select_account", "login_hint": "example@stytch.com"}
+   * An optional mapping of provider specific values to pass through as query params to the SSO provider.
+   * Currently supported in OIDC flows only.
+   * @example Okta OIDC authorization parameters
+   * {"prompt": "login", "login_hint": "example@stytch.com"}
    */
   provider_params?: Record<string, string>;
 };
@@ -373,7 +374,6 @@ export interface IHeadlessB2BSSOClient<TProjectConfiguration extends StytchProje
    *     connection_id: 'saml-connection-test-51861cbc-d3b9-428b-9761-227f5fb12be9',
    *     login_redirect_url: 'https://example.com/oauth/callback',
    *     signup_redirect_url: 'https://example.com/oauth/callback',
-   *     provider_params: { prompt: 'select_account' },
    *   })
    * }, [stytch]);
    * return (
