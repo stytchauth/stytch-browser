@@ -7,7 +7,7 @@
     "@stytch/react": "workspace:*",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-router": "7.18.1"
+    "react-router": "7.18.2"
   },
   "scripts": {
     "start": "vite",
@@ -40,6 +40,6 @@
     "sonda": "0.9.0",
     "typescript": "5.9.3",
     "vite": "7.3.5",
-    "vitest": "4.1.8"
+    "vitest": "4.1.11"
   }
 }
