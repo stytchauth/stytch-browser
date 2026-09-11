@@ -1,5 +1,11 @@
 # @stytch/vanilla-js
 
+## 6.3.0
+
+### Minor Changes
+
+- 73526aa: Adds support for the providerParams parameter in the SSO authentication flow.
+
 ## 6.2.0
 
 ### Minor Changes
