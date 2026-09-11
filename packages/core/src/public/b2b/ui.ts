@@ -73,6 +73,11 @@ export type B2BEmailMagicLinksOptions = {
 export type B2BSSOOptions = {
   loginRedirectURL?: string;
   signupRedirectURL?: string;
+  /**
+   * An optional mapping of provider specific values to pass through as query params to the SSO provider.
+   * Currently supported in OIDC SSO flows only.
+   */
+  providerParams?: Record<string, string>;
 };
 
 /**

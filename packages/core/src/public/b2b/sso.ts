@@ -29,6 +29,13 @@ export type SSOStartOptions = {
    * If the field is not specified, the default in the Dashboard is used.
    */
   signup_redirect_url?: string;
+  /**
+   * An optional mapping of provider specific values to pass through as query params to the SSO provider.
+   * Currently supported in OIDC flows only.
+   * @example Okta OIDC authorization parameters
+   * {"prompt": "login", "login_hint": "example@stytch.com"}
+   */
+  provider_params?: Record<string, string>;
 };
 
 export type SSOAuthenticateOptions = SessionDurationOptions & {

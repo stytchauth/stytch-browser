@@ -38,6 +38,7 @@ export const SSOButton = ({ connection, onStart }: SSOButtonProps) => {
         connection_id,
         signup_redirect_url: ssoOptions?.signupRedirectURL,
         login_redirect_url: ssoOptions?.loginRedirectURL,
+        provider_params: ssoOptions?.providerParams,
       })
       .then(() => {
         onStart?.(connection);

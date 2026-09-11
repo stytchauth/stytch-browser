@@ -99,13 +99,25 @@ export class HeadlessB2BSSOClient<TProjectConfiguration extends StytchProjectCon
     return this._config.liveAPIURL;
   }
 
-  async start({ connection_id, login_redirect_url, signup_redirect_url }: SSOStartOptions): Promise<void> {
+  async start({
+    connection_id,
+    login_redirect_url,
+    signup_redirect_url,
+    provider_params,
+  }: SSOStartOptions): Promise<void> {
     const { pkceRequiredForSso } = await this._dynamicConfig;
     const baseURL = await this.getBaseApiUrl();
 
     const startUrl = new URL(`${baseURL}/v1/public/sso/start`);
     startUrl.searchParams.set('public_token', this._config.publicToken);
     startUrl.searchParams.set('connection_id', connection_id);
+
+    if (provider_params) {
+      validateInDev('stytch.sso.start', { provider_params }, { provider_params: 'optionalObject' });
+      for (const key in provider_params) {
+        startUrl.searchParams.set('provider_' + key, provider_params[key]);
+      }
+    }
 
     if (pkceRequiredForSso) {
       const keyPair = await this._pkceManager.startPKCETransaction();
