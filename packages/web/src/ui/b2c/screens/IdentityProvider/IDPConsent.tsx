@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { NoCurrentSessionError } from '@stytch/core/public';
+import { NoCurrentSessionError, StytchAPIError } from '@stytch/core/public';
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
 import { AuthTokenParams } from '../../../../types';
@@ -121,12 +121,19 @@ const EnsureUserIsLoggedIn = ({ children }: { children: ReactNode }) => {
         const token = authParams.trustedAuthToken;
         const profile_id = authParams.tokenProfileID;
 
-        // revoke the current session before calling attest
-        if (stytchClient.user.getSync()) {
-          await stytchClient.session.revoke({ forceClear: true });
-        }
-
         try {
+          // revoke the current session before calling attest
+          if (stytchClient.user.getSync()) {
+            try {
+              await stytchClient.session.revoke({ forceClear: true });
+            } catch (error) {
+              // forceClear clears stale local state even when the session is already expired.
+              if (!(error instanceof StytchAPIError) || error.error_type !== 'user_unauthenticated') {
+                throw error;
+              }
+            }
+          }
+
           await stytchClient.session.attest({
             token,
             profile_id,
