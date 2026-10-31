@@ -58,6 +58,34 @@ describe('NetworkClient', () => {
       });
     });
 
+    describe('When the default locale is invalid', () => {
+      const NativeDateTimeFormat = Intl.DateTimeFormat;
+      const timeZone = NativeDateTimeFormat().resolvedOptions().timeZone;
+
+      afterEach(() => {
+        jest.restoreAllMocks();
+      });
+
+      it('Falls back to a fixed locale to get the timezone', () => {
+        jest.spyOn(Intl, 'DateTimeFormat').mockImplementation((locales, options) => {
+          if (locales === undefined) {
+            throw new RangeError('Internal error. Icu error.');
+          }
+          return new NativeDateTimeFormat(locales, options);
+        });
+
+        expect(networkClient.createTelemetryBlob()).toMatchObject({ timezone: timeZone });
+      });
+
+      it('Returns an empty timezone when no locale works', () => {
+        jest.spyOn(Intl, 'DateTimeFormat').mockImplementation(() => {
+          throw new RangeError('Internal error. Icu error.');
+        });
+
+        expect(networkClient.createTelemetryBlob()).toMatchObject({ timezone: '' });
+      });
+    });
+
     it('Does not include ports in the app identifier', () => {
       jsdom.reconfigure({
         url: 'http://localhost:8080',

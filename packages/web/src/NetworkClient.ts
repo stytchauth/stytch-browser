@@ -19,6 +19,20 @@ import { ResponseCommon } from '@stytch/core/public';
 
 import { B2BSubscriptionDataLayer, ConsumerSubscriptionDataLayer } from './SubscriptionService';
 
+const getTimezone = (): string => {
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+  } catch {
+    // Browsers with an invalid default locale throw "RangeError: Internal error. Icu error.". The time zone doesn't
+    // depend on the locale, so retry with a fixed one, and never let telemetry break the SDK.
+    try {
+      return Intl.DateTimeFormat('en-US').resolvedOptions().timeZone;
+    } catch {
+      return '';
+    }
+  }
+};
+
 export class NetworkClient implements INetworkClient {
   private eventLogger: EventLogger;
   private readonly baseURL: string;
@@ -75,7 +89,7 @@ export class NetworkClient implements INetworkClient {
       persistent_id: createPersistentId(),
 
       client_sent_at: new Date().toISOString(),
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      timezone: getTimezone(),
 
       // Logged in data
       // This gets passed into the constructor from StytchClient or StytchB2BClient
