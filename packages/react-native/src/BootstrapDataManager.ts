@@ -22,6 +22,7 @@ export interface RawBootstrapData {
   password_config: { luds_complexity: number; luds_minimum_count: number } | null;
   dfp_protected_auth_enabled?: boolean;
   dfp_protected_auth_mode?: DFPProtectedAuthMode;
+  fre_protected_auth_enabled?: boolean;
   rbac_policy?: RBACPolicyRaw;
   siwe_required_for_crypto_wallets: boolean;
   vertical: Vertical;
@@ -41,6 +42,7 @@ export const DEFAULT_BOOTSTRAP = (): BootstrapData => ({
   createOrganizationEnabled: false,
   passwordConfig: null,
   runDFPProtectedAuth: false,
+  runFREProtectedAuth: false,
   rbacPolicy: null,
   siweRequiredForCryptoWallets: false,
   vertical: null,
@@ -99,6 +101,7 @@ export class BootstrapDataManager implements IBootstrapData {
       passwordConfig,
       runDFPProtectedAuth: response.dfp_protected_auth_enabled ?? false,
       dfpProtectedAuthMode: response.dfp_protected_auth_mode,
+      runFREProtectedAuth: response.fre_protected_auth_enabled ?? false,
       rbacPolicy: response.rbac_policy ?? null,
       siweRequiredForCryptoWallets: response.siwe_required_for_crypto_wallets,
       vertical: response.vertical,

@@ -31,6 +31,7 @@ describe('CaptchaProvider', () => {
       createOrganizationEnabled: false,
       passwordConfig: null,
       runDFPProtectedAuth: true,
+      runFREProtectedAuth: false,
       rbacPolicy: null,
       siweRequiredForCryptoWallets: false,
       vertical: null,

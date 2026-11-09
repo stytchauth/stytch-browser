@@ -35,6 +35,7 @@ export type BootstrapData = {
   passwordConfig: { ludsComplexity: number; ludsMinimumCount: number } | null;
   runDFPProtectedAuth: boolean;
   dfpProtectedAuthMode?: DFPProtectedAuthMode;
+  runFREProtectedAuth: boolean;
   rbacPolicy: RBACPolicyRaw | null;
   siweRequiredForCryptoWallets: boolean;
   vertical: Vertical | null;

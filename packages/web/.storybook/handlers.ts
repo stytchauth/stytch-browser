@@ -369,6 +369,7 @@ export const MOCK_STORYBOOK_BOOTSTRAP_DATA = {
   password_config: { luds_complexity: 3, luds_minimum_count: 8 },
   dfp_protected_auth_enabled: false,
   dfp_protected_auth_mode: null,
+  fre_protected_auth_enabled: false,
   rbac_policy: {
     roles: [
       {

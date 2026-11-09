@@ -37,6 +37,7 @@ const successfulResponseMappedToBootstrap: BootstrapData = {
   createOrganizationEnabled: true,
   passwordConfig: null,
   runDFPProtectedAuth: false,
+  runFREProtectedAuth: false,
   dfpProtectedAuthMode: undefined,
   rbacPolicy: null,
   siweRequiredForCryptoWallets: true,
