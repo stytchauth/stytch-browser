@@ -366,6 +366,12 @@ export type StytchClientOptions = {
   dfppaUrl?: string;
 
   /**
+   * The custom domain to use for FRE Protected Auth. You must contact Stytch support to set up the domain
+   * prior to using it in the SDK.
+   */
+  freDomain?: string;
+
+  /**
    * The custom domain to use for the DFP Protected Auth CDN to load the telemetry.js script.
    */
   dfpCdnUrl?: string;
