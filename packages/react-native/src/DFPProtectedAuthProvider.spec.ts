@@ -31,7 +31,6 @@ describe('DFPProtectedAuthProvider', () => {
       createOrganizationEnabled: false,
       passwordConfig: null,
       runDFPProtectedAuth: dfpProtectedAuthEnabled,
-      runFREProtectedAuth: false,
       rbacPolicy: null,
       siweRequiredForCryptoWallets: false,
       vertical: null,
