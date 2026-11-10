@@ -59,30 +59,26 @@ describe('NetworkClient', () => {
     });
 
     describe('When the default locale is invalid', () => {
-      const NativeDateTimeFormat = Intl.DateTimeFormat;
-      const timeZone = NativeDateTimeFormat().resolvedOptions().timeZone;
+      beforeEach(() => {
+        jest.spyOn(Intl, 'DateTimeFormat').mockImplementation(() => {
+          throw new RangeError('Internal error. Icu error.');
+        });
+      });
 
       afterEach(() => {
         jest.restoreAllMocks();
       });
 
-      it('Falls back to a fixed locale to get the timezone', () => {
-        jest.spyOn(Intl, 'DateTimeFormat').mockImplementation((locales, options) => {
-          if (locales === undefined) {
-            throw new RangeError('Internal error. Icu error.');
-          }
-          return new NativeDateTimeFormat(locales, options);
-        });
+      it.each([
+        [420, 'UTC-07:00'],
+        [-330, 'UTC+05:30'],
+        [-765, 'UTC+12:45'],
+        [210, 'UTC-03:30'],
+        [0, 'UTC+00:00'],
+      ])('Falls back to the UTC offset for a timezone offset of %i minutes', (offsetMinutes, expected) => {
+        jest.spyOn(Date.prototype, 'getTimezoneOffset').mockReturnValue(offsetMinutes);
 
-        expect(networkClient.createTelemetryBlob()).toMatchObject({ timezone: timeZone });
-      });
-
-      it('Returns an empty timezone when no locale works', () => {
-        jest.spyOn(Intl, 'DateTimeFormat').mockImplementation(() => {
-          throw new RangeError('Internal error. Icu error.');
-        });
-
-        expect(networkClient.createTelemetryBlob()).toMatchObject({ timezone: '' });
+        expect(networkClient.createTelemetryBlob()).toMatchObject({ timezone: expected });
       });
     });
 

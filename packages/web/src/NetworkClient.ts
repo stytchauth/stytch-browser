@@ -20,16 +20,16 @@ import { ResponseCommon } from '@stytch/core/public';
 import { B2BSubscriptionDataLayer, ConsumerSubscriptionDataLayer } from './SubscriptionService';
 
 const getTimezone = (): string => {
+  // Browsers with an invalid default locale throw "RangeError: Internal error. Icu error."
+  // getTimezoneOffset() is positive when behind UTC, so the sign is inverted.
   try {
     return Intl.DateTimeFormat().resolvedOptions().timeZone;
   } catch {
-    // Browsers with an invalid default locale throw "RangeError: Internal error. Icu error.". The time zone doesn't
-    // depend on the locale, so retry with a fixed one, and never let telemetry break the SDK.
-    try {
-      return Intl.DateTimeFormat('en-US').resolvedOptions().timeZone;
-    } catch {
-      return '';
-    }
+    const offset = -new Date().getTimezoneOffset();
+    const abs = Math.abs(offset);
+    const pad = (n: number) => String(n).padStart(2, '0');
+    // eslint-disable-next-line lingui/no-unlocalized-strings
+    return `UTC${offset < 0 ? '-' : '+'}${pad(Math.floor(abs / 60))}:${pad(abs % 60)}`;
   }
 };
 
