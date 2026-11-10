@@ -58,7 +58,6 @@ export const MOCK_BOOTSTRAP_DATA = {
   createOrganizationEnabled: false,
   passwordConfig: null,
   runDFPProtectedAuth: false,
-  runFREProtectedAuth: false,
   rbacPolicy: null,
   siweRequiredForCryptoWallets: false,
   vertical: null,
