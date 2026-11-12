@@ -185,6 +185,8 @@ jobs:
         working-directory: packages/web
         run: buildevents cmd $GITHUB_RUN_ID $(cat ../../../step_span_id) yarn-build-storybook -- yarn build-storybook
       - name: Run Chromatic
+        # Fail open when the token is missing (e.g. PRs from forks); real failures still fail the job when it is set
+        continue-on-error: ${{ secrets.CHROMATIC_PROJECT_TOKEN == '' }}
         uses: chromaui/action@5ec258af08deb3e8c36653bd618cb7fe52090031 # v15.2.0
         with:
           storybookBuildDir: 'packages/web/storybook-static'
