@@ -17,9 +17,12 @@ jobs:
   node-lint-build-test:
     needs: [pre-build]
     uses: ./.github/workflows/node-lint-build-test.yml
+    with:
+      # pull_request runs may execute fork code, so Chromatic is published from chromatic-pr.yml instead
+      upload_to_chromatic: ${{ github.event_name == 'merge_group' }}
     secrets:
       honeycomb_api_key: ${{ secrets.HONEYCOMB_CI_API_KEY }}
-      CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+      CHROMATIC_PROJECT_TOKEN: ${{ github.event_name == 'merge_group' && secrets.CHROMATIC_PROJECT_TOKEN || '' }}
 
   e2e-tests-preview:
     if: ${{ !startsWith(github.head_ref, 'changeset-release/') && !startsWith(github.head_ref, 'gh-readonly-queue/') }}

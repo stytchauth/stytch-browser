@@ -1,0 +1,47 @@
+# Publishes the Storybook built by "On Pull Requests [PR]" to Chromatic.
+#
+# This runs in the context of the default branch and has access to CHROMATIC_PROJECT_TOKEN, even for PRs from forks.
+# It must never install, build, or execute anything from the PR: it only downloads the prebuilt static Storybook
+# artifact and hands it to Chromatic. Do not add steps that run PR code or scripts here.
+name: Chromatic [PR]
+on:
+  workflow_run:
+    workflows: ['On Pull Requests [PR]']
+    types: [completed]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  chromatic:
+    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion != 'cancelled' }}
+    runs-on: ubuntu-latest-public
+    steps:
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        with:
+          # Only used so Chromatic can read git history; the contents are never executed
+          repository: ${{ github.event.workflow_run.head_repository.full_name }}
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Download Storybook
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: storybook-static
+          path: packages/web/storybook-static
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+      - name: Run Chromatic
+        uses: chromaui/action@5ec258af08deb3e8c36653bd618cb7fe52090031 # v15.2.0
+        env:
+          # workflow_run has no PR context, so tell Chromatic which commit and branch this build is for.
+          # Forked branches are prefixed with the fork owner to avoid colliding with branches in this repo.
+          CHROMATIC_SHA: ${{ github.event.workflow_run.head_sha }}
+          CHROMATIC_PULL_REQUEST_SHA: ${{ github.event.workflow_run.head_sha }}
+          CHROMATIC_BRANCH: ${{ github.event.workflow_run.head_repository.full_name != github.repository && format('{0}:{1}', github.event.workflow_run.head_repository.owner.login, github.event.workflow_run.head_branch) || github.event.workflow_run.head_branch }}
+          CHROMATIC_SLUG: ${{ github.event.workflow_run.head_repository.full_name }}
+        with:
+          storybookBuildDir: 'packages/web/storybook-static'
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          onlyChanged: true
+          exitOnceUploaded: true
+          storybookBaseDir: 'packages/web'
