@@ -4,6 +4,7 @@ const envKeys = {
   liveAPIURL: 'LIVE_API_URL',
   dfpBackendURL: 'DFP_BACKEND_URL',
   dfpCdnDomain: 'DFP_CDN_DOMAIN',
+  freDomain: 'FRE_DOMAIN',
   clientsideServicesIframeURL: 'CLIENTSIDE_SERVICES_IFRAME_URL',
 };
 

@@ -11,7 +11,13 @@ declare global {
   }
 }
 
-const loadTelemetryJS = (domain: string) => loadESModule(`${domain}/telemetry.js`, () => window.GetTelemetryID);
+type GetTelemetryID = Window['GetTelemetryID'];
+
+// Both the DFP and FRE scripts are named telemetry.js and both set window.GetTelemetryID. The loader returns the
+// function that is on the window right after that script loads, so the scripts must be loaded one at a time
+// and each function kept, otherwise the second script would overwrite the first.
+const loadTelemetryJS = (domain: string): Promise<GetTelemetryID> =>
+  loadESModule(`${domain}/telemetry.js`, () => window.GetTelemetryID);
 
 export type DFPProtectedAuthMode = 'OBSERVATION' | 'DECISIONING';
 
@@ -22,6 +28,8 @@ export type DFPProtectedAuthState = {
   enabled: boolean;
   loaded: boolean;
   executeRecaptcha: () => Promise<string | undefined>;
+  getDFPTelemetryID?: GetTelemetryID;
+  getFRETelemetryID?: GetTelemetryID;
 };
 
 export class DFPProtectedAuthProvider {
@@ -32,12 +40,16 @@ export class DFPProtectedAuthProvider {
     dfpCdnDomain: string,
     private bootstrapPromise: Promise<BootstrapData>,
     executeRecaptcha: () => Promise<string | undefined> = () => Promise.resolve(undefined),
+    freDomainURL?: string,
   ) {
     this.state = bootstrapPromise.then(async (bootstrapData) => {
       if (!bootstrapData.runDFPProtectedAuth) {
         return { publicToken, dfpBackendURL, enabled: false, loaded: false, executeRecaptcha };
       }
-      await loadTelemetryJS(dfpCdnDomain);
+      const getDFPTelemetryID = await loadTelemetryJS(dfpCdnDomain);
+      // Must wait for the DFP script to finish loading before loading FRE's, see loadTelemetryJS
+      const getFRETelemetryID =
+        bootstrapData.runFREProtectedAuth && freDomainURL ? await loadTelemetryJS(freDomainURL) : undefined;
       return {
         publicToken,
         dfpBackendURL,
@@ -45,6 +57,8 @@ export class DFPProtectedAuthProvider {
         mode: bootstrapData.dfpProtectedAuthMode || 'OBSERVATION',
         loaded: true,
         executeRecaptcha,
+        getDFPTelemetryID,
+        getFRETelemetryID,
       };
     });
   }
@@ -54,11 +68,11 @@ export class DFPProtectedAuthProvider {
   };
 
   getTelemetryID = async (): Promise<string | undefined> => {
-    const { publicToken, enabled, dfpBackendURL } = await this.state;
-    if (!enabled) {
+    const { publicToken, enabled, dfpBackendURL, getDFPTelemetryID } = await this.state;
+    if (!enabled || !getDFPTelemetryID) {
       return undefined;
     }
-    return await window.GetTelemetryID(publicToken, `${dfpBackendURL}/submit`);
+    return await getDFPTelemetryID(publicToken, `${dfpBackendURL}/submit`);
   };
 
   getDFPTelemetryIDAndCaptcha = async (): Promise<{ dfp_telemetry_id?: string; captcha_token?: string }> => {

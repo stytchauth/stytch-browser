@@ -168,6 +168,7 @@ export class StytchClient<
       config.endpoints.dfpCdnURL,
       bootstrap.getAsync(),
       captcha.executeRecaptcha,
+      config.endpoints.freDomainURL,
     );
     const clientsideServices = new ClientsideServicesProvider(config.endpoints.clientsideServicesIframeURL);
     const oneTap = new OneTapProvider(_PUBLIC_TOKEN, clientsideServices);
