@@ -134,7 +134,7 @@
     "react-dom": "18.2.0",
     "rollup": "*",
     "rollup-plugin-preserve-use-client": "3.0.1",
-    "ts-jest": "29.4.5",
+    "ts-jest": "29.4.15",
     "typescript": "5.9.3"
   },
   "peerDependencies": {
