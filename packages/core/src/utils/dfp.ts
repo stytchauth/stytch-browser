@@ -18,6 +18,19 @@ export const getDFPBackendURL = (opts: InternalStytchClientOptions | undefined) 
   return opts?.endpoints?.dfpBackendURL ?? STYTCH_DFP_BACKEND_URL;
 };
 
+export const getFREDomainURL = (opts: InternalStytchClientOptions | undefined) => {
+  const domain = opts?.freDomain;
+  if (!domain) {
+    return undefined;
+  }
+
+  const httpsUrl = getHttpsUrl(domain);
+  if (!httpsUrl) {
+    logger.warn(`Unable to use custom FRE domain \`${domain}\`. freDomain should be a valid domain.`);
+  }
+  return httpsUrl;
+};
+
 export const getDFPCdnURL = (opts: InternalStytchClientOptions | undefined) => {
   const domain = opts?.dfpCdnUrl ?? opts?.endpointOptions?.dfpCdnDomain;
   if (domain) {

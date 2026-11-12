@@ -187,6 +187,7 @@ export class StytchB2BClient<
       config.endpoints.dfpCdnURL,
       bootstrap.getAsync(),
       captcha.executeRecaptcha,
+      config.endpoints.freDomainURL,
     );
     const clientsideServices = new ClientsideServicesProvider(config.endpoints.clientsideServicesIframeURL);
     const pkceManagerForOAuth = new PKCEManager(this._dataLayer, 'oauth');
