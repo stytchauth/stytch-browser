@@ -30,6 +30,8 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: 'yarn'
+      - name: Check lockfile for private registry URLs
+        run: node scripts/check-yarn-lockfile.mjs
       - name: Install dependencies
         run: buildevents cmd $GITHUB_RUN_ID $(cat ../step_span_id) yarn-install -- yarn install --immutable
       - name: Verify string extraction
