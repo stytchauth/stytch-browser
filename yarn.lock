@@ -9047,7 +9047,7 @@ __metadata:
 
 "@swc/helpers@npm:0.5.23":
   version: 0.5.23
-  resolution: "@swc/helpers@npm:0.5.23::__archiveUrl=https%3A%2F%2Fnpmjs.artifacts.twilio.com%2Fartifactory%2Fapi%2Fnpm%2Fvirtual-npm-thirdparty%2F%40swc%2Fhelpers%2F-%2Fhelpers-0.5.23.tgz"
+  resolution: "@swc/helpers@npm:0.5.23"
   dependencies:
     tslib: "npm:^2.8.0"
   checksum: 10/899c9761e827d5bf504bd02067596cfe59ad6c7d6b6f0691a2fb05acf3e6c2954ddece7e15d4a6a81e8d95c81500652e6abec326c6c9bbb50bc3e2141696de43
