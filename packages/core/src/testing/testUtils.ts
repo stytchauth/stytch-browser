@@ -35,7 +35,11 @@ export class MockDFPProtectedAuth {
     return Promise.resolve(this.state.mockTelemetryID);
   };
 
-  getDFPTelemetryIDAndCaptcha = async (): Promise<{ dfp_telemetry_id?: string; captcha_token?: string }> => {
+  getDFPTelemetryIDAndCaptcha = async (): Promise<{
+    dfp_telemetry_id?: string;
+    fre_telemetry_id?: string;
+    captcha_token?: string;
+  }> => {
     const { enabled, executeRecaptcha } = await this.state;
 
     let dfp_telemetry_id: string | undefined = undefined;

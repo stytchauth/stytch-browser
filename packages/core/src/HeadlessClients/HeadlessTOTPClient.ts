@@ -32,7 +32,8 @@ export class HeadlessTOTPClient<TProjectConfiguration extends StytchProjectConfi
           totp_code: 'string',
         });
 
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
         const resp = await this._networkClient.retriableFetchSDK<
           WithUser<TOTPAuthenticateResponse<TProjectConfiguration>>
@@ -44,6 +45,7 @@ export class HeadlessTOTPClient<TProjectConfiguration extends StytchProjectConfi
             totp_code: options.totp_code,
             captcha_token,
             dfp_telemetry_id,
+            fre_telemetry_id,
           },
           retryCallback: this.dfpProtectedAuth.retryWithCaptchaAndDFP,
         });
@@ -58,7 +60,8 @@ export class HeadlessTOTPClient<TProjectConfiguration extends StytchProjectConfi
           session_duration_minutes: 'number',
           recovery_code: 'string',
         });
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
         const resp = await this._networkClient.retriableFetchSDK<WithUser<TOTPRecoverResponse<TProjectConfiguration>>>({
           url: '/totps/recover',
@@ -68,6 +71,7 @@ export class HeadlessTOTPClient<TProjectConfiguration extends StytchProjectConfi
             recovery_code: options.recovery_code,
             captcha_token,
             dfp_telemetry_id,
+            fre_telemetry_id,
           },
           retryCallback: this.dfpProtectedAuth.retryWithCaptchaAndDFP,
         });
