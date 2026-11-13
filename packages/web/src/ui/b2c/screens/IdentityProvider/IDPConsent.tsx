@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { NoCurrentSessionError } from '@stytch/core/public';
+import { NoCurrentSessionError, StytchAPIError } from '@stytch/core/public';
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
 import { AuthTokenParams } from '../../../../types';
@@ -123,7 +123,9 @@ const EnsureUserIsLoggedIn = ({ children }: { children: ReactNode }) => {
 
         // revoke the current session before calling attest
         if (stytchClient.user.getSync()) {
-          await stytchClient.session.revoke({ forceClear: true });
+          await stytchClient.session.revoke({ forceClear: true }).catch(() => {
+            // Swallow error. With forceClear, revoke() will still throw if there's no current session
+          });
         }
 
         try {

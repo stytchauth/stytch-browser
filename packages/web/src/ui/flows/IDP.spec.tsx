@@ -66,7 +66,7 @@ describe('IDP Consent Flow', () => {
       session: {
         attest: attestTrustedTokenSpy,
         revoke: revokeSessionSpy,
-        updateSession: jest.fn(),
+        updateSession: jest.fn().mockResolvedValue(undefined),
       },
       idp: {
         oauthAuthorizeStart: oauthAuthorizeStartSpy,
@@ -103,8 +103,8 @@ describe('IDP Consent Flow', () => {
 
   const oauthAuthorizeStartSpy = jest.fn();
   const oauthAuthorizeSubmit = jest.fn();
-  const attestTrustedTokenSpy = jest.fn();
-  const revokeSessionSpy = jest.fn();
+  const attestTrustedTokenSpy = jest.fn().mockResolvedValue(undefined);
+  const revokeSessionSpy = jest.fn().mockResolvedValue(undefined);
 
   beforeEach(() => {
     oauthAuthorizeSubmit.mockResolvedValueOnce(MOCK_OAUTH_AUTHORIZE_SUBMIT_RESPONSE);
@@ -122,7 +122,7 @@ describe('IDP Consent Flow', () => {
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   const expectOAuthAuthorizeFlowStartEvent = () =>
@@ -350,11 +350,37 @@ describe('IDP Consent Flow', () => {
       // Click Allow to trigger attestTrustedToken
       await userEvent.click(screen.getByRole('button', { name: 'Allow' }));
 
-      // Should call attest
-      expect(attestTrustedTokenSpy).toHaveBeenCalled();
+      expect(revokeSessionSpy).toHaveBeenCalledWith({ forceClear: true });
+      expect(attestTrustedTokenSpy).toHaveBeenCalledTimes(1);
 
       // Should continue with OAuth flow
       await screen.findByText('Success!');
+    });
+
+    it('Continues to consent when revoking a stale session returns user_unauthenticated', async () => {
+      revokeSessionSpy.mockRejectedValueOnce(
+        new StytchAPIError({
+          error_message: 'User is not authenticated',
+          error_type: 'user_unauthenticated',
+          status_code: 401,
+          request_id: 'request-id-123',
+          error_url: 'https://example.com/error',
+        }),
+      );
+      attestTrustedTokenSpy.mockResolvedValueOnce({ status_code: 200 });
+
+      renderIDPApp({ withAuthParams: true });
+
+      await screen.findByText('Sign in to Sample Application with Test Project');
+
+      expect(revokeSessionSpy).toHaveBeenCalledWith({ forceClear: true });
+      expect(attestTrustedTokenSpy).toHaveBeenCalledTimes(1);
+      expect(attestTrustedTokenSpy).toHaveBeenCalledWith({
+        token: 'trusted-auth-token-123',
+        profile_id: 'profile-id-456',
+        session_duration_minutes: 60,
+      });
+      expect(callbacks.onError).not.toHaveBeenCalled();
     });
 
     it('Fails OAuth flow when trusted auth token verification fails without active session', async () => {
