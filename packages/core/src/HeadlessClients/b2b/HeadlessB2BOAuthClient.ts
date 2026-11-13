@@ -94,13 +94,15 @@ export class HeadlessB2BOAuthClient<TProjectConfiguration extends StytchProjectC
         );
       }
 
-      const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+      const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+        await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
       const resp = await this._networkClient.retriableFetchSDK<B2BOAuthAuthenticateResponse<TProjectConfiguration>>({
         url: '/b2b/oauth/authenticate',
         method: 'POST',
         body: {
           pkce_code_verifier: keyPair?.code_verifier,
           dfp_telemetry_id,
+          fre_telemetry_id,
           captcha_token,
           intermediate_session_token: (await this._subscriptionService.getIntermediateSessionToken()) || undefined,
           ...options,
@@ -124,11 +126,13 @@ export class HeadlessB2BOAuthClient<TProjectConfiguration extends StytchProjectC
 
           const pkPair = await this._pkceManager.getPKPair();
 
-          const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+          const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+            await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
           const requestBody = {
             pkce_code_verifier: pkPair?.code_verifier,
             dfp_telemetry_id,
+            fre_telemetry_id,
             captcha_token,
             ...data,
           };

@@ -24,13 +24,15 @@ export class HeadlessB2BImpersonationClient<TProjectConfiguration extends Stytch
         validateInDev('stytch.impersonation.authenticate', data, {
           impersonation_token: 'string',
         });
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
         return this._networkClient.retriableFetchSDK<B2BImpersonationAuthenticateResponse<TProjectConfiguration>>({
           url: '/b2b/impersonation/authenticate',
           body: {
             ...data,
             dfp_telemetry_id,
+            fre_telemetry_id,
             captcha_token,
           },
           method: 'POST',

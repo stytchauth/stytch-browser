@@ -92,7 +92,8 @@ export class HeadlessWebAuthnClient<TProjectConfiguration extends StytchProjectC
           conditional_mediation: 'optionalBoolean',
           disable_input_check: 'optionalBoolean',
         });
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
         if (options.conditional_mediation) {
           if (!(await this.browserSupportsAutofill())) {
@@ -141,6 +142,7 @@ export class HeadlessWebAuthnClient<TProjectConfiguration extends StytchProjectC
             public_key_credential: JSON.stringify(credential),
             session_duration_minutes: options.session_duration_minutes,
             dfp_telemetry_id,
+            fre_telemetry_id,
             captcha_token,
           },
           retryCallback: this.dfpProtectedAuth.retryWithCaptchaAndDFP,
