@@ -8338,7 +8338,7 @@ __metadata:
     "@stytch/internal-tsconfigs": "workspace:*"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
-    react-router: "npm:7.18.1"
+    react-router: "npm:7.18.5"
     typescript: "npm:5.9.3"
   peerDependencies:
     react: ^18
@@ -22622,7 +22622,7 @@ __metadata:
     eslint-config-custom: "workspace:*"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
-    react-router: "npm:7.18.1"
+    react-router: "npm:7.18.5"
     sonda: "npm:0.9.0"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.8"
@@ -22642,7 +22642,7 @@ __metadata:
     eslint-config-custom: "workspace:*"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
-    react-router: "npm:7.18.1"
+    react-router: "npm:7.18.5"
     sonda: "npm:0.9.0"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.8"
@@ -23049,9 +23049,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router@npm:7.18.1":
-  version: 7.18.1
-  resolution: "react-router@npm:7.18.1"
+"react-router@npm:7.18.5":
+  version: 7.18.5
+  resolution: "react-router@npm:7.18.5"
   dependencies:
     cookie: "npm:^1.0.1"
     set-cookie-parser: "npm:^2.6.0"
@@ -23061,7 +23061,7 @@ __metadata:
   peerDependenciesMeta:
     react-dom:
       optional: true
-  checksum: 10/f507876822281499759abc53b3230375f706aa45c66b9ba271308f7420501ff1e5430443c560028299210efe1797141d2297c3bb6d09f3ef175220c1ae67a368
+  checksum: 10/e95a532085bfcf6820cc85255343c7fbba75682ac50d3c8e1e4bc1254f30b1e6e1216b61254cc44d78361a9d87cf1d745f833db88a8aae39d4809c954bb85d5a
   languageName: node
   linkType: hard
 
