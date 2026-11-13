@@ -52,7 +52,7 @@ for (const { input, path } of pages) {
       assetsDir: '', // Don't put the JS in a separate folder
       sourcemap: true,
       outDir,
-      rolldownOptions: { input: { [input]: path } },
+      rollupOptions: { input: { [input]: path } },
     },
   });
 }

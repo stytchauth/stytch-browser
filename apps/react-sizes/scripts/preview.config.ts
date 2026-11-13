@@ -10,7 +10,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   plugins: [react()],
   build: {
-    rolldownOptions: {
+    rollupOptions: {
       input: resolve(__dirname, 'index.html'),
     },
   },

@@ -43,7 +43,7 @@ export function createConfig(options = {}) {
       sourcemap: true,
       outDir,
       emptyOutDir: true,
-      rolldownOptions: {
+      rollupOptions: {
         input,
       },
     },
