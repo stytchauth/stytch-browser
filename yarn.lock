@@ -26876,7 +26876,7 @@ __metadata:
 
 "why-is-node-running@npm:3.2.1":
   version: 3.2.1
-  resolution: "why-is-node-running@npm:3.2.1::__archiveUrl=https%3A%2F%2Fnpmjs.artifacts.twilio.com%2Fartifactory%2Fapi%2Fnpm%2Fvirtual-npm-thirdparty%2Fwhy-is-node-running%2F-%2Fwhy-is-node-running-3.2.1.tgz"
+  resolution: "why-is-node-running@npm:3.2.1"
   bin:
     why-is-node-running: cli.js
   checksum: 10/26eb50212cf6059756fe95a169a4ae6cbd12978ef42bd6d3348a39adcc82d5669486de81354267476a7a6cc09a156be914730485a954785d9f50b5a0e814aea8
