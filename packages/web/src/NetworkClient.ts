@@ -19,6 +19,20 @@ import { ResponseCommon } from '@stytch/core/public';
 
 import { B2BSubscriptionDataLayer, ConsumerSubscriptionDataLayer } from './SubscriptionService';
 
+const getTimezone = (): string => {
+  // Browsers with an invalid default locale throw "RangeError: Internal error. Icu error."
+  // getTimezoneOffset() is positive when behind UTC, so the sign is inverted.
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+  } catch {
+    const offset = -new Date().getTimezoneOffset();
+    const abs = Math.abs(offset);
+    const pad = (n: number) => String(n).padStart(2, '0');
+    // eslint-disable-next-line lingui/no-unlocalized-strings
+    return `UTC${offset < 0 ? '-' : '+'}${pad(Math.floor(abs / 60))}:${pad(abs % 60)}`;
+  }
+};
+
 export class NetworkClient implements INetworkClient {
   private eventLogger: EventLogger;
   private readonly baseURL: string;
@@ -75,7 +89,7 @@ export class NetworkClient implements INetworkClient {
       persistent_id: createPersistentId(),
 
       client_sent_at: new Date().toISOString(),
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      timezone: getTimezone(),
 
       // Logged in data
       // This gets passed into the constructor from StytchClient or StytchB2BClient
