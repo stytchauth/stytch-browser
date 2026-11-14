@@ -28,6 +28,11 @@ function addHandler(handler: (css: string) => void) {
 
 export function injectCssIntoNode() {
   const node = document.createElement('style');
+  // Same convention as goober, which styled the UI before v6, so apps with a nonce-based CSP keep working.
+  const nonce: unknown = Reflect.get(window, '__nonce__');
+  if (typeof nonce === 'string' && nonce) {
+    node.nonce = nonce;
+  }
   let firstRender = true;
   const unsubscribe = addHandler((css) => {
     if (firstRender || document.contains(node)) {
