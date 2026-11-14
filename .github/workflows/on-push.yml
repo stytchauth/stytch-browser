@@ -53,17 +53,18 @@ jobs:
       ci_aws_access_key_id: ${{ secrets.STAGING_CDN_UPDATER_AWS_ACCESS_KEY_ID }}
       ci_aws_secret_access_key: ${{ secrets.STAGING_CDN_UPDATER_AWS_SECRET_ACCESS_KEY_ID }}
 
-  e2e-react-demo-app-staging:
-    needs: [deploy-react-demo-app-staging, deploy-react-b2b-demo-app-staging]
+  e2e-tests-vercel:
+    needs: [pre-build, node-lint-build-test]
     uses: ./.github/workflows/run-e2e-tests.yml
     with:
-      env: 'staging'
-      cypress_base_url: 'https://demo-sdk-app.staging.stytch.com'
-      cypress_b2b_base_url: 'https://demo-sdk-b2b-app.staging.stytch.com'
+      env: 'preview'
+      vercel_b2c_project: 'stytch-browser-react-demo'
+      vercel_b2b_project: 'stytch-browser-react-b2b-demo'
     secrets:
       cypress_mailosaur_api_key: ${{ secrets.CYPRESS_MAILOSAUR_API_KEY }}
       cypress_mailosaur_server_id: ${{ secrets.CYPRESS_MAILOSAUR_SERVER_ID }}
       cypress_record_key: ${{ secrets.CYPRESS_RECORD_KEY }}
+      vercel_token: ${{ secrets.VERCEL_TOKEN }}
 
   deploy-assets-staging:
     needs: [pre-build, node-lint-build-test]
@@ -105,7 +106,7 @@ jobs:
       ci_aws_secret_access_key: ${{ secrets.STAGING_CDN_UPDATER_AWS_SECRET_ACCESS_KEY_ID }}
 
   deploy-clientside-services-prod:
-    needs: [deploy-clientside-services-staging, e2e-react-demo-app-staging]
+    needs: [deploy-clientside-services-staging, e2e-tests-vercel]
     uses: ./.github/workflows/deploy-clientside-services.yml
     with:
       sha_to_deploy: ${{ github.sha }}
@@ -119,7 +120,7 @@ jobs:
 
   post-build-fail:
     if: ${{ failure() }}
-    needs: [pre-build, deploy-clientside-services-prod, e2e-react-demo-app-staging]
+    needs: [pre-build, deploy-clientside-services-prod, e2e-tests-vercel]
     runs-on: ubuntu-latest-public
     env:
       BUILDEVENT_APIKEY: ${{ secrets.HONEYCOMB_CI_API_KEY }}
@@ -143,7 +144,7 @@ jobs:
 
   post-build-success:
     if: ${{ success() }}
-    needs: [pre-build, deploy-clientside-services-prod, deploy-react-demo-app-staging, e2e-react-demo-app-staging]
+    needs: [pre-build, deploy-clientside-services-prod, deploy-react-demo-app-staging, e2e-tests-vercel]
     runs-on: ubuntu-latest-public
     env:
       BUILDEVENT_APIKEY: ${{ secrets.HONEYCOMB_CI_API_KEY }}

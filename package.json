@@ -30,7 +30,8 @@
     "test-storybook": "turbo run test-storybook",
     "test-storybook:static": "turbo run test-storybook:static",
     "typecheck": "turbo run typecheck",
-    "lint": "eslint '*/**/*.{js,jsx,ts,tsx}' --max-warnings=0 && prettier -c \"**/*\"",
+    "lint": "yarn lint:lockfile && eslint '*/**/*.{js,jsx,ts,tsx}' --max-warnings=0 && prettier -c \"**/*\"",
+    "lint:lockfile": "node scripts/check-yarn-lockfile.mjs",
     "blt": "yarn lint && turbo run build test",
     "format": "eslint '*/**/*.{js,jsx,ts,tsx}' --fix --max-warnings=0 && prettier --write \"**/*\"",
     "strings": "turbo run strings",
@@ -53,7 +54,7 @@
     "rollup": "4.60.1",
     "size-limit": "11.2.0",
     "svelte": "5.56.1",
-    "ts-jest": "29.4.5",
+    "ts-jest": "29.4.15",
     "turbo": "2.9.16"
   },
   "devEngines": {
@@ -67,7 +68,7 @@
       "onFail": "warn"
     }
   },
-  "packageManager": "yarn@4.15.0",
+  "packageManager": "yarn@4.18.1",
   "dependenciesMeta": {
     "@swc/core": {
       "built": true
