@@ -145,7 +145,7 @@ describe('DFPProtectedAuthProvider', () => {
     expect(req.body.captcha_token).toBe(MOCK_CAPTCHA);
   });
   describe('FRE telemetry.js', () => {
-    it('loads the FRE script after the DFP script when FRE is enabled and a domain is set', async () => {
+    it('loads the FRE script before the DFP script when FRE is enabled and a domain is set', async () => {
       const events: string[] = [];
       loadedModuled.mockImplementation(async (url: string) => {
         events.push(`start ${url}`);
@@ -163,11 +163,84 @@ describe('DFPProtectedAuthProvider', () => {
       );
       await dfpProvider.isEnabled();
       expect(events).toEqual([
-        'start https://dfp-cdn.example.com/telemetry.js',
-        'end https://dfp-cdn.example.com/telemetry.js',
         'start https://fre.example.com/telemetry.js',
         'end https://fre.example.com/telemetry.js',
+        'start https://dfp-cdn.example.com/telemetry.js',
+        'end https://dfp-cdn.example.com/telemetry.js',
       ]);
+    });
+
+    it('still enables DFP, without a FRE telemetry ID, when the FRE script fails to load', async () => {
+      const getDFP = jest.fn().mockResolvedValue('dfp-id');
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+      loadedModuled.mockImplementation(async (url: string) => {
+        if (url.startsWith('https://fre')) {
+          throw new Error('failed to load');
+        }
+        return getDFP;
+      });
+      const dfpProvider = new DFPProtectedAuthProvider(
+        'public-token',
+        'https://example.com',
+        'https://dfp-cdn.example.com',
+        bootstrapManager(true, 'OBSERVATION', true).getAsync(),
+        () => Promise.resolve(MOCK_CAPTCHA),
+        'https://fre.example.com',
+      );
+
+      expect(await dfpProvider.isEnabled()).toBe(true);
+      const result = await dfpProvider.getDFPTelemetryIDAndCaptcha();
+      expect(result.dfp_telemetry_id).toBe('dfp-id');
+      expect(result.fre_telemetry_id).toBeUndefined();
+      expect(warn).toHaveBeenCalled();
+      warn.mockRestore();
+    });
+
+    describe('FRE telemetry ID', () => {
+      const getDFP = jest.fn().mockResolvedValue('dfp-id');
+      const getFRE = jest.fn().mockResolvedValue('fre-id');
+      beforeEach(() => {
+        getDFP.mockClear();
+        getFRE.mockClear();
+        loadedModuled.mockImplementation(async (url: string) => (url.startsWith('https://fre') ? getFRE : getDFP));
+      });
+
+      const provider = (freEnabled: boolean, freDomainURL?: string, mode: DFPProtectedAuthMode = 'OBSERVATION') =>
+        new DFPProtectedAuthProvider(
+          'public-token',
+          'https://example.com',
+          'https://dfp-cdn.example.com',
+          bootstrapManager(true, mode, freEnabled).getAsync(),
+          () => Promise.resolve(MOCK_CAPTCHA),
+          freDomainURL,
+        );
+
+      it('returns both telemetry IDs, calling FRE with no arguments so it uses its own endpoint', async () => {
+        const result = await provider(true, 'https://fre.example.com').getDFPTelemetryIDAndCaptcha();
+        expect(result).toEqual({ dfp_telemetry_id: 'dfp-id', fre_telemetry_id: 'fre-id', captcha_token: MOCK_CAPTCHA });
+        expect(getDFP).toHaveBeenCalledWith('public-token', 'https://example.com/submit');
+        expect(getFRE).toHaveBeenCalledWith();
+      });
+
+      it('returns the FRE telemetry ID in decisioning mode', async () => {
+        const result = await provider(true, 'https://fre.example.com', 'DECISIONING').getDFPTelemetryIDAndCaptcha();
+        expect(result.fre_telemetry_id).toBe('fre-id');
+      });
+
+      it('has no FRE telemetry ID when the FRE script was not loaded', async () => {
+        const result = await provider(false, 'https://fre.example.com').getDFPTelemetryIDAndCaptcha();
+        expect(result.dfp_telemetry_id).toBe('dfp-id');
+        expect(result.fre_telemetry_id).toBeUndefined();
+        expect(getFRE).not.toHaveBeenCalled();
+      });
+
+      it('adds the FRE telemetry ID when retrying after a captcha requirement', async () => {
+        const req = await provider(true, 'https://fre.example.com').retryWithCaptchaAndDFP(
+          new RetriableError(RetriableErrorType.RequiredCaptcha),
+          { body: {} } as never,
+        );
+        expect(req.body).toMatchObject({ dfp_telemetry_id: 'dfp-id', fre_telemetry_id: 'fre-id' });
+      });
     });
 
     it.each([

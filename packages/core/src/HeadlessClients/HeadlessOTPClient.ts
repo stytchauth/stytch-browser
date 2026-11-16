@@ -38,12 +38,14 @@ export class HeadlessOTPClient<TProjectConfiguration extends StytchProjectConfig
             session_duration_minutes: 'number',
           },
         );
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
         const requestBody = {
           token: code,
           method_id,
           dfp_telemetry_id,
+          fre_telemetry_id,
           captcha_token,
           ...options,
         };
@@ -63,8 +65,9 @@ export class HeadlessOTPClient<TProjectConfiguration extends StytchProjectConfig
 
   sms = {
     loginOrCreate: async (phone_number: string, options: OTPCodeSMSOptions): Promise<OTPsLoginOrCreateResponse> => {
-      const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
-      const requestBody = { ...options, phone_number, captcha_token, dfp_telemetry_id };
+      const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+        await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+      const requestBody = { ...options, phone_number, captcha_token, dfp_telemetry_id, fre_telemetry_id };
       return this._networkClient.retriableFetchSDK<OTPsLoginOrCreateResponse>({
         url: '/otps/sms/login_or_create',
         body: requestBody,
@@ -73,8 +76,9 @@ export class HeadlessOTPClient<TProjectConfiguration extends StytchProjectConfig
       });
     },
     send: async (phone_number: string, options: OTPCodeSMSOptions): Promise<OTPsSendResponse> => {
-      const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
-      const requestBody = { ...options, phone_number, captcha_token, dfp_telemetry_id };
+      const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+        await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+      const requestBody = { ...options, phone_number, captcha_token, dfp_telemetry_id, fre_telemetry_id };
 
       const isLoggedIn = !!this._subscriptionService.getSession();
 
@@ -91,8 +95,9 @@ export class HeadlessOTPClient<TProjectConfiguration extends StytchProjectConfig
 
   whatsapp = {
     loginOrCreate: async (phone_number: string, options: OTPCodeOptions): Promise<OTPsLoginOrCreateResponse> => {
-      const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
-      const requestBody = { ...options, phone_number, dfp_telemetry_id, captcha_token };
+      const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+        await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+      const requestBody = { ...options, phone_number, dfp_telemetry_id, fre_telemetry_id, captcha_token };
       return this._networkClient.retriableFetchSDK<OTPsLoginOrCreateResponse>({
         url: '/otps/whatsapp/login_or_create',
         body: requestBody,
@@ -101,8 +106,9 @@ export class HeadlessOTPClient<TProjectConfiguration extends StytchProjectConfig
       });
     },
     send: async (phone_number: string, options: OTPCodeOptions): Promise<OTPsSendResponse> => {
-      const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
-      const requestBody = { ...options, phone_number, captcha_token, dfp_telemetry_id };
+      const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+        await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+      const requestBody = { ...options, phone_number, captcha_token, dfp_telemetry_id, fre_telemetry_id };
 
       const isLoggedIn = !!this._subscriptionService.getSession();
 
@@ -119,8 +125,9 @@ export class HeadlessOTPClient<TProjectConfiguration extends StytchProjectConfig
 
   email = {
     loginOrCreate: async (email: string, options: OTPCodeEmailOptions): Promise<OTPsLoginOrCreateResponse> => {
-      const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
-      const requestBody = { ...options, email, captcha_token, dfp_telemetry_id };
+      const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+        await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+      const requestBody = { ...options, email, captcha_token, dfp_telemetry_id, fre_telemetry_id };
       return this._networkClient.retriableFetchSDK<OTPsLoginOrCreateResponse>({
         url: '/otps/email/login_or_create',
         body: requestBody,

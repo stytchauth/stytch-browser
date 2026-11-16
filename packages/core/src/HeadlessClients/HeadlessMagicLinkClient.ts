@@ -54,13 +54,15 @@ export class HeadlessMagicLinksClient<TProjectConfiguration extends StytchProjec
           code_challenge = await this.getCodeChallenge();
         }
 
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
         const requestBody = {
           ...options,
           email,
           code_challenge,
           captcha_token,
           dfp_telemetry_id,
+          fre_telemetry_id,
         };
         return this._networkClient.retriableFetchSDK<MagicLinksLoginOrCreateResponse>({
           url: '/magic_links/email/login_or_create',
@@ -77,13 +79,15 @@ export class HeadlessMagicLinksClient<TProjectConfiguration extends StytchProjec
         if (pkceRequiredForEmailMagicLinks) {
           code_challenge = await this.getCodeChallenge();
         }
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
         const requestBody = {
           ...options,
           email,
           code_challenge,
           captcha_token,
           dfp_telemetry_id,
+          fre_telemetry_id,
         };
         const isLoggedIn = !!this._subscriptionService.getSession();
 

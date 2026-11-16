@@ -69,7 +69,8 @@ export class HeadlessB2BSSOClient<TProjectConfiguration extends StytchProjectCon
         );
       }
 
-      const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+      const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+        await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
       const resp = await this._networkClient.retriableFetchSDK<SSOAuthenticateResponse<TProjectConfiguration>>({
         url: '/b2b/sso/authenticate',
@@ -78,6 +79,7 @@ export class HeadlessB2BSSOClient<TProjectConfiguration extends StytchProjectCon
           pkce_code_verifier: keyPair?.code_verifier,
           ...options,
           dfp_telemetry_id,
+          fre_telemetry_id,
           captcha_token,
           intermediate_session_token: this._subscriptionService.getIntermediateSessionToken() || undefined,
         },

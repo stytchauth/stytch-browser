@@ -112,12 +112,14 @@ export class HeadlessB2BMagicLinksClient<TProjectConfiguration extends StytchPro
             discovery_expiration_minutes: 'optionalNumber',
           });
 
-          const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+          const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+            await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
           const pkce_code_challenge = await this.getCodeChallenge();
           const requestBody = {
             ...data,
             pkce_code_challenge,
             dfp_telemetry_id,
+            fre_telemetry_id,
             captcha_token,
           };
           return this._networkClient.retriableFetchSDK<B2BMagicLinksEmailDiscoverySendResponse>({
@@ -181,11 +183,13 @@ export class HeadlessB2BMagicLinksClient<TProjectConfiguration extends StytchPro
 
           const pkPair = await this._pkceManager.getPKPair();
 
-          const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+          const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+            await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
           const requestBody = {
             pkce_code_verifier: pkPair?.code_verifier,
             dfp_telemetry_id,
+            fre_telemetry_id,
             captcha_token,
             ...data,
           };
@@ -225,11 +229,13 @@ export class HeadlessB2BMagicLinksClient<TProjectConfiguration extends StytchPro
   ): Promise<B2BMagicLinksAuthenticateResponse<TProjectConfiguration>> {
     const pkPair = await pkceManager.getPKPair();
 
-    const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+    const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+      await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
     const requestBody = {
       pkce_code_verifier: pkPair?.code_verifier,
       dfp_telemetry_id,
+      fre_telemetry_id,
       captcha_token,
       intermediate_session_token: (await this._subscriptionService.getIntermediateSessionToken()) || undefined,
       ...data,

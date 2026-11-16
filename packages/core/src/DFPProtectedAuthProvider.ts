@@ -1,13 +1,15 @@
 import { RetriableError, RetriableErrorType, SDKBaseRequestInfo } from './NetworkClient';
 import { BootstrapData } from './types';
-import { loadESModule } from './utils';
+import { loadESModule, logger } from './utils';
 
 declare global {
   // The telemetry.js script will set a global function called GetTelemetryID on the window
   // object. This interface is allows us to call that function while pleasing the TypeScript
   // compiler.
   interface Window {
-    GetTelemetryID: (publicToken: string, submitURL: string) => Promise<string>;
+    // DFP's script takes (publicToken, submitURL). FRE's takes no arguments here: it submits to the domain the
+    // script was loaded from.
+    GetTelemetryID: ((publicToken: string, submitURL: string) => Promise<string>) & (() => Promise<string>);
   }
 }
 
@@ -46,10 +48,17 @@ export class DFPProtectedAuthProvider {
       if (!bootstrapData.runDFPProtectedAuth) {
         return { publicToken, dfpBackendURL, enabled: false, loaded: false, executeRecaptcha };
       }
-      const getDFPTelemetryID = await loadTelemetryJS(dfpCdnDomain);
-      // Must wait for the DFP script to finish loading before loading FRE's, see loadTelemetryJS
+      // The scripts must load one at a time, see loadTelemetryJS. DFP loads last so that window.GetTelemetryID is
+      // still the DFP function once loading finishes, as it was before FRE was added.
+      // A failure to load the FRE script must not stop DFP from loading, so it is logged and FRE is skipped
       const getFRETelemetryID =
-        bootstrapData.runFREProtectedAuth && freDomainURL ? await loadTelemetryJS(freDomainURL) : undefined;
+        bootstrapData.runFREProtectedAuth && freDomainURL
+          ? await loadTelemetryJS(freDomainURL).catch((error) => {
+              logger.warn(`Unable to load the FRE script from ${freDomainURL}.`, error);
+              return undefined;
+            })
+          : undefined;
+      const getDFPTelemetryID = await loadTelemetryJS(dfpCdnDomain);
       return {
         publicToken,
         dfpBackendURL,
@@ -75,10 +84,23 @@ export class DFPProtectedAuthProvider {
     return await getDFPTelemetryID(publicToken, `${dfpBackendURL}/submit`);
   };
 
-  getDFPTelemetryIDAndCaptcha = async (): Promise<{ dfp_telemetry_id?: string; captcha_token?: string }> => {
+  getFRETelemetryID = async (): Promise<string | undefined> => {
+    const { enabled, getFRETelemetryID } = await this.state;
+    if (!enabled || !getFRETelemetryID) {
+      return undefined;
+    }
+    return await getFRETelemetryID();
+  };
+
+  getDFPTelemetryIDAndCaptcha = async (): Promise<{
+    dfp_telemetry_id?: string;
+    fre_telemetry_id?: string;
+    captcha_token?: string;
+  }> => {
     const { enabled, executeRecaptcha, mode } = await this.state;
 
     let dfp_telemetry_id: string | undefined = undefined;
+    let fre_telemetry_id: string | undefined = undefined;
     let captcha_token: string | undefined = undefined;
     if (!enabled) {
       captcha_token = await executeRecaptcha();
@@ -89,7 +111,10 @@ export class DFPProtectedAuthProvider {
       dfp_telemetry_id = await this.getTelemetryID();
       captcha_token = await executeRecaptcha();
     }
-    return { dfp_telemetry_id, captcha_token };
+    if (mode) {
+      fre_telemetry_id = await this.getFRETelemetryID();
+    }
+    return { dfp_telemetry_id, fre_telemetry_id, captcha_token };
   };
 
   retryWithCaptchaAndDFP = async (e: RetriableError, req: SDKBaseRequestInfo): Promise<SDKBaseRequestInfo> => {
@@ -97,6 +122,7 @@ export class DFPProtectedAuthProvider {
     if (e.type === RetriableErrorType.RequiredCaptcha && enabled) {
       if (req.body) {
         req.body.dfp_telemetry_id = await this.getTelemetryID();
+        req.body.fre_telemetry_id = await this.getFRETelemetryID();
         req.body.captcha_token = await executeRecaptcha();
       }
       return req;
@@ -110,6 +136,7 @@ export const DisabledDFPProtectedAuthProvider = () => ({
   getTelemetryID: async () => undefined,
   getDFPTelemetryIDAndCaptcha: async () => ({
     dfp_telemetry_id: undefined,
+    fre_telemetry_id: undefined,
     captcha_token: undefined,
   }),
   retryWithCaptchaAndDFP: async () => {
@@ -121,5 +148,9 @@ export interface IDFPProtectedAuthProvider {
   isEnabled(): Promise<boolean>;
   getTelemetryID(): Promise<string | undefined>;
   retryWithCaptchaAndDFP(e: RetriableError, req: SDKBaseRequestInfo): Promise<SDKBaseRequestInfo>;
-  getDFPTelemetryIDAndCaptcha(): Promise<{ dfp_telemetry_id?: string; captcha_token?: string }>;
+  getDFPTelemetryIDAndCaptcha(): Promise<{
+    dfp_telemetry_id?: string;
+    fre_telemetry_id?: string;
+    captcha_token?: string;
+  }>;
 }

@@ -51,12 +51,14 @@ export class HeadlessB2BOTPsClient<TProjectConfiguration extends StytchProjectCo
           mfa_phone_number: 'optionalString',
           locale: 'optionalString',
         });
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
         return this._networkClient.retriableFetchSDK<B2BSMSSendResponse>({
           url: '/b2b/otps/sms/send',
           body: {
             ...data,
             dfp_telemetry_id,
+            fre_telemetry_id,
             captcha_token,
             intermediate_session_token: this._subscriptionService.getIntermediateSessionToken() || undefined,
           },
@@ -73,10 +75,12 @@ export class HeadlessB2BOTPsClient<TProjectConfiguration extends StytchProjectCo
             code: 'string',
             set_mfa_enrollment: 'optionalString',
           });
-          const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+          const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+            await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
           const requestBody = {
             ...data,
             dfp_telemetry_id,
+            fre_telemetry_id,
             captcha_token,
             intermediate_session_token: this._subscriptionService.getIntermediateSessionToken() || undefined,
           };
@@ -102,12 +106,14 @@ export class HeadlessB2BOTPsClient<TProjectConfiguration extends StytchProjectCo
           signup_expiration_minutes: 'optionalNumber',
         });
 
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
         return this._networkClient.retriableFetchSDK<B2BOTPsEmailLoginOrSignupResponse>({
           url: '/b2b/otps/email/login_or_signup',
           body: {
             ...data,
             dfp_telemetry_id,
+            fre_telemetry_id,
             captcha_token,
           },
           method: 'POST',
@@ -126,13 +132,15 @@ export class HeadlessB2BOTPsClient<TProjectConfiguration extends StytchProjectCo
             locale: 'optionalString',
           });
 
-          const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+          const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+            await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
           return this._networkClient.retriableFetchSDK<B2BOTPsEmailAuthenticateResponse<TProjectConfiguration>>({
             url: '/b2b/otps/email/authenticate',
             body: {
               ...data,
               intermediate_session_token: this._subscriptionService.getIntermediateSessionToken() || undefined,
               dfp_telemetry_id,
+              fre_telemetry_id,
               captcha_token,
             },
             method: 'POST',
@@ -149,10 +157,12 @@ export class HeadlessB2BOTPsClient<TProjectConfiguration extends StytchProjectCo
             discovery_expiration_minutes: 'optionalNumber',
           });
 
-          const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+          const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+            await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
           const requestBody = {
             ...data,
             dfp_telemetry_id,
+            fre_telemetry_id,
             captcha_token,
           };
           return this._networkClient.retriableFetchSDK<B2BDiscoveryOTPEmailSendResponse>({
@@ -171,9 +181,11 @@ export class HeadlessB2BOTPsClient<TProjectConfiguration extends StytchProjectCo
               email_address: 'string',
             });
 
-            const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+            const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+              await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
             const requestBody = {
               dfp_telemetry_id,
+              fre_telemetry_id,
               captcha_token,
               ...data,
             };

@@ -29,10 +29,12 @@ export class HeadlessB2BTOTPsClient<TProjectConfiguration extends StytchProjectC
           set_mfa_enrollment: 'optionalString',
           set_default_mfa: 'optionalBoolean',
         });
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
         const requestBody = {
           ...data,
           dfp_telemetry_id,
+          fre_telemetry_id,
           captcha_token,
           intermediate_session_token: this._subscriptionService.getIntermediateSessionToken() || undefined,
         };
@@ -53,12 +55,14 @@ export class HeadlessB2BTOTPsClient<TProjectConfiguration extends StytchProjectC
       member_id: 'string',
       expiration_minutes: 'optionalNumber',
     });
-    const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+    const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+      await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
     const response = await this._networkClient.retriableFetchSDK<B2BTOTPCreateResponse>({
       url: '/b2b/totp',
       body: {
         ...data,
         dfp_telemetry_id,
+        fre_telemetry_id,
         captcha_token,
         intermediate_session_token: (await this._subscriptionService.getIntermediateSessionToken()) || undefined,
       },
