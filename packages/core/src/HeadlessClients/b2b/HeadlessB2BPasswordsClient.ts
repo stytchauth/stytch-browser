@@ -86,7 +86,8 @@ export class HeadlessB2BPasswordsClient<TProjectConfiguration extends StytchProj
 
         const pkPair = await this._pkceManager.getPKPair();
         const code_verifier = pkPair?.code_verifier;
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
         return this._networkClient.retriableFetchSDK<B2BPasswordAuthenticateResponse<TProjectConfiguration>>({
           url: '/b2b/passwords/authenticate',
@@ -99,6 +100,7 @@ export class HeadlessB2BPasswordsClient<TProjectConfiguration extends StytchProj
             locale: options.locale,
             captcha_token,
             dfp_telemetry_id,
+            fre_telemetry_id,
             code_verifier,
             intermediate_session_token: this._subscriptionService.getIntermediateSessionToken() || undefined,
           },
@@ -122,7 +124,8 @@ export class HeadlessB2BPasswordsClient<TProjectConfiguration extends StytchProj
         });
 
         const pkce_code_challenge = await this.getCodeChallenge();
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
         return this._networkClient.retriableFetchSDK<B2BPasswordDiscoveryResetByEmailStartResponse>({
           url: '/b2b/passwords/discovery/reset/start',
@@ -138,6 +141,7 @@ export class HeadlessB2BPasswordsClient<TProjectConfiguration extends StytchProj
             pkce_code_challenge,
             captcha_token,
             dfp_telemetry_id,
+            fre_telemetry_id,
           },
           retryCallback: this.dfpProtectedAuth.retryWithCaptchaAndDFP,
         });
@@ -151,7 +155,8 @@ export class HeadlessB2BPasswordsClient<TProjectConfiguration extends StytchProj
             password: 'string',
           });
 
-          const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+          const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+            await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
           const pkPair = await this._pkceManager.getPKPair();
           const pkce_code_verifier = pkPair?.code_verifier;
 
@@ -165,6 +170,7 @@ export class HeadlessB2BPasswordsClient<TProjectConfiguration extends StytchProj
               password: options.password,
               captcha_token,
               dfp_telemetry_id,
+              fre_telemetry_id,
               pkce_code_verifier,
               intermediate_session_token: (await this._subscriptionService.getIntermediateSessionToken()) || undefined,
             },
@@ -188,7 +194,8 @@ export class HeadlessB2BPasswordsClient<TProjectConfiguration extends StytchProj
 
           const pkPair = await this._pkceManager.getPKPair();
           const code_verifier = pkPair?.code_verifier;
-          const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+          const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+            await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
           return this._networkClient.retriableFetchSDK<B2BPasswordDiscoveryAuthenticateResponse<TProjectConfiguration>>(
             {
@@ -199,6 +206,7 @@ export class HeadlessB2BPasswordsClient<TProjectConfiguration extends StytchProj
                 password: options.password,
                 captcha_token,
                 dfp_telemetry_id,
+                fre_telemetry_id,
                 code_verifier,
               },
               retryCallback: this.dfpProtectedAuth.retryWithCaptchaAndDFP,
@@ -219,7 +227,8 @@ export class HeadlessB2BPasswordsClient<TProjectConfiguration extends StytchProj
           locale: 'optionalString',
         });
 
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
         const pkPair = await this._pkceManager.getPKPair();
         const code_verifier = pkPair?.code_verifier;
 
@@ -235,6 +244,7 @@ export class HeadlessB2BPasswordsClient<TProjectConfiguration extends StytchProj
             locale: options.locale,
             captcha_token,
             dfp_telemetry_id,
+            fre_telemetry_id,
             code_verifier: code_verifier,
             intermediate_session_token: this._subscriptionService.getIntermediateSessionToken() || undefined,
           },
@@ -258,7 +268,8 @@ export class HeadlessB2BPasswordsClient<TProjectConfiguration extends StytchProj
           session_duration_minutes: 'number',
         });
 
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
         return this._networkClient.retriableFetchSDK<B2BPasswordResetByExistingPasswordResponse<TProjectConfiguration>>(
           {
@@ -273,6 +284,7 @@ export class HeadlessB2BPasswordsClient<TProjectConfiguration extends StytchProj
               session_duration_minutes: options.session_duration_minutes,
               captcha_token,
               dfp_telemetry_id,
+              fre_telemetry_id,
             },
             retryCallback: this.dfpProtectedAuth.retryWithCaptchaAndDFP,
           },
@@ -288,7 +300,8 @@ export class HeadlessB2BPasswordsClient<TProjectConfiguration extends StytchProj
           password: 'string',
         });
 
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
         return this._networkClient.retriableFetchSDK<B2BPasswordResetBySessionResponse<TProjectConfiguration>>({
           url: '/b2b/passwords/session/reset',
@@ -297,6 +310,7 @@ export class HeadlessB2BPasswordsClient<TProjectConfiguration extends StytchProj
             password: options.password,
             captcha_token,
             dfp_telemetry_id,
+            fre_telemetry_id,
           },
           retryCallback: this.dfpProtectedAuth.retryWithCaptchaAndDFP,
         });
@@ -329,7 +343,8 @@ export class HeadlessB2BPasswordsClient<TProjectConfiguration extends StytchProj
     });
 
     const code_challenge = await this.getCodeChallenge();
-    const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+    const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+      await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
     return this._networkClient.retriableFetchSDK<B2BPasswordResetByEmailStartResponse>({
       url: '/b2b/passwords/email/reset/start',
@@ -346,6 +361,7 @@ export class HeadlessB2BPasswordsClient<TProjectConfiguration extends StytchProj
         code_challenge,
         captcha_token,
         dfp_telemetry_id,
+        fre_telemetry_id,
       },
       retryCallback: this.dfpProtectedAuth.retryWithCaptchaAndDFP,
     });

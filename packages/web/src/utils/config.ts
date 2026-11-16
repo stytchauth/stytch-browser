@@ -2,6 +2,7 @@ import {
   CLIENTSIDE_SERVICES_IFRAME_URL,
   getDFPBackendURL,
   getDFPCdnURL,
+  getFREDomainURL,
   getLiveApiURL,
   getTestApiURL,
   InternalStytchClientOptions,
@@ -35,6 +36,7 @@ export const buildFinalConfig = (clientName: string, opts: InternalStytchClientO
       liveAPIURL: getLiveApiURL(opts),
       dfpBackendURL: getDFPBackendURL(opts),
       dfpCdnURL: getDFPCdnURL(opts),
+      freDomainURL: getFREDomainURL(opts),
       clientsideServicesIframeURL: opts?.endpoints?.clientsideServicesIframeURL ?? CLIENTSIDE_SERVICES_IFRAME_URL,
     },
   };

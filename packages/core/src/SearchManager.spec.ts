@@ -22,4 +22,18 @@ describe('searchDataManager', () => {
       body: { email: MOCK_EMAIL, captcha_token: 'mock-captcha-token' },
     });
   });
+
+  it('sends the FRE telemetry ID with the search when there is one', async () => {
+    const searchDataManager = new SearchDataManager(networkClient, {
+      ...dfpProtectedAuth,
+      getDFPTelemetryIDAndCaptcha: async () => ({ dfp_telemetry_id: 'dfp-id', fre_telemetry_id: 'fre-id' }),
+    });
+    await searchDataManager.searchUser(MOCK_EMAIL);
+
+    expect(networkClient.fetchSDK).toHaveBeenCalledWith({
+      url: `/users/search`,
+      method: 'POST',
+      body: { email: MOCK_EMAIL, dfp_telemetry_id: 'dfp-id', fre_telemetry_id: 'fre-id' },
+    });
+  });
 });

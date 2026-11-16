@@ -44,7 +44,8 @@ export class HeadlessCryptoWalletClient<TProjectConfiguration extends StytchProj
           session_duration_minutes: 'number',
         });
 
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
         const resp = await this._apiNetworkClient.retriableFetchSDK<
           WithUser<CryptoWalletAuthenticateResponse<TProjectConfiguration>>
@@ -58,6 +59,7 @@ export class HeadlessCryptoWalletClient<TProjectConfiguration extends StytchProj
             signature: options.signature,
             captcha_token,
             dfp_telemetry_id,
+            fre_telemetry_id,
           },
           retryCallback: this.dfpProtectedAuth.retryWithCaptchaAndDFP,
         });

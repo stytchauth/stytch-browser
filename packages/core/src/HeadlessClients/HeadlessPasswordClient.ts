@@ -63,7 +63,8 @@ export class HeadlessPasswordClient<TProjectConfiguration extends StytchProjectC
           session_duration_minutes: 'number',
         });
 
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
         const resp = await this._networkClient.retriableFetchSDK<
           WithUser<PasswordCreateResponse<TProjectConfiguration>>
@@ -76,6 +77,7 @@ export class HeadlessPasswordClient<TProjectConfiguration extends StytchProjectC
             session_duration_minutes: options.session_duration_minutes,
             captcha_token,
             dfp_telemetry_id,
+            fre_telemetry_id,
           },
           retryCallback: this.dfpProtectedAuth.retryWithCaptchaAndDFP,
         });
@@ -92,7 +94,8 @@ export class HeadlessPasswordClient<TProjectConfiguration extends StytchProjectC
           session_duration_minutes: 'number',
         });
 
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
         const resp = await this._networkClient.retriableFetchSDK<
           WithUser<PasswordAuthenticateResponse<TProjectConfiguration>>
@@ -105,6 +108,7 @@ export class HeadlessPasswordClient<TProjectConfiguration extends StytchProjectC
             session_duration_minutes: options.session_duration_minutes,
             captcha_token,
             dfp_telemetry_id,
+            fre_telemetry_id,
           },
           retryCallback: this.dfpProtectedAuth.retryWithCaptchaAndDFP,
         });
@@ -121,7 +125,8 @@ export class HeadlessPasswordClient<TProjectConfiguration extends StytchProjectC
           session_duration_minutes: 'number',
         });
 
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
         const pkPair = await this._pkceManager.getPKPair();
         const code_verifier = pkPair?.code_verifier;
 
@@ -137,6 +142,7 @@ export class HeadlessPasswordClient<TProjectConfiguration extends StytchProjectC
             captcha_token,
             code_verifier,
             dfp_telemetry_id,
+            fre_telemetry_id,
           },
           retryCallback: this.dfpProtectedAuth.retryWithCaptchaAndDFP,
         });
@@ -158,7 +164,8 @@ export class HeadlessPasswordClient<TProjectConfiguration extends StytchProjectC
           session_duration_minutes: 'number',
         });
 
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
         const resp = await this._networkClient.retriableFetchSDK<
           WithUser<PasswordResetByExistingPasswordResponse<TProjectConfiguration>>
@@ -171,6 +178,7 @@ export class HeadlessPasswordClient<TProjectConfiguration extends StytchProjectC
             new_password: options.new_password,
             session_duration_minutes: options.session_duration_minutes,
             dfp_telemetry_id,
+            fre_telemetry_id,
             captcha_token,
           },
           retryCallback: this.dfpProtectedAuth.retryWithCaptchaAndDFP,
@@ -188,7 +196,8 @@ export class HeadlessPasswordClient<TProjectConfiguration extends StytchProjectC
           password: 'string',
         });
 
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
         return this._networkClient.retriableFetchSDK<PasswordResetBySessionResponse<TProjectConfiguration>>({
           url: '/passwords/session/reset',
@@ -197,6 +206,7 @@ export class HeadlessPasswordClient<TProjectConfiguration extends StytchProjectC
             password: options.password,
             session_duration_minutes: options.session_duration_minutes,
             dfp_telemetry_id,
+            fre_telemetry_id,
             captcha_token,
           },
           retryCallback: this.dfpProtectedAuth.retryWithCaptchaAndDFP,
@@ -229,7 +239,8 @@ export class HeadlessPasswordClient<TProjectConfiguration extends StytchProjectC
     });
 
     const code_challenge = await this.getCodeChallenge();
-    const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+    const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+      await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
 
     return this._networkClient.retriableFetchSDK<PasswordResetByEmailStartResponse>({
       url: '/passwords/email/reset/start',
@@ -244,6 +255,7 @@ export class HeadlessPasswordClient<TProjectConfiguration extends StytchProjectC
         code_challenge,
         captcha_token,
         dfp_telemetry_id,
+        fre_telemetry_id,
       },
       retryCallback: this.dfpProtectedAuth.retryWithCaptchaAndDFP,
     });

@@ -30,6 +30,7 @@ const stytch = createStytchB2BClient(STYTCH_PUBLIC_TOKEN, {
     dfpBackendURL: configuration.dfpBackendURL.value,
     clientsideServicesIframeURL: configuration.clientsideServicesIframeURL.value,
   },
+  freDomain: configuration.freDomain.value,
 });
 
 window.stytch = stytch;

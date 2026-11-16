@@ -27,10 +27,12 @@ export class HeadlessB2BRecoveryCodesClient<TProjectConfiguration extends Stytch
           recovery_code: 'string',
           session_duration_minutes: 'number',
         });
-        const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+        const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+          await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
         const requestBody = {
           ...data,
           dfp_telemetry_id,
+          fre_telemetry_id,
           captcha_token,
           intermediate_session_token: this._subscriptionService.getIntermediateSessionToken() || undefined,
         };
@@ -45,11 +47,13 @@ export class HeadlessB2BRecoveryCodesClient<TProjectConfiguration extends Stytch
   }
 
   async rotate(): Promise<RecoveryCodeRotateResponse> {
-    const { dfp_telemetry_id, captcha_token } = await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
+    const { dfp_telemetry_id, fre_telemetry_id, captcha_token } =
+      await this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha();
     return this._networkClient.retriableFetchSDK<RecoveryCodeRotateResponse>({
       url: '/b2b/recovery_codes/rotate',
       body: {
         dfp_telemetry_id,
+        fre_telemetry_id,
         captcha_token,
       },
       method: 'POST',

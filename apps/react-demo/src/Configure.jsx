@@ -50,6 +50,7 @@ const Configure = () => {
     testAPIURL: getLocalStorageConfigItem('testAPIURL'),
     liveAPIURL: getLocalStorageConfigItem('liveAPIURL'),
     dfpBackendURL: getLocalStorageConfigItem('dfpBackendURL'),
+    freDomain: getLocalStorageConfigItem('freDomain'),
     clientsideServicesIframeURL: getLocalStorageConfigItem('clientsideServicesIframeURL'),
   });
 
@@ -86,6 +87,7 @@ const Configure = () => {
         <Item name="Test API URL" config={configuration.testAPIURL} />
         <Item name="Live API URL" config={configuration.liveAPIURL} />
         <Item name="DFP backend URL" config={configuration.dfpBackendURL} />
+        <Item name="FRE domain" config={configuration.freDomain} />
         <Item name="Clientside services iframe URL" config={configuration.clientsideServicesIframeURL} />
       </dl>
       <h3>Project configuration</h3>
@@ -177,6 +179,7 @@ const Configure = () => {
                 testAPIURL: '',
                 liveAPIURL: '',
                 dfpBackendURL: '',
+                freDomain: '',
                 clientsideServicesIframeURL: '',
               });
             }}
@@ -199,6 +202,7 @@ const Configure = () => {
             name="DFP backend URL"
             configKey="dfpBackendURL"
           />
+          <Input localConfig={localConfig} setLocalConfig={setLocalConfig} name="FRE domain" configKey="freDomain" />
           <Input
             localConfig={localConfig}
             setLocalConfig={setLocalConfig}
