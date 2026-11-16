@@ -95,7 +95,11 @@ export type OAuthAuthenticateResponse<
     expires_at: string;
   };
 };
-export type OAuthStartFailureReason = 'User Canceled' | 'Authentication Failed' | 'Invalid Platform';
+export type OAuthStartFailureReason =
+  | 'User Canceled'
+  | 'No Credentials Available'
+  | 'Authentication Failed'
+  | 'Invalid Platform';
 export type OAuthStartResponse =
   | void
   | { success: true }

@@ -9,6 +9,8 @@ import androidx.annotation.VisibleForTesting
 import androidx.credentials.CredentialManager
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.GetCredentialResponse
+import androidx.credentials.exceptions.GetCredentialCancellationException
+import androidx.credentials.exceptions.NoCredentialException
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
@@ -109,6 +111,10 @@ class StytchReactNativeGoogleOneTap(
             )
         } catch (e: GoogleIdTokenParsingException) {
             return HandleIntentResult.Error(MissingAuthorizationCredentialIDToken)
+        } catch (e: GetCredentialCancellationException) {
+            return HandleIntentResult.Error(UserCancellation)
+        } catch (e: NoCredentialException) {
+            return HandleIntentResult.Error(NoCredentialsPresent)
         } catch (e: ApiException) {
             return HandleIntentResult.Error(NoCredentialsPresent)
         }
