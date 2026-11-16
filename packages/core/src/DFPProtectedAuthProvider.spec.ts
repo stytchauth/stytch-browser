@@ -145,7 +145,7 @@ describe('DFPProtectedAuthProvider', () => {
     expect(req.body.captcha_token).toBe(MOCK_CAPTCHA);
   });
   describe('FRE telemetry.js', () => {
-    it('loads the FRE script after the DFP script when FRE is enabled and a domain is set', async () => {
+    it('loads the FRE script before the DFP script when FRE is enabled and a domain is set', async () => {
       const events: string[] = [];
       loadedModuled.mockImplementation(async (url: string) => {
         events.push(`start ${url}`);
@@ -163,11 +163,37 @@ describe('DFPProtectedAuthProvider', () => {
       );
       await dfpProvider.isEnabled();
       expect(events).toEqual([
-        'start https://dfp-cdn.example.com/telemetry.js',
-        'end https://dfp-cdn.example.com/telemetry.js',
         'start https://fre.example.com/telemetry.js',
         'end https://fre.example.com/telemetry.js',
+        'start https://dfp-cdn.example.com/telemetry.js',
+        'end https://dfp-cdn.example.com/telemetry.js',
       ]);
+    });
+
+    it('still enables DFP, without a FRE telemetry ID, when the FRE script fails to load', async () => {
+      const getDFP = jest.fn().mockResolvedValue('dfp-id');
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+      loadedModuled.mockImplementation(async (url: string) => {
+        if (url.startsWith('https://fre')) {
+          throw new Error('failed to load');
+        }
+        return getDFP;
+      });
+      const dfpProvider = new DFPProtectedAuthProvider(
+        'public-token',
+        'https://example.com',
+        'https://dfp-cdn.example.com',
+        bootstrapManager(true, 'OBSERVATION', true).getAsync(),
+        () => Promise.resolve(MOCK_CAPTCHA),
+        'https://fre.example.com',
+      );
+
+      expect(await dfpProvider.isEnabled()).toBe(true);
+      const result = await dfpProvider.getDFPTelemetryIDAndCaptcha();
+      expect(result.dfp_telemetry_id).toBe('dfp-id');
+      expect(result.fre_telemetry_id).toBeUndefined();
+      expect(warn).toHaveBeenCalled();
+      warn.mockRestore();
     });
 
     describe('FRE telemetry ID', () => {

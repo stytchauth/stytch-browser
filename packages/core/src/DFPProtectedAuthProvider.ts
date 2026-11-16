@@ -1,6 +1,6 @@
 import { RetriableError, RetriableErrorType, SDKBaseRequestInfo } from './NetworkClient';
 import { BootstrapData } from './types';
-import { loadESModule } from './utils';
+import { loadESModule, logger } from './utils';
 
 declare global {
   // The telemetry.js script will set a global function called GetTelemetryID on the window
@@ -48,10 +48,17 @@ export class DFPProtectedAuthProvider {
       if (!bootstrapData.runDFPProtectedAuth) {
         return { publicToken, dfpBackendURL, enabled: false, loaded: false, executeRecaptcha };
       }
-      const getDFPTelemetryID = await loadTelemetryJS(dfpCdnDomain);
-      // Must wait for the DFP script to finish loading before loading FRE's, see loadTelemetryJS
+      // The scripts must load one at a time, see loadTelemetryJS. DFP loads last so that window.GetTelemetryID is
+      // still the DFP function once loading finishes, as it was before FRE was added.
+      // A failure to load the FRE script must not stop DFP from loading, so it is logged and FRE is skipped
       const getFRETelemetryID =
-        bootstrapData.runFREProtectedAuth && freDomainURL ? await loadTelemetryJS(freDomainURL) : undefined;
+        bootstrapData.runFREProtectedAuth && freDomainURL
+          ? await loadTelemetryJS(freDomainURL).catch((error) => {
+              logger.warn(`Unable to load the FRE script from ${freDomainURL}.`, error);
+              return undefined;
+            })
+          : undefined;
+      const getDFPTelemetryID = await loadTelemetryJS(dfpCdnDomain);
       return {
         publicToken,
         dfpBackendURL,

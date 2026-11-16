@@ -22,13 +22,15 @@ export class SearchDataManager implements ISearchData {
   ) {}
 
   searchUser(email: string): Promise<UserSearchData> {
-    return this.dfpProtectedAuth.getDFPTelemetryIDAndCaptcha().then(({ dfp_telemetry_id, captcha_token }) => {
-      return this._networkClient.fetchSDK<UserSearchData>({
-        url: `/users/search`,
-        method: 'POST',
-        body: { email, dfp_telemetry_id, captcha_token },
+    return this.dfpProtectedAuth
+      .getDFPTelemetryIDAndCaptcha()
+      .then(({ dfp_telemetry_id, fre_telemetry_id, captcha_token }) => {
+        return this._networkClient.fetchSDK<UserSearchData>({
+          url: `/users/search`,
+          method: 'POST',
+          body: { email, dfp_telemetry_id, fre_telemetry_id, captcha_token },
+        });
       });
-    });
   }
 
   searchMember(email: string, organization_id: string): Promise<MemberSearchData> {
