@@ -1,12 +1,12 @@
 #!/bin/bash
 set -e
 
-# Script to get Vercel preview deployment URL
+# Script to get the Vercel deployment URL for a commit
 # Required ENV var: VERCEL_TOKEN
-# Usage: ./get-vercel-preview-url.sh <PROJECT_ID> <BRANCH>
+# Usage: ./get-vercel-preview-url.sh <PROJECT_ID> <COMMIT_SHA>
 
 PROJECT_ID="$1"
-BRANCH="$2"
+SHA="$2"
 MAX_ATTEMPTS=30  # 10 minutes max (30 attempts * 20 seconds)
 ATTEMPT=0
 
@@ -15,21 +15,21 @@ if [ -z "$VERCEL_TOKEN" ]; then
   exit 1;
 fi
 
-if [ -z "$PROJECT_ID" ] || [ -z "$BRANCH" ]; then
+if [ -z "$PROJECT_ID" ] || [ -z "$SHA" ]; then
   echo "Error: Missing required arguments" >&2
-  echo "Usage: $0 <PROJECT_ID> <BRANCH>" >&2
+  echo "Usage: $0 <PROJECT_ID> <COMMIT_SHA>" >&2
   exit 1
 fi
 
-echo "Looking for deployment with ref: $BRANCH" >&2
+echo "Looking for deployment of commit: $SHA" >&2
 
 while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
   ATTEMPT=$((ATTEMPT + 1))
   echo "Attempt $ATTEMPT/$MAX_ATTEMPTS: Querying Vercel API..." >&2
 
-  # Query Vercel API for deployments matching the branch, sorted by creation time (newest first)
+  # Query Vercel API for deployments of this commit
   RESPONSE=$(curl -s -H "Authorization: Bearer $VERCEL_TOKEN" \
-    "https://api.vercel.com/v6/deployments?projectId=$PROJECT_ID&branch=$BRANCH&limit=100")
+    "https://api.vercel.com/v7/deployments?projectId=$PROJECT_ID&sha=$SHA&limit=100")
 
   # Sort deployments by createdAt (descending) and extract the latest READY deployment
   DEPLOYMENT_URL=$(echo "$RESPONSE" | jq -r '
@@ -44,14 +44,13 @@ while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
     # Check if there are any deployments at all
     DEPLOYMENT_COUNT=$(echo "$RESPONSE" | jq -r '.deployments | length')
     if [ "$DEPLOYMENT_COUNT" -eq 0 ]; then
-      echo "No deployment found yet for this branch" >&2
+      echo "No deployment found yet for this commit" >&2
     else
       LATEST_STATE=$(echo "$RESPONSE" | jq -r '
         .deployments
         | sort_by(.created)
         | reverse
-        | map(select(.readyState == "READY"))
-        | .[0].url // empty
+        | .[0].readyState
       ')
       echo "Latest deployment found with state: $LATEST_STATE (waiting for READY)" >&2
     fi

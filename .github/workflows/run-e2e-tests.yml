@@ -53,11 +53,11 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.vercel_token }}
           VERCEL_PROJECT: ${{ inputs.vercel_b2c_project }}
-          GIT_REF: ${{ github.head_ref || github.ref }}
+          GIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           DEPLOYMENT_URL=$(.github/scripts/get-vercel-preview-url.sh \
             "$VERCEL_PROJECT" \
-            "$GIT_REF")
+            "$GIT_SHA")
           echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
 
       - name: Get Vercel B2B deployment URL
@@ -66,11 +66,11 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.vercel_token }}
           VERCEL_PROJECT: ${{ inputs.vercel_b2b_project }}
-          GIT_REF: ${{ github.head_ref || github.ref }}
+          GIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           DEPLOYMENT_URL=$(.github/scripts/get-vercel-preview-url.sh \
             "$VERCEL_PROJECT" \
-            "$GIT_REF")
+            "$GIT_SHA")
           echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
 
   run-e2e-tests:
