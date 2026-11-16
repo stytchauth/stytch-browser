@@ -1,5 +1,11 @@
 # @stytch/vanilla-js
 
+## 6.4.0
+
+### Minor Changes
+
+- 59f9bc1: Add support for FRE Protected Auth. Adds an optional `freDomain` client option. When FRE Protected Auth is enabled for the project and `freDomain` is set, the SDK loads the FRE script and sends the resulting `fre_telemetry_id` alongside `dfp_telemetry_id`.
+
 ## 6.3.0
 
 ### Minor Changes
