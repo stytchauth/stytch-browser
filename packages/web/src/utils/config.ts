@@ -24,6 +24,7 @@ export const buildFinalConfig = (clientName: string, opts: InternalStytchClientO
       istCookieName: 'optionalString',
       path: 'optionalString',
       domain: 'optionalString',
+      usesHttpOnlyCookies: 'optionalBoolean',
     });
   }
 
@@ -50,3 +51,11 @@ export const hasCustomApiEndpoint = (token: string, rawOptions: StytchClientOpti
     ? !!(customBaseUrl || endpointOptions?.testApiDomain)
     : !!(customBaseUrl || endpointOptions?.apiDomain);
 };
+
+/**
+ * With a custom API endpoint the session may be held in HttpOnly cookies, which the SDK cannot detect,
+ * unless cookieOptions.usesHttpOnlyCookies is explicitly false.
+ * rawOptions should be the original object passed into the client.
+ */
+export const mayHaveHttpOnlySessionCookies = (token: string, rawOptions: StytchClientOptions = {}) =>
+  hasCustomApiEndpoint(token, rawOptions) && rawOptions.cookieOptions?.usesHttpOnlyCookies !== false;

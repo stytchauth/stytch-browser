@@ -50,7 +50,7 @@ import { ClientsideServicesProvider } from '../ClientsideServicesProvider';
 import { NetworkClient } from '../NetworkClient';
 import { PKCEManager } from '../PKCEManager';
 import { B2BSubscriptionDataLayer, B2BSubscriptionService, getB2BDataLayer } from '../SubscriptionService';
-import { buildFinalConfig, hasCustomApiEndpoint } from '../utils/config';
+import { buildFinalConfig, mayHaveHttpOnlySessionCookies } from '../utils/config';
 import { AuthenticateByUrl, createAuthUrlHandler, ParseAuthenticateUrl } from '../utils/createAuthUrlHandler';
 import { B2BInternals, writeB2BInternals } from '../utils/internal';
 import { HeadlessB2BOAuthClient, IWebB2BOAuthClient } from './HeadlessB2BOAuthClient';
@@ -156,10 +156,12 @@ export class StytchB2BClient<
 
     // Not casting to InternalStytchClientOptions since InternalStytchClientOptions is currently a superset
     const config = buildFinalConfig(this.constructor.name, options);
-    const usingCustomApiEndpoint = hasCustomApiEndpoint(_PUBLIC_TOKEN, options);
+    const mayHaveHttpOnlyCookies = mayHaveHttpOnlySessionCookies(_PUBLIC_TOKEN, options);
 
     this._dataLayer = getB2BDataLayer(_PUBLIC_TOKEN, config);
-    this._subscriptionService = new B2BSubscriptionService(_PUBLIC_TOKEN, this._dataLayer, { usingCustomApiEndpoint });
+    this._subscriptionService = new B2BSubscriptionService(_PUBLIC_TOKEN, this._dataLayer, {
+      usingCustomApiEndpoint: mayHaveHttpOnlyCookies,
+    });
     this._stateChangeClient = new StateChangeClient(this._subscriptionService, {});
     this.onStateChange = (...args) => this._stateChangeClient.onStateChange(...args);
 
@@ -255,9 +257,9 @@ export class StytchB2BClient<
 
     // If the session does not exist in localstorage (like if we are in an iframe)
     // then the cookie might still be set and we can retrieve the session via an API call.
-    // If a custom API endpoint is being used, the session may be being managed by
-    // HttpOnly cookies, which we can't detect.
-    if (usingCustomApiEndpoint || this._dataLayer.readSessionCookie().session_token) {
+    // If a custom API endpoint is being used (and cookieOptions.usesHttpOnlyCookies is not false),
+    // the session may be being managed by HttpOnly cookies, which we can't detect.
+    if (mayHaveHttpOnlyCookies || this._dataLayer.readSessionCookie().session_token) {
       this._sessionManager.performBackgroundRefresh();
     }
 
