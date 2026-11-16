@@ -68,6 +68,15 @@ describe('style injector', () => {
     expect(local.nonce).toBe('abc123');
   });
 
+  it.each(['style', 'link'])('uses the nonce from an existing %s tag', async (tag) => {
+    const existing = document.createElement(tag);
+    existing.setAttribute('nonce', 'existing-nonce');
+    document.head.appendChild(existing);
+    const { injectCssIntoNode } = await loadInjector();
+
+    expect(injectCssIntoNode().nonce).toBe('existing-nonce');
+  });
+
   it('leaves the nonce empty when window.__nonce__ is not set', async () => {
     const { injectGlobalStyle, injectCssIntoNode } = await loadInjector();
 
