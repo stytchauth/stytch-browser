@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { NoCurrentSessionError, StytchAPIError } from '@stytch/core/public';
+import { NoCurrentSessionError } from '@stytch/core/public';
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
 import { AuthTokenParams } from '../../../../types';
