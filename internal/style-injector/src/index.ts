@@ -26,8 +26,25 @@ function addHandler(handler: (css: string) => void) {
   return () => handlers.delete(handler);
 }
 
+function findNonce() {
+  // For backwards compatibility, the same convention as goober, the library used in previous versions
+  const globalNonce = (window as unknown as Record<string, unknown>).__nonce__;
+  if (typeof globalNonce === 'string' && globalNonce) {
+    return globalNonce;
+  }
+
+  // With a header-delivered CSP, browsers clear the nonce attribute of connected elements, so it must be read from the nonce property
+  const existing = document.querySelector<HTMLStyleElement | HTMLLinkElement>('style[nonce], link[nonce]');
+  return existing?.nonce || undefined;
+}
+
 export function injectCssIntoNode() {
   const node = document.createElement('style');
+  const nonce = findNonce();
+  if (nonce) {
+    node.nonce = nonce;
+  }
+
   let firstRender = true;
   const unsubscribe = addHandler((css) => {
     if (firstRender || document.contains(node)) {

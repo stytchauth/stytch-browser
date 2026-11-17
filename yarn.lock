@@ -8386,7 +8386,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@stytch/internal-style-injector@workspace:internal/style-injector"
   dependencies:
+    "@stytch/internal-jest-config": "workspace:*"
     "@stytch/internal-tsconfigs": "workspace:*"
+    "@types/jest": "npm:30.0.0"
+    jest: "npm:30.2.0"
+    ts-jest: "npm:29.4.15"
     typescript: "npm:5.9.3"
   languageName: unknown
   linkType: soft
