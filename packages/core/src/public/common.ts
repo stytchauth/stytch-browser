@@ -345,6 +345,16 @@ export type StytchClientOptions = {
      */
     availableToSubdomains?: boolean;
 
+    /**
+     * Whether your application may hold the session in HttpOnly cookies, which the SDK cannot read.
+     * This only matters when a custom API endpoint is configured (`customBaseUrl`). In that case the SDK
+     * assumes HttpOnly cookies may be in use and always attempts a background session refresh on startup.
+     * Set to `false` if you do not use HttpOnly cookies, so the SDK only refreshes the session on startup
+     * when a session cookie is present, and clears the session when the cookie is gone.
+     * Defaults to true.
+     */
+    usesHttpOnlyCookies?: boolean;
+
     // TODO: Should this be a knob we expose?
     /**
      * Which session persistence artifacts to set as cookies - either opaque tokens, JWTs, or both.

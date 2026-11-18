@@ -49,7 +49,7 @@ import {
   ConsumerSubscriptionService,
   getConsumerDataLayer,
 } from './SubscriptionService';
-import { buildFinalConfig, hasCustomApiEndpoint } from './utils/config';
+import { buildFinalConfig, mayHaveHttpOnlySessionCookies } from './utils/config';
 import { AuthenticateByUrl, createAuthUrlHandler, ParseAuthenticateUrl } from './utils/createAuthUrlHandler';
 import { writeB2CInternals } from './utils/internal';
 
@@ -136,11 +136,11 @@ export class StytchClient<
 
     // Not casting to InternalStytchClientOptions since InternalStytchClientOptions is currently a superset
     const config = buildFinalConfig(this.constructor.name, options);
-    const usingCustomApiEndpoint = hasCustomApiEndpoint(_PUBLIC_TOKEN, options);
+    const mayHaveHttpOnlyCookies = mayHaveHttpOnlySessionCookies(_PUBLIC_TOKEN, options);
 
     this._dataLayer = getConsumerDataLayer(_PUBLIC_TOKEN, config);
     this._subscriptionService = new ConsumerSubscriptionService(_PUBLIC_TOKEN, this._dataLayer, {
-      usingCustomApiEndpoint,
+      usingCustomApiEndpoint: mayHaveHttpOnlyCookies,
     });
     this._stateChangeClient = new StateChangeClient(this._subscriptionService, {});
     this.onStateChange = (...args) => this._stateChangeClient.onStateChange(...args);
@@ -233,9 +233,9 @@ export class StytchClient<
 
     // If the session does not exist in localstorage (like if we are in an iframe)
     // then the cookie might still be set and we can retrieve the session via an API call.
-    // If a custom API endpoint is being used, the session may be being managed by
-    // HttpOnly cookies, which we can't detect.
-    if (usingCustomApiEndpoint || this._dataLayer.readSessionCookie().session_token) {
+    // If a custom API endpoint is being used (and cookieOptions.usesHttpOnlyCookies is not false),
+    // the session may be being managed by HttpOnly cookies, which we can't detect.
+    if (mayHaveHttpOnlyCookies || this._dataLayer.readSessionCookie().session_token) {
       this._sessionManager.performBackgroundRefresh();
     }
 

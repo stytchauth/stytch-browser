@@ -1,4 +1,4 @@
-import { hasCustomApiEndpoint } from './config';
+import { hasCustomApiEndpoint, mayHaveHttpOnlySessionCookies } from './config';
 
 describe('hasCustomApiEndpoint', () => {
   const LIVE_TOKEN = 'public-token-live-abc123';
@@ -40,5 +40,35 @@ describe('hasCustomApiEndpoint', () => {
         }),
       ).toBe(true);
     });
+  });
+});
+
+describe('mayHaveHttpOnlySessionCookies', () => {
+  const LIVE_TOKEN = 'public-token-live-123';
+  const customBaseUrl = 'https://custom.example.com';
+
+  it('is false without a custom API endpoint', () => {
+    expect(mayHaveHttpOnlySessionCookies(LIVE_TOKEN)).toBe(false);
+    expect(mayHaveHttpOnlySessionCookies(LIVE_TOKEN, { cookieOptions: { usesHttpOnlyCookies: true } })).toBe(false);
+  });
+
+  it('is true with a custom API endpoint by default', () => {
+    expect(mayHaveHttpOnlySessionCookies(LIVE_TOKEN, { customBaseUrl })).toBe(true);
+    expect(mayHaveHttpOnlySessionCookies(LIVE_TOKEN, { customBaseUrl, cookieOptions: {} })).toBe(true);
+    expect(
+      mayHaveHttpOnlySessionCookies(LIVE_TOKEN, { customBaseUrl, cookieOptions: { usesHttpOnlyCookies: true } }),
+    ).toBe(true);
+  });
+
+  it('is false with a custom API endpoint when usesHttpOnlyCookies is false', () => {
+    expect(
+      mayHaveHttpOnlySessionCookies(LIVE_TOKEN, { customBaseUrl, cookieOptions: { usesHttpOnlyCookies: false } }),
+    ).toBe(false);
+    expect(
+      mayHaveHttpOnlySessionCookies(LIVE_TOKEN, {
+        endpointOptions: { apiDomain: 'custom.example.com' },
+        cookieOptions: { usesHttpOnlyCookies: false },
+      }),
+    ).toBe(false);
   });
 });
