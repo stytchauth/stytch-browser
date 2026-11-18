@@ -126,8 +126,11 @@ const EnsureMemberIsLoggedIn = ({ children }: { children: ReactNode }) => {
         // store the member to refer to its organization_id later
         const member = stytchClient.self.getSync();
         if (member) {
-          await stytchClient.session.revoke();
+          await stytchClient.session.revoke({ forceClear: true }).catch(() => {
+            // Swallow error. With forceClear, revoke() will still throw if there's no current session
+          });
         }
+
         try {
           await stytchClient.session.attest({
             token,

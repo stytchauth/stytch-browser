@@ -116,8 +116,8 @@ describe('B2B IDP Consent Flow', () => {
 
   const oauthAuthorizeStartSpy = jest.fn();
   const oauthAuthorizeSubmit = jest.fn();
-  const attestTrustedTokenSpy = jest.fn();
-  const revokeSessionSpy = jest.fn();
+  const attestTrustedTokenSpy = jest.fn().mockResolvedValue(undefined);
+  const revokeSessionSpy = jest.fn().mockResolvedValue(undefined);
   beforeEach(() => {
     oauthAuthorizeSubmit.mockResolvedValueOnce(MOCK_OAUTH_AUTHORIZE_SUBMIT_RESPONSE);
 
@@ -134,7 +134,7 @@ describe('B2B IDP Consent Flow', () => {
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   const expectOAuthAuthorizeFlowStartEvent = () =>

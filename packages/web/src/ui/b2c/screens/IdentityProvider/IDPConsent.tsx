@@ -123,7 +123,9 @@ const EnsureUserIsLoggedIn = ({ children }: { children: ReactNode }) => {
 
         // revoke the current session before calling attest
         if (stytchClient.user.getSync()) {
-          await stytchClient.session.revoke({ forceClear: true });
+          await stytchClient.session.revoke({ forceClear: true }).catch(() => {
+            // Swallow error. With forceClear, revoke() will still throw if there's no current session
+          });
         }
 
         try {
