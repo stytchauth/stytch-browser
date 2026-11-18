@@ -1,5 +1,13 @@
 # @stytch/vanilla-js
 
+## 6.4.1
+
+### Patch Changes
+
+- 0fd49cc: Fix the client throwing `RangeError: Internal error. Icu error.` in browsers with an invalid default locale. The telemetry now falls back to a UTC offset (e.g. `UTC-07:00`) when the time zone can't be read.
+- 9fecf67: Set `window.__nonce__` as the nonce of the injected `<style>` element so the pre-built UI works under a nonce-based Content Security Policy, as it did in v5.
+- 7d81820: Fix the Identity Provider consent screen hanging when trusted token attestation revokes an expired cached session. Continue attestation after a `user_unauthenticated` revoke error and report other revoke errors through `onError` while clearing the loading state.
+
 ## 6.4.0
 
 ### Minor Changes
